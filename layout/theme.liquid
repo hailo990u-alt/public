@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="#344535">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+    {{ content_for_header }}
+    {{ 'krozo.css' | asset_url | stylesheet_tag }}
+    <title>{{ page_title }}{% unless page_title contains shop.name %} — {{ shop.name }}{% endunless %}</title>
+  </head>
+  <body>
+    {% sections 'header-group' %}
+    <main id="MainContent">{{ content_for_layout }}</main>
+    {% sections 'footer-group' %}
+    <script src="{{ 'krozo.js' | asset_url }}" defer></script>
+  </body>
+</html>
