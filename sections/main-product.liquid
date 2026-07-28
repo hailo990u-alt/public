@@ -1,4 +1,3 @@
-{% comment %} KROZO direct sync 2026-07-29 {% endcomment %}
 <section class="product-page section">
   <div class="product-media" data-product-gallery>
     {% for media in product.media %}
@@ -25,6 +24,14 @@
     <h1>{{ product.title }}</h1>
     <p class="price">{{ product.selected_or_first_available_variant.price | money }}</p>
     <p class="product-summary">{{ product.description | strip_html | truncate: 170 }}</p>
+    <div class="product-benefit-list" aria-label="Product benefits">
+      {% for block in section.blocks %}
+        <div class="product-benefit" {{ block.shopify_attributes }}>
+          <span aria-hidden="true">✓</span>
+          <p>{{ block.settings.text }}</p>
+        </div>
+      {% endfor %}
+    </div>
     <p class="availability"><span></span>{% if product.selected_or_first_available_variant.available %}In stock and ready to order{% else %}Currently unavailable{% endif %}</p>
     {% form 'product', product %}
       {% unless product.has_only_default_variant %}
@@ -42,8 +49,42 @@
       <span>✓ Complimentary shipping</span><span>✓ 30-day returns</span><span>✓ Secure checkout</span><span>✓ Helpful support</span>
     </div>
     {% if shop.enabled_payment_types.size > 0 %}<div class="payment-trust"><strong>Secure payment options</strong><div>{% for type in shop.enabled_payment_types %}{{ type | payment_type_svg_tag }}{% endfor %}</div><small>Payments are encrypted and processed securely by Shopify.</small></div>{% endif %}
+    <div class="purchase-accordions">
+      <details>
+        <summary><span>Complimentary shipping</span><span aria-hidden="true">+</span></summary>
+        <div>Shipping is free on every KROZO order. Delivery estimates are shown during checkout for your destination.{% if shop.shipping_policy != blank %} <a href="{{ shop.shipping_policy.url }}">Read our shipping policy</a>.{% endif %}</div>
+      </details>
+      <details>
+        <summary><span>30-day returns</span><span aria-hidden="true">+</span></summary>
+        <div>You may request a return within 30 days, subject to our returns policy.{% if shop.refund_policy != blank %} <a href="{{ shop.refund_policy.url }}">Read our returns policy</a>.{% endif %}</div>
+      </details>
+      <details>
+        <summary><span>Secure payment & support</span><span aria-hidden="true">+</span></summary>
+        <div>Checkout is encrypted and payments are processed securely by Shopify. Need help? <a href="/pages/contact">Contact KROZO support</a>.</div>
+      </details>
+    </div>
     <div class="product-description">{{ product.description }}</div>
   </div>
 </section>
 <div class="sticky-atc" data-sticky-atc hidden><span><strong>{{ product.title }}</strong><small>{{ product.selected_or_first_available_variant.price | money }}</small></span><button class="button" type="button" data-sticky-submit>Add to cart</button></div>
-{% schema %}{"name":"Main product","settings":[]}{% endschema %}
+{% schema %}
+{
+  "name": "Main product",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "benefit",
+      "name": "Benefit",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Benefit text",
+          "default": "Thoughtfully chosen for easier everyday routines"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
