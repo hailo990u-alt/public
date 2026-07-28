@@ -1,1 +1,33 @@
-{"sections":{"hero":{"type":"hero","settings":{}},"values":{"type":"value-props","settings":{}},"collections":{"type":"collection-cards","blocks":{"dog":{"type":"collection","settings":{"collection":"dog","label":"Dog"}},"cat":{"type":"collection","settings":{"collection":"cat","label":"Cat"}},"travel":{"type":"collection","settings":{"collection":"travel","label":"Travel"}},"health":{"type":"collection","settings":{"collection":"health","label":"Health"}},"play":{"type":"collection","settings":{"collection":"play","label":"Play"}},"feeding":{"type":"collection","settings":{"collection":"feeding","label":"Feeding"}}},"block_order":["dog","cat","travel","health","play","feeding"],"settings":{}},"featured":{"type":"featured-products","settings":{"collection":"all","products_to_show":4}},"lifestyle":{"type":"lifestyle-banner","settings":{}},"reviews":{"type":"review-app","blocks":{"app":{"type":"@app"}},"block_order":["app"],"settings":{}},"gallery":{"type":"editorial-gallery","blocks":{"one":{"type":"image","settings":{}},"two":{"type":"image","settings":{}},"three":{"type":"image","settings":{}}},"block_order":["one","two","three"],"settings":{}}},"order":["hero","values","collections","featured","lifestyle","reviews","gallery"]}
+{
+  "sections": {
+    "hero": { "type": "hero", "settings": {} },
+    "values": { "type": "value-props", "settings": {} },
+    "collections": {
+      "type": "collection-cards",
+      "blocks": {
+        "dog": { "type": "collection", "settings": { "collection": "dog", "label": "Dog" } },
+        "cat": { "type": "collection", "settings": { "collection": "cat", "label": "Cat" } },
+        "travel": { "type": "collection", "settings": { "collection": "travel", "label": "Travel" } },
+        "health": { "type": "collection", "settings": { "collection": "health", "label": "Health" } },
+        "play": { "type": "collection", "settings": { "collection": "play", "label": "Play" } },
+        "feeding": { "type": "collection", "settings": { "collection": "feeding", "label": "Feeding" } }
+      },
+      "block_order": ["dog", "cat", "travel", "health", "play", "feeding"],
+      "settings": {}
+    },
+    "featured": { "type": "featured-products", "settings": { "collection": "all", "products_to_show": 4 } },
+    "lifestyle": { "type": "lifestyle-banner", "settings": {} },
+    "reviews": { "type": "review-app", "settings": {} },
+    "gallery": {
+      "type": "editorial-gallery",
+      "blocks": {
+        "one": { "type": "image", "settings": {} },
+        "two": { "type": "image", "settings": {} },
+        "three": { "type": "image", "settings": {} }
+      },
+      "block_order": ["one", "two", "three"],
+      "settings": {}
+    }
+  },
+  "order": ["hero", "values", "collections", "featured", "lifestyle", "reviews", "gallery"]
+}
