@@ -1,0 +1,6 @@
+<section class="section content-page">
+  <div class="section-title"><span class="eyebrow">DISCOVER KROZO</span><h1>Search</h1></div>
+  <form class="search-form" action="{{ routes.search_url }}" method="get"><input type="search" name="q" value="{{ search.terms | escape }}" placeholder="Search products and articles"><button class="button" type="submit">Search</button></form>
+  {% if search.performed %}<p class="search-summary">{{ search.results_count }} results for “{{ search.terms }}”</p><div class="search-results">{% for item in search.results %}<article><a href="{{ item.url }}"><h2>{{ item.title }}</h2><p>{{ item.content | strip_html | truncate: 130 }}</p></a></article>{% else %}<p>No results found. Try another search term.</p>{% endfor %}</div>{% endif %}
+</section>
+{% schema %}{"name":"Main search","settings":[]}{% endschema %}

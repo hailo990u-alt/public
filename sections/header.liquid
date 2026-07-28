@@ -1,15 +1,35 @@
 <div class="announcement">{{ section.settings.announcement }}</div>
 <header class="site-header">
-  <button class="mobile-menu" type="button" aria-label="Open menu" data-menu-toggle>☰</button>
-  <a class="brand" href="{{ routes.root_url }}">
+  <button class="mobile-menu icon-button" type="button" aria-label="Open menu" data-menu-toggle>
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+  </button>
+  <a class="brand" href="{{ routes.root_url }}" aria-label="{{ shop.name }}">
     {% if section.settings.logo != blank %}
-      {{ section.settings.logo | image_url: width: 500 | image_tag: class: 'brand-logo', alt: shop.name }}
+      {{ section.settings.logo | image_url: width: 600 | image_tag: class: 'brand-logo', alt: shop.name }}
     {% else %}
-      <img class="brand-logo" src="{{ 'krozo-wordmark-transparent.png' | asset_url }}" alt="{{ shop.name }}" width="840" height="390">
+      <img class="brand-logo" src="{{ 'krozo-logo-transparent.png' | asset_url }}" alt="{{ shop.name }}" width="1024" height="1024">
     {% endif %}
   </a>
-  <nav class="desktop-nav" aria-label="Main navigation">{% for link in section.settings.menu.links %}<a href="{{ link.url }}">{{ link.title }}</a>{% endfor %}</nav>
-  <div class="header-actions"><a href="{{ routes.search_url }}" aria-label="Search">⌕</a><a href="{{ routes.account_url }}" aria-label="Account">♙</a><a href="{{ routes.cart_url }}" aria-label="Cart">Bag <sup>{{ cart.item_count }}</sup></a></div>
+  <nav class="desktop-nav" aria-label="Main navigation">
+    {% for link in section.settings.menu.links %}<a href="{{ link.url }}">{{ link.title }}</a>{% endfor %}
+  </nav>
+  <div class="header-actions">
+    <a class="header-action" href="{{ routes.search_url }}" aria-label="Search">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4 4"/></svg><span>Search</span>
+    </a>
+    <a class="header-action" href="{{ routes.account_url }}" aria-label="Account">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.5"/><path d="M5.5 20c.7-4 3-6 6.5-6s5.8 2 6.5 6"/></svg><span>Account</span>
+    </a>
+    <a class="header-action header-action--cart" href="{{ routes.cart_url }}" aria-label="Cart">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 8.5h11l1 11h-13l1-11Z"/><path d="M9 9V6.5a3 3 0 0 1 6 0V9"/></svg><span>Bag</span><sup>{{ cart.item_count }}</sup>
+    </a>
+  </div>
 </header>
 <nav class="mobile-nav" data-mobile-nav hidden>{% for link in section.settings.menu.links %}<a href="{{ link.url }}">{{ link.title }}</a>{% endfor %}</nav>
+<div class="global-trust-bar" aria-label="Store guarantees">
+  <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 20 6v5c0 5-3.2 8.3-8 10-4.8-1.7-8-5-8-10V6l8-3Z"/><path d="m8.5 12 2.2 2.2 4.8-5"/></svg>Secure checkout</span>
+  <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h12v10H3zM15 10h3l3 3v4h-6z"/><circle cx="7" cy="18" r="2"/><circle cx="18" cy="18" r="2"/></svg>Free shipping</span>
+  <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7v5h5"/><path d="M5.5 12A7 7 0 1 0 7 6.5L4 9"/></svg>30-day returns</span>
+  <span><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="6" width="16" height="12" rx="2"/><path d="M4 10h16M8 15h3"/></svg>Shopify-powered payments</span>
+</div>
 {% schema %}{"name":"Krozo header","settings":[{"type":"text","id":"announcement","label":"Announcement","default":"COMPLIMENTARY SHIPPING ON EVERY ORDER"},{"type":"image_picker","id":"logo","label":"Logo"},{"type":"link_list","id":"menu","label":"Menu","default":"main-menu"}]}{% endschema %}

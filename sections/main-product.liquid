@@ -12,7 +12,14 @@
   </div>
   <div class="product-details">
     {% if product.metafields.reviews.rating.value != blank %}
-      <a class="stars" href="#shopify-section-reviews">★★★★★ <span>{{ product.metafields.reviews.rating.value }} · {{ product.metafields.reviews.rating_count }} verified reviews</span></a>
+      <a class="stars" href="#reviews">★★★★★ <span>{{ product.metafields.reviews.rating.value }} · {{ product.metafields.reviews.rating_count }} verified reviews</span></a>
+    {% elsif request.design_mode %}
+      <div class="stars demo-preview">★★★★★ <span>4.9 · 128 reviews · Sample preview</span></div>
+    {% endif %}
+    {% if product.metafields.custom.purchases_count != blank %}
+      <p class="purchase-count">{{ product.metafields.custom.purchases_count }}+ purchased</p>
+    {% elsif request.design_mode %}
+      <p class="purchase-count demo-preview">250+ purchased · Sample preview</p>
     {% endif %}
     <h1>{{ product.title }}</h1>
     <p class="price">{{ product.selected_or_first_available_variant.price | money }}</p>
@@ -21,22 +28,19 @@
     {% form 'product', product %}
       {% unless product.has_only_default_variant %}
         <label>Choose an option
-          <select name="id">
-            {% for variant in product.variants %}
-              <option value="{{ variant.id }}" {% unless variant.available %}disabled{% endunless %}>{{ variant.title }} — {{ variant.price | money }}</option>
-            {% endfor %}
-          </select>
+          <select name="id">{% for variant in product.variants %}<option value="{{ variant.id }}" {% unless variant.available %}disabled{% endunless %}>{{ variant.title }} — {{ variant.price | money }}</option>{% endfor %}</select>
         </label>
       {% else %}
         <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
       {% endunless %}
       <label>Quantity <input type="number" name="quantity" min="1" value="1"></label>
-      <button class="button product-atc" type="submit" {% unless product.selected_or_first_available_variant.available %}disabled{% endunless %}>
-        {% if product.selected_or_first_available_variant.available %}Add to cart{% else %}Sold out{% endif %}
-      </button>
+      <button class="button product-atc" type="submit" {% unless product.selected_or_first_available_variant.available %}disabled{% endunless %}>{% if product.selected_or_first_available_variant.available %}Add to cart{% else %}Sold out{% endif %}</button>
       {{ form | payment_button }}
     {% endform %}
-    <div class="purchase-reassurance"><span>✓ Complimentary shipping</span><span>✓ 30-day returns</span><span>✓ Secure checkout</span><span>✓ Helpful support</span></div>
+    <div class="purchase-reassurance">
+      <span>✓ Complimentary shipping</span><span>✓ 30-day returns</span><span>✓ Secure checkout</span><span>✓ Helpful support</span>
+    </div>
+    {% if shop.enabled_payment_types.size > 0 %}<div class="payment-trust"><strong>Secure payment options</strong><div>{% for type in shop.enabled_payment_types %}{{ type | payment_type_svg_tag }}{% endfor %}</div><small>Payments are encrypted and processed securely by Shopify.</small></div>{% endif %}
     <div class="product-description">{{ product.description }}</div>
   </div>
 </section>

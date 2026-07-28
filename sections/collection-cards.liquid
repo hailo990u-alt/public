@@ -5,9 +5,7 @@
       {% assign item = block.settings.collection %}
       {% assign card_url = item.url | default: routes.all_products_collection_url %}
       <a class="collection-card" href="{{ card_url }}" {{ block.shopify_attributes }}>
-        {% if item != blank and item.featured_image != blank %}
-          {{ item.featured_image | image_url: width: 900 | image_tag: loading: 'lazy' }}
-        {% endif %}
+        {% if item != blank and item.featured_image != blank %}{{ item.featured_image | image_url: width: 900 | image_tag: loading: 'lazy' }}{% endif %}
         <span>{{ block.settings.label | default: item.title | default: 'Shop pets' }}</span>
       </a>
     {% endfor %}

@@ -1,0 +1,7 @@
+<section class="section cart-page">
+  <div class="section-title"><span class="eyebrow">YOUR KROZO ORDER</span><h1>Your bag</h1></div>
+  {% if cart.item_count > 0 %}
+    <form action="{{ routes.cart_url }}" method="post">{% for item in cart.items %}<div class="cart-line"><a href="{{ item.url }}">{% if item.image != blank %}{{ item.image | image_url: width: 240 | image_tag: loading: 'lazy', alt: item.product.title }}{% endif %}</a><div><a href="{{ item.url }}"><h2>{{ item.product.title }}</h2></a><p>{{ item.final_price | money }}</p><label>Quantity <input type="number" name="updates[]" value="{{ item.quantity }}" min="0"></label><a href="{{ item.url_to_remove }}">Remove</a></div></div>{% endfor %}<div class="cart-summary"><p>Subtotal <strong>{{ cart.total_price | money }}</strong></p><small>Complimentary shipping. Taxes calculated at checkout.</small><button class="button" type="submit" name="checkout">Secure checkout</button></div></form>
+  {% else %}<div class="empty-state"><p>Your bag is waiting for something special.</p><a class="button" href="{{ routes.all_products_collection_url }}">Explore the collection</a></div>{% endif %}
+</section>
+{% schema %}{"name":"Main cart","settings":[]}{% endschema %}

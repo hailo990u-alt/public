@@ -1,0 +1,2 @@
+<article class="section article-page"><header><span class="eyebrow">THE PET RESOURCE</span><h1>{{ article.title }}</h1><p>{{ article.published_at | date: '%B %d, %Y' }}</p></header>{% if article.image != blank %}{{ article.image | image_url: width: 1800 | image_tag: loading: 'eager', alt: article.title }}{% endif %}<div class="rte">{{ article.content }}</div></article>
+{% schema %}{"name":"Main article","settings":[]}{% endschema %}

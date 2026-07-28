@@ -1,0 +1,8 @@
+<section class="section content-page">
+  <div class="section-title"><span class="eyebrow">THE PET RESOURCE</span><h1>{{ blog.title }}</h1></div>
+  {% paginate blog.articles by 12 %}
+    <div class="article-grid">{% for article in blog.articles %}<article class="article-card">{% if article.image != blank %}<a href="{{ article.url }}" class="article-card__image">{{ article.image | image_url: width: 1000 | image_tag: loading: 'lazy', alt: article.title }}</a>{% endif %}<small>{{ article.published_at | date: '%B %d, %Y' }}</small><a href="{{ article.url }}"><h2>{{ article.title }}</h2></a><p>{{ article.excerpt_or_content | strip_html | truncate: 150 }}</p><a class="text-link" href="{{ article.url }}">Read article →</a></article>{% else %}<p>No articles have been published yet.</p>{% endfor %}</div>
+    {{ paginate | default_pagination }}
+  {% endpaginate %}
+</section>
+{% schema %}{"name":"Main blog","settings":[]}{% endschema %}
