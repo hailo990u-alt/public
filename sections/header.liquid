@@ -12,4 +12,4 @@
   <div class="header-actions"><a href="{{ routes.search_url }}" aria-label="Search">⌕</a><a href="{{ routes.account_url }}" aria-label="Account">♙</a><a href="{{ routes.cart_url }}" aria-label="Cart">Bag <sup>{{ cart.item_count }}</sup></a></div>
 </header>
 <nav class="mobile-nav" data-mobile-nav hidden>{% for link in section.settings.menu.links %}<a href="{{ link.url }}">{{ link.title }}</a>{% endfor %}</nav>
-{% schema %}{"name":"Krozo header","settings":[{"type":"text","id":"announcement","label":"Announcement","default":"COMPLIMENTARY SHIPPING ON ORDERS OVER $75"},{"type":"image_picker","id":"logo","label":"Logo"},{"type":"link_list","id":"menu","label":"Menu","default":"main-menu"}]}{% endschema %}
+{% schema %}{"name":"Krozo header","settings":[{"type":"text","id":"announcement","label":"Announcement","default":"COMPLIMENTARY SHIPPING ON EVERY ORDER"},{"type":"image_picker","id":"logo","label":"Logo"},{"type":"link_list","id":"menu","label":"Menu","default":"main-menu"}]}{% endschema %}
