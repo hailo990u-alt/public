@@ -2,10 +2,13 @@
   <div class="section-title"><span class="eyebrow">FIND THEIR FAVOURITE</span><h2>{{ section.settings.heading }}</h2></div>
   <div class="collection-grid">
     {% for block in section.blocks %}
-      {% assign item = collections[block.settings.collection] %}
-      <a class="collection-card" href="{{ item.url }}" {{ block.shopify_attributes }}>
-        {% if item.featured_image %}{{ item.featured_image | image_url: width: 900 | image_tag: loading: 'lazy' }}{% endif %}
-        <span>{{ block.settings.label | default: item.title }}</span>
+      {% assign item = block.settings.collection %}
+      {% assign card_url = item.url | default: routes.all_products_collection_url %}
+      <a class="collection-card" href="{{ card_url }}" {{ block.shopify_attributes }}>
+        {% if item != blank and item.featured_image != blank %}
+          {{ item.featured_image | image_url: width: 900 | image_tag: loading: 'lazy' }}
+        {% endif %}
+        <span>{{ block.settings.label | default: item.title | default: 'Shop pets' }}</span>
       </a>
     {% endfor %}
   </div>
