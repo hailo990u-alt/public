@@ -31,6 +31,30 @@
 .payment-trust strong{font-size:11px;margin-bottom:10px}
 .payment-trust small{font-size:9px;color:var(--muted);margin-top:8px}
 .payment-trust svg{height:24px;width:auto;margin:3px}
+.product-benefit-list{display:grid;gap:9px;margin:20px 0 18px}
+.product-benefit{display:flex;align-items:flex-start;gap:10px}
+.product-benefit>span{width:21px;height:21px;flex:0 0 21px;border-radius:50%;display:grid;place-items:center;background:#e8eee3;color:var(--olive);font-size:11px;font-weight:700}
+.product-benefit p{margin:1px 0 0;font-size:13px;color:#3f4b40}
+.purchase-accordions{margin-top:16px;border-top:1px solid #ddd8cd}
+.purchase-accordions details{border-bottom:1px solid #ddd8cd}
+.purchase-accordions summary{padding:16px 2px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;font-weight:600;font-size:12px;list-style:none}
+.purchase-accordions summary::-webkit-details-marker{display:none}
+.purchase-accordions summary span:last-child{font-size:20px;font-weight:400;transition:transform .2s}
+.purchase-accordions details[open] summary span:last-child{transform:rotate(45deg)}
+.purchase-accordions details>div{padding:0 24px 17px 2px;font-size:12px;line-height:1.7;color:var(--muted)}
+.purchase-accordions a,.confidence-center a{color:var(--olive);text-decoration:underline;text-underline-offset:3px}
+.confidence-center{display:grid;grid-template-columns:.8fr 1.2fr;gap:72px;align-items:start;background:#f4f0e7}
+.confidence-center__intro{position:sticky;top:130px}
+.confidence-center__intro h2{font:500 clamp(38px,4.8vw,66px)/1.03 'Playfair Display',Georgia,serif;margin:12px 0 20px;max-width:620px}
+.confidence-center__intro p{color:var(--muted);font-size:15px;max-width:510px;line-height:1.75}
+.confidence-center__intro .text-link{display:inline-block;margin-top:12px;font-size:12px;font-weight:650}
+.confidence-center__cards{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.confidence-center__cards article{background:#fffefa;border:1px solid #dfdbd0;border-radius:10px;padding:28px;min-height:245px;box-shadow:0 14px 36px rgba(49,61,47,.045)}
+.confidence-icon{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;background:#e8eee3;margin-bottom:28px}
+.confidence-icon svg{width:27px;height:27px;fill:none;stroke:var(--olive);stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.confidence-center__cards h3{font:500 25px/1.1 'Playfair Display',Georgia,serif;margin:0 0 12px}
+.confidence-center__cards p{font-size:12px;line-height:1.65;color:var(--muted);margin:0 0 16px}
+.confidence-center__cards a{font-size:11px;font-weight:650}
 .content-page,.catalogue-page,.cart-page{min-height:55vh}
 .content-page>.rte,.article-page,.search-form,.search-results,.cart-page>form{max-width:980px;margin-left:auto;margin-right:auto}
 .content-page h1,.catalogue-page h1,.article-page h1,.cart-page h1,.empty-state h1{font:500 clamp(40px,5vw,64px)/1.05 'Playfair Display',Georgia,serif}
@@ -71,6 +95,12 @@
   .value-icon svg{width:30px;height:30px}
   .review-grid{display:flex;overflow:auto;margin-right:-20px;padding-right:20px}
   .review-card{min-width:82vw}
+  .confidence-center{grid-template-columns:1fr;gap:32px}
+  .confidence-center__intro{position:static}
+  .confidence-center__cards{grid-template-columns:1fr}
+  .confidence-center__cards article{min-height:0;padding:24px;display:grid;grid-template-columns:48px 1fr;gap:18px}
+  .confidence-icon{margin:0}
+  .confidence-center__cards h3{font-size:22px}
   .article-grid{grid-template-columns:1fr}
   .search-form{display:grid}
   .cart-line{grid-template-columns:90px 1fr}
