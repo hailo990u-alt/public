@@ -9,6 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
     {{ content_for_header }}
     {{ 'krozo.css' | asset_url | stylesheet_tag }}
+    {{ 'krozo-enhancements.css' | asset_url | stylesheet_tag }}
     <title>{{ page_title }}{% unless page_title contains shop.name %} — {{ shop.name }}{% endunless %}</title>
   </head>
   <body>
