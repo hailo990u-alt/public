@@ -1,0 +1,11 @@
+<section class="section section--sand how-it-works">
+  <div class="section-title"><span class="eyebrow">{{ section.settings.eyebrow }}</span><h2>{{ section.settings.heading }}</h2></div>
+  <div class="steps-grid">
+    {% for block in section.blocks %}
+      <article {{ block.shopify_attributes }}><span>0{{ forloop.index }}</span><h3>{{ block.settings.heading }}</h3><p>{{ block.settings.text }}</p></article>
+    {% endfor %}
+  </div>
+</section>
+{% schema %}
+{"name":"How it works","settings":[{"type":"text","id":"eyebrow","label":"Eyebrow","default":"SIMPLE BY DESIGN"},{"type":"text","id":"heading","label":"Heading","default":"Easy from the very first day."}],"blocks":[{"type":"step","name":"Step","settings":[{"type":"text","id":"heading","label":"Heading","default":"Choose the right option"},{"type":"textarea","id":"text","label":"Text","default":"Select the size or style that suits your pet."}]}],"max_blocks":3,"presets":[{"name":"How it works","blocks":[{"type":"step"},{"type":"step","settings":{"heading":"Introduce it naturally","text":"Let your pet explore it at their own comfortable pace."}},{"type":"step","settings":{"heading":"Enjoy the routine","text":"Make it part of the everyday moments you share."}}]}]}
+{% endschema %}

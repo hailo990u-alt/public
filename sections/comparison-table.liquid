@@ -1,0 +1,23 @@
+<section class="section comparison-section">
+  <div class="section-title">
+    <span class="eyebrow">{{ section.settings.eyebrow }}</span>
+    <h2>{{ section.settings.heading }}</h2>
+    <p>{{ section.settings.text }}</p>
+  </div>
+  <div class="comparison-table" role="table" aria-label="Product comparison">
+    <div class="comparison-table__row comparison-table__head" role="row">
+      <span role="columnheader">What matters</span><strong role="columnheader">KROZO</strong><span role="columnheader">Generic alternatives</span>
+    </div>
+    {% for block in section.blocks %}
+      <div class="comparison-table__row" role="row" {{ block.shopify_attributes }}>
+        <span role="cell">{{ block.settings.label }}</span>
+        <strong role="cell">{{ block.settings.krozo }}</strong>
+        <span role="cell">{{ block.settings.alternative }}</span>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+
+{% schema %}
+{"name":"Product comparison","settings":[{"type":"text","id":"eyebrow","label":"Eyebrow","default":"THE KROZO DIFFERENCE"},{"type":"text","id":"heading","label":"Heading","default":"A more considered choice."},{"type":"textarea","id":"text","label":"Intro","default":"Edit each row in the theme editor so every comparison accurately reflects this product."}],"blocks":[{"type":"row","name":"Comparison row","settings":[{"type":"text","id":"label","label":"Label","default":"Design approach"},{"type":"text","id":"krozo","label":"KROZO","default":"Considered for everyday use"},{"type":"text","id":"alternative","label":"Alternative","default":"One-size-fits-all"}]}],"presets":[{"name":"Product comparison","blocks":[{"type":"row"},{"type":"row","settings":{"label":"Aesthetic","krozo":"Designed for modern homes","alternative":"Function-first styling"}},{"type":"row","settings":{"label":"Support","krozo":"Helpful human support","alternative":"Varies by seller"}}]}]}
+{% endschema %}

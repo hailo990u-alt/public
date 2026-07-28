@@ -1,14 +1,23 @@
 <section class="product-page section">
-  <div class="product-media">
-    {% for image in product.images %}
-      {{ image | image_url: width: 1300 | image_tag: loading: 'lazy', alt: product.title }}
+  <div class="product-media" data-product-gallery>
+    {% for media in product.media %}
+      {% if media.media_type == 'image' %}
+        <a href="{{ media | image_url: width: 2200 }}" class="product-media__item" aria-label="Zoom product image">
+          {{ media | image_url: width: 1300 | image_tag: loading: 'lazy', alt: product.title, widths: '500,800,1100,1300' }}
+        </a>
+      {% elsif media.media_type == 'video' %}
+        <div class="product-media__item">{{ media | video_tag: controls: true, muted: true, loop: true }}</div>
+      {% endif %}
     {% endfor %}
   </div>
   <div class="product-details">
-    {% if product.metafields.reviews.rating.value != blank %}<span class="stars">★★★★★ <a href="#reviews">Read verified reviews</a></span>{% endif %}
+    {% if product.metafields.reviews.rating.value != blank %}
+      <a class="stars" href="#shopify-section-reviews">★★★★★ <span>{{ product.metafields.reviews.rating.value }} · {{ product.metafields.reviews.rating_count }} verified reviews</span></a>
+    {% endif %}
     <h1>{{ product.title }}</h1>
     <p class="price">{{ product.selected_or_first_available_variant.price | money }}</p>
     <p class="product-summary">{{ product.description | strip_html | truncate: 170 }}</p>
+    <p class="availability"><span></span>{% if product.selected_or_first_available_variant.available %}In stock and ready to order{% else %}Currently unavailable{% endif %}</p>
     {% form 'product', product %}
       {% unless product.has_only_default_variant %}
         <label>Choose an option
@@ -27,8 +36,9 @@
       </button>
       {{ form | payment_button }}
     {% endform %}
-    <div class="purchase-reassurance"><span>✓ Free shipping over $75</span><span>✓ 30-day returns</span><span>✓ Secure checkout</span></div>
+    <div class="purchase-reassurance"><span>✓ Complimentary shipping</span><span>✓ 30-day returns</span><span>✓ Secure checkout</span><span>✓ Helpful support</span></div>
     <div class="product-description">{{ product.description }}</div>
   </div>
 </section>
+<div class="sticky-atc" data-sticky-atc hidden><span><strong>{{ product.title }}</strong><small>{{ product.selected_or_first_available_variant.price | money }}</small></span><button class="button" type="button" data-sticky-submit>Add to cart</button></div>
 {% schema %}{"name":"Main product","settings":[]}{% endschema %}

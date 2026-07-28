@@ -1,0 +1,11 @@
+<section class="section product-faq">
+  <div class="section-title"><span class="eyebrow">{{ section.settings.eyebrow }}</span><h2>{{ section.settings.heading }}</h2></div>
+  <div class="faq-list">
+    {% for block in section.blocks %}
+      <details {{ block.shopify_attributes }}><summary>{{ block.settings.question }}<span>+</span></summary><div>{{ block.settings.answer }}</div></details>
+    {% endfor %}
+  </div>
+</section>
+{% schema %}
+{"name":"Product FAQ","settings":[{"type":"text","id":"eyebrow","label":"Eyebrow","default":"GOOD TO KNOW"},{"type":"text","id":"heading","label":"Heading","default":"Questions, answered."}],"blocks":[{"type":"question","name":"Question","settings":[{"type":"text","id":"question","label":"Question","default":"How do I choose the right option?"},{"type":"richtext","id":"answer","label":"Answer","default":"<p>Use the sizing or option guidance above. If you are unsure, contact us before ordering and we will help.</p>"}]}],"presets":[{"name":"Product FAQ","blocks":[{"type":"question"},{"type":"question","settings":{"question":"How does shipping work?","answer":"<p>Shipping is complimentary. Delivery timing is shown at checkout and may vary by destination.</p>"}},{"type":"question","settings":{"question":"What if it is not right for us?","answer":"<p>You can request a return within 30 days, subject to our returns policy.</p>"}}]}]}
+{% endschema %}
