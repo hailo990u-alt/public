@@ -1,0 +1,13 @@
+<section id="collections" class="section section--sand">
+  <div class="section-title"><span class="eyebrow">FIND THEIR FAVOURITE</span><h2>{{ section.settings.heading }}</h2></div>
+  <div class="collection-grid">
+    {% for block in section.blocks %}
+      {% assign item = collections[block.settings.collection] %}
+      <a class="collection-card" href="{{ item.url }}" {{ block.shopify_attributes }}>
+        {% if item.featured_image %}{{ item.featured_image | image_url: width: 900 | image_tag: loading: 'lazy' }}{% endif %}
+        <span>{{ block.settings.label | default: item.title }}</span>
+      </a>
+    {% endfor %}
+  </div>
+</section>
+{% schema %}{"name":"Collection cards","settings":[{"type":"text","id":"heading","label":"Heading","default":"Made for every kind of day."}],"blocks":[{"type":"collection","name":"Collection","settings":[{"type":"collection","id":"collection","label":"Collection"},{"type":"text","id":"label","label":"Label override"}]}],"max_blocks":6,"presets":[{"name":"Collection cards","blocks":[{"type":"collection"},{"type":"collection"},{"type":"collection"}]}]}{% endschema %}

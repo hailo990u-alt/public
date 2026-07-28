@@ -1,0 +1,15 @@
+<div class="announcement">{{ section.settings.announcement }}</div>
+<header class="site-header">
+  <button class="mobile-menu" type="button" aria-label="Open menu" data-menu-toggle>☰</button>
+  <a class="brand" href="{{ routes.root_url }}">
+    {% if section.settings.logo != blank %}
+      {{ section.settings.logo | image_url: width: 500 | image_tag: class: 'brand-logo', alt: shop.name }}
+    {% else %}
+      <img class="brand-logo" src="{{ 'krozo-wordmark-transparent.png' | asset_url }}" alt="{{ shop.name }}" width="840" height="390">
+    {% endif %}
+  </a>
+  <nav class="desktop-nav" aria-label="Main navigation">{% for link in section.settings.menu.links %}<a href="{{ link.url }}">{{ link.title }}</a>{% endfor %}</nav>
+  <div class="header-actions"><a href="{{ routes.search_url }}" aria-label="Search">⌕</a><a href="{{ routes.account_url }}" aria-label="Account">♙</a><a href="{{ routes.cart_url }}" aria-label="Cart">Bag <sup>{{ cart.item_count }}</sup></a></div>
+</header>
+<nav class="mobile-nav" data-mobile-nav hidden>{% for link in section.settings.menu.links %}<a href="{{ link.url }}">{{ link.title }}</a>{% endfor %}</nav>
+{% schema %}{"name":"Krozo header","settings":[{"type":"text","id":"announcement","label":"Announcement","default":"COMPLIMENTARY SHIPPING ON ORDERS OVER $75"},{"type":"image_picker","id":"logo","label":"Logo"},{"type":"link_list","id":"menu","label":"Menu","default":"main-menu"}]}{% endschema %}
