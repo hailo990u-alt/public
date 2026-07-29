@@ -6,35 +6,66 @@
   </div>
   <div class="collection-grid">
     {% for block in section.blocks %}
-      {% assign item = block.settings.collection %}
-      {% assign card_url = item.url | default: routes.all_products_collection_url %}
-      {% assign card_label = block.settings.label | default: item.title | default: 'Shop pets' %}
-      {% assign card_key = card_label | downcase %}
-      {% assign fallback_image = 'krozo-hero-lifestyle.png' %}
-      {% if card_key contains 'cat' %}
-        {% assign fallback_image = 'krozo-gallery-cat.png' %}
-      {% elsif card_key contains 'travel' or card_key contains 'walk' %}
-        {% assign fallback_image = 'krozo-lifestyle-banner.png' %}
-      {% elsif card_key contains 'health' or card_key contains 'wellness' or card_key contains 'care' %}
-        {% assign fallback_image = 'krozo-category-wellness.webp' %}
-      {% elsif card_key contains 'play' or card_key contains 'enrichment' %}
-        {% assign fallback_image = 'krozo-category-play.webp' %}
-      {% elsif card_key contains 'feeding' or card_key contains 'hydration' %}
-        {% assign fallback_image = 'krozo-category-feeding.webp' %}
-      {% endif %}
-      <a class="collection-card" href="{{ card_url }}" {{ block.shopify_attributes }}>
-        {% if item != blank and item.featured_image != blank %}
-          {{ item.featured_image | image_url: width: 900 | image_tag: loading: 'lazy', alt: card_label }}
+      {% case forloop.index %}
+        {% when 1 %}
+          {% assign curated_handle = 'dog' %}
+          {% assign card_label = 'For Dogs' %}
+          {% assign card_blurb = 'Comfort, play and everyday care' %}
+          {% assign fallback_image = 'krozo-hero-lifestyle.png' %}
+        {% when 2 %}
+          {% assign curated_handle = 'cat' %}
+          {% assign card_label = 'For Cats' %}
+          {% assign card_blurb = 'Enrichment for curious companions' %}
+          {% assign fallback_image = 'krozo-gallery-cat.png' %}
+        {% when 3 %}
+          {% assign curated_handle = 'feeding' %}
+          {% assign card_label = 'Feeding & Hydration' %}
+          {% assign card_blurb = 'Calmer, easier mealtimes' %}
+          {% assign fallback_image = 'krozo-category-feeding.webp' %}
+        {% when 4 %}
+          {% assign curated_handle = 'play' %}
+          {% assign card_label = 'Play & Enrichment' %}
+          {% assign card_blurb = 'Made for happier, engaged pets' %}
+          {% assign fallback_image = 'krozo-category-play.webp' %}
+        {% when 5 %}
+          {% assign curated_handle = 'travel' %}
+          {% assign card_label = 'Walk & Travel' %}
+          {% assign card_blurb = 'Ready for life on the go' %}
+          {% assign fallback_image = 'krozo-lifestyle-banner.png' %}
         {% else %}
-          <img src="{{ fallback_image | asset_url }}" loading="lazy" alt="{{ card_label }} collection" width="900" height="900">
-        {% endif %}
+          {% assign curated_handle = 'health' %}
+          {% assign card_label = 'Wellness & Care' %}
+          {% assign card_blurb = 'Thoughtful support for daily care' %}
+          {% assign fallback_image = 'krozo-category-wellness.webp' %}
+      {% endcase %}
+      {% assign curated_collection = collections[curated_handle] %}
+      {% assign item = curated_collection | default: block.settings.collection %}
+      {% assign card_url = item.url | default: routes.all_products_collection_url %}
+      <a class="collection-card" href="{{ card_url }}" {{ block.shopify_attributes }}>
+        <img src="{{ fallback_image | asset_url }}" loading="lazy" alt="{{ card_label }} collection" width="900" height="900">
         <span class="collection-card__content">
           <strong>{{ card_label }}</strong>
-          {% if block.settings.blurb != blank %}<em>{{ block.settings.blurb }}</em>{% endif %}
+          <em>{{ card_blurb }}</em>
           <small>Explore collection →</small>
         </span>
       </a>
     {% endfor %}
+  </div>
+  <div id="our-standard" class="brand-standard brand-standard--embedded">
+    <div class="brand-standard__media">
+      <img src="{{ 'krozo-category-wellness.webp' | asset_url }}" loading="lazy" alt="Thoughtful everyday pet care" width="1200" height="1200">
+    </div>
+    <div class="brand-standard__content">
+      <span class="eyebrow">THE KROZO STANDARD</span>
+      <h2>Every product should earn its place in your home.</h2>
+      <p class="brand-standard__lead">We choose with purpose—not simply to fill a catalogue. Each KROZO product should make a real routine calmer, easier or more enjoyable for pets and the people who love them.</p>
+      <ul class="brand-standard__list">
+        <li><span>01</span><div><h3>It solves a real need.</h3><p>Clear everyday value comes before novelty.</p></div></li>
+        <li><span>02</span><div><h3>It respects pet and home.</h3><p>Comfort, usability and a considered look all matter.</p></div></li>
+        <li><span>03</span><div><h3>It is clear before you buy.</h3><p>Useful details and responsive support help you choose confidently.</p></div></li>
+      </ul>
+      <a class="text-link" href="{{ routes.all_products_collection_url }}">Explore the collection →</a>
+    </div>
   </div>
 </section>
 {% schema %}{"name":"Shop by need","settings":[{"type":"text","id":"eyebrow","label":"Eyebrow","default":"SHOP BY NEED"},{"type":"text","id":"heading","label":"Heading","default":"Thoughtful essentials for every part of life together."},{"type":"textarea","id":"text","label":"Supporting text","default":"Find purposeful products for calmer routines, happier pets, and better moments at home or away."}],"blocks":[{"type":"collection","name":"Collection","settings":[{"type":"collection","id":"collection","label":"Collection"},{"type":"text","id":"label","label":"Label override"},{"type":"text","id":"blurb","label":"Short benefit","default":"Considered for everyday life"}]}],"max_blocks":6,"presets":[{"name":"Shop by need","blocks":[{"type":"collection"},{"type":"collection"},{"type":"collection"}]}]}{% endschema %}
