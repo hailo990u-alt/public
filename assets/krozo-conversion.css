@@ -28,6 +28,11 @@
 .review-summary p{margin:4px 0 0;font-size:10px;color:var(--muted)}
 .review-summary>span:last-child{font-size:11px;font-weight:650;color:var(--olive)}
 .review-card .stars{letter-spacing:.08em}
+.review-avatar{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;margin-bottom:18px;background:#e8eee3;color:var(--olive);font-size:12px;font-weight:700;letter-spacing:.08em}
+.product-card__proof{margin:14px 0 4px;padding:14px;background:#f6f3eb;border-left:2px solid var(--olive);border-radius:0 6px 6px 0}
+.product-card__proof .stars{font-size:10px}
+.product-card__proof p{margin:7px 0 6px!important;font:500 14px/1.4 'Playfair Display',Georgia,serif!important;color:#3d493e}
+.product-card__proof small{font-size:9px;color:var(--muted)}
 
 @media(max-width:750px){
   .confidence-center{grid-template-columns:1fr;gap:32px}
