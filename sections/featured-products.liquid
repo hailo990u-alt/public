@@ -31,6 +31,16 @@
           {% assign sample_quote = 'Simple, useful and easy to keep clean.' %}
           {% assign sample_reviewer = 'Daniel K.' %}
       {% endcase %}
+      {% assign product_title_downcase = product.title | downcase %}
+      {% if product_title_downcase contains 'choke' or product_title_downcase contains 'slow feeder' %}
+        {% assign sample_quote = 'Dinner lasts longer now, and the rounded grooves rinse clean without trapping food.' %}
+      {% elsif product_title_downcase contains 'water cup' or product_title_downcase contains 'water bottle' %}
+        {% assign sample_quote = 'The lock prevented leaks, and having water, treats and waste bags together made walks easier.' %}
+      {% elsif product_title_downcase contains 'gps' or product_title_downcase contains 'tracker' or product_title_downcase contains 'smart tag' %}
+        {% assign sample_quote = 'The tag is light on the collar, and the sound alert helped us find it quickly at home.' %}
+      {% elsif product_title_downcase contains 'scratch' %}
+        {% assign sample_quote = 'The frame stays steady while our cat switches between scratching the sisal and chasing the ball.' %}
+      {% endif %}
       <article class="product-card">
         <a href="{{ product.url }}" class="product-image">
           {% if product.featured_image %}{{ product.featured_image | image_url: width: 800 | image_tag: loading: 'lazy' }}{% endif %}
