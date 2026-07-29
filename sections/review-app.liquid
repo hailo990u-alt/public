@@ -1,20 +1,19 @@
 {% assign mock_rating = '4.7' %}
   {% assign mock_review_count = 128 %}
   {% if product != blank %}
-    {% assign mock_seed = product.id | modulo: 4 %}
+    {% assign mock_seed = product.id | modulo: 5 %}
+    {% assign mock_review_count = product.id | modulo: 137 | plus: 43 %}
     {% case mock_seed %}
       {% when 0 %}
         {% assign mock_rating = '4.8' %}
-        {% assign mock_review_count = 73 %}
       {% when 1 %}
         {% assign mock_rating = '4.9' %}
-        {% assign mock_review_count = 128 %}
       {% when 2 %}
         {% assign mock_rating = '4.7' %}
-        {% assign mock_review_count = 214 %}
+      {% when 3 %}
+        {% assign mock_rating = '4.8' %}
       {% else %}
         {% assign mock_rating = '4.6' %}
-        {% assign mock_review_count = 64 %}
     {% endcase %}
   {% endif %}
   <section id="reviews" class="section section--sand review-app">
