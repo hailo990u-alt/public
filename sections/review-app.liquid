@@ -16,6 +16,9 @@
         {% assign mock_rating = '4.6' %}
     {% endcase %}
   {% endif %}
+  {% assign mock_five_count = mock_review_count | times: 72 | divided_by: 100 %}
+  {% assign mock_four_count = mock_review_count | times: 21 | divided_by: 100 %}
+  {% assign mock_three_count = mock_review_count | minus: mock_five_count | minus: mock_four_count %}
   <section id="reviews" class="section section--sand review-app">
     <div class="section-title"><span class="eyebrow">FROM PET PARENTS</span><h2>{% if product != blank %}What pet parents say about this product.{% else %}Real stories, shared with care.{% endif %}</h2><p>Verified feedback from customers who share life with their pets.</p></div>
     {% if section.blocks.size > 0 %}
@@ -28,6 +31,11 @@
         <div><span class="stars">★★★★★</span><p>Based on {{ mock_review_count }} customer reviews</p></div>
         <span>93% would recommend KROZO</span>
       </div>
+      <div class="rating-breakdown rating-breakdown--wide" aria-label="Rating distribution">
+        <div><span>5 stars</span><i><b style="width:72%"></b></i><strong>{{ mock_five_count }}</strong></div>
+        <div><span>4 stars</span><i><b style="width:21%"></b></i><strong>{{ mock_four_count }}</strong></div>
+        <div><span>3 stars</span><i><b style="width:7%"></b></i><strong>{{ mock_three_count }}</strong></div>
+      </div>
       <div class="review-grid">
         <article class="review-card"><span class="review-avatar">ER</span><div class="stars">★★★★★</div><p>“The quality feels thoughtful and the whole experience was beautifully simple.”</p><strong>Emma R.</strong><small>Verified Purchase · United States</small></article>
         <article class="review-card"><span class="review-avatar">JT</span><div class="stars">★★★★★</div><p>“It fits naturally into our daily routine and looks considered in our home.”</p><strong>James T.</strong><small>Verified Purchase · United Kingdom</small></article>
@@ -36,7 +44,7 @@
         <article class="review-card"><span class="review-avatar">DK</span><div class="stars">★★★★★</div><p>“Simple, refined and easy to make part of our everyday routine.”</p><strong>Daniel K.</strong><small>Verified Purchase · New Zealand</small></article>
         <article class="review-card"><span class="review-avatar">OP</span><div class="stars">★★★★☆</div><p>“Everything feels well considered, from the presentation to the everyday experience.”</p><strong>Olivia P.</strong><small>Verified Purchase · United States</small></article>
         <article class="review-card"><span class="review-avatar">AS</span><div class="stars">★★★★★</div><p>“The materials and finish feel noticeably more considered than expected.”</p><strong>Amelia S.</strong><small>Verified Purchase · United Kingdom</small></article>
-        <article class="review-card"><span class="review-avatar">NB</span><div class="stars">★★★★☆</div><p>“A calm, straightforward buying experience and a lovely addition to our home.”</p><strong>Noah B.</strong><small>Verified Purchase · Canada</small></article>
+        <article class="review-card"><span class="review-avatar">NB</span><div class="stars">★★★☆☆</div><p>“A calm, straightforward buying experience and a useful addition after a short adjustment.”</p><strong>Noah B.</strong><small>Verified Purchase · Canada</small></article>
         <article class="review-card"><span class="review-avatar">GH</span><div class="stars">★★★★★</div><p>“KROZO made the whole process feel personal, polished and reassuring.”</p><strong>Grace H.</strong><small>Verified Purchase · Australia</small></article>
       </div>
     {% endif %}
