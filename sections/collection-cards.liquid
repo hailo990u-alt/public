@@ -4,9 +4,27 @@
     {% for block in section.blocks %}
       {% assign item = block.settings.collection %}
       {% assign card_url = item.url | default: routes.all_products_collection_url %}
+      {% assign card_label = block.settings.label | default: item.title | default: 'Shop pets' %}
+      {% assign card_key = card_label | downcase %}
+      {% assign fallback_image = 'krozo-hero-lifestyle.png' %}
+      {% if card_key contains 'cat' %}
+        {% assign fallback_image = 'krozo-gallery-cat.png' %}
+      {% elsif card_key contains 'travel' %}
+        {% assign fallback_image = 'krozo-lifestyle-banner.png' %}
+      {% elsif card_key contains 'health' %}
+        {% assign fallback_image = 'krozo-sample-review-claire.png' %}
+      {% elsif card_key contains 'play' %}
+        {% assign fallback_image = 'krozo-sample-review-james.png' %}
+      {% elsif card_key contains 'feeding' %}
+        {% assign fallback_image = 'krozo-sample-review-emma.png' %}
+      {% endif %}
       <a class="collection-card" href="{{ card_url }}" {{ block.shopify_attributes }}>
-        {% if item != blank and item.featured_image != blank %}{{ item.featured_image | image_url: width: 900 | image_tag: loading: 'lazy' }}{% endif %}
-        <span>{{ block.settings.label | default: item.title | default: 'Shop pets' }}</span>
+        {% if item != blank and item.featured_image != blank %}
+          {{ item.featured_image | image_url: width: 900 | image_tag: loading: 'lazy', alt: card_label }}
+        {% else %}
+          <img src="{{ fallback_image | asset_url }}" loading="lazy" alt="{{ card_label }} collection" width="900" height="900">
+        {% endif %}
+        <span>{{ card_label }} <small>Shop now →</small></span>
       </a>
     {% endfor %}
   </div>
