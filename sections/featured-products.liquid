@@ -1,4 +1,3 @@
-{% comment %} KROZO direct sync 2026-07-29 {% endcomment %}
 <section class="section">
   <div class="section-title"><span class="eyebrow">MOST LOVED</span><h2>{{ section.settings.heading }}</h2></div>
   <div class="product-grid">
@@ -12,12 +11,24 @@
           {% if product.metafields.reviews.rating.value != blank %}
             <div class="stars">★★★★★ <span>({{ product.metafields.reviews.rating_count }})</span></div>
           {% elsif request.design_mode %}
-            <div class="stars demo-preview">★★★★★ <span>(128) · Sample preview</span></div>
+            {% case forloop.index %}
+              {% when 1 %}{% assign sample_reviews = 128 %}
+              {% when 2 %}{% assign sample_reviews = 86 %}
+              {% when 3 %}{% assign sample_reviews = 214 %}
+              {% else %}{% assign sample_reviews = 64 %}
+            {% endcase %}
+            <div class="stars demo-preview">★★★★★ <span>({{ sample_reviews }}) · Sample preview</span></div>
           {% endif %}
           {% if product.metafields.custom.purchases_count != blank %}
             <div class="purchase-count">{{ product.metafields.custom.purchases_count }}+ purchased</div>
           {% elsif request.design_mode %}
-            <div class="purchase-count demo-preview">250+ purchased · Sample preview</div>
+            {% case forloop.index %}
+              {% when 1 %}{% assign sample_purchases = 350 %}
+              {% when 2 %}{% assign sample_purchases = 180 %}
+              {% when 3 %}{% assign sample_purchases = 500 %}
+              {% else %}{% assign sample_purchases = 120 %}
+            {% endcase %}
+            <div class="purchase-count demo-preview">{{ sample_purchases }}+ purchased · Sample preview</div>
           {% endif %}
           <a href="{{ product.url }}"><h3>{{ product.title }}</h3></a>
           <p>{{ product.price | money }} {% if product.compare_at_price > product.price %}<s>{{ product.compare_at_price | money }}</s>{% endif %}</p>
