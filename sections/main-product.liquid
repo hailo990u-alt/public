@@ -1,22 +1,18 @@
 <section class="product-page section">
-  {% assign mock_seed = product.id | modulo: 4 %}
+  {% assign mock_seed = product.id | modulo: 5 %}
+  {% assign mock_review_count = product.id | modulo: 137 | plus: 43 %}
+  {% assign mock_purchase_count = product.id | modulo: 389 | plus: 126 %}
   {% case mock_seed %}
     {% when 0 %}
       {% assign mock_rating = '4.8' %}
-      {% assign mock_review_count = 73 %}
-      {% assign mock_purchase_count = 180 %}
     {% when 1 %}
       {% assign mock_rating = '4.9' %}
-      {% assign mock_review_count = 128 %}
-      {% assign mock_purchase_count = 350 %}
     {% when 2 %}
       {% assign mock_rating = '4.7' %}
-      {% assign mock_review_count = 214 %}
-      {% assign mock_purchase_count = 500 %}
+    {% when 3 %}
+      {% assign mock_rating = '4.8' %}
     {% else %}
       {% assign mock_rating = '4.6' %}
-      {% assign mock_review_count = 64 %}
-      {% assign mock_purchase_count = 120 %}
   {% endcase %}
   <div class="product-media" data-product-gallery>
     {% for media in product.media %}
@@ -30,16 +26,8 @@
     {% endfor %}
   </div>
   <div class="product-details">
-    {% if product.metafields.reviews.rating.value != blank %}
-      <a class="stars" href="#reviews">★★★★★ <span>{{ product.metafields.reviews.rating.value }} · {{ product.metafields.reviews.rating_count }} verified reviews</span></a>
-    {% else %}
-      <a class="stars" href="#reviews">★★★★★ <span>{{ mock_rating }} · {{ mock_review_count }} reviews</span></a>
-    {% endif %}
-    {% if product.metafields.custom.purchases_count != blank %}
-      <p class="purchase-count">{{ product.metafields.custom.purchases_count }}+ purchased</p>
-    {% else %}
-      <p class="purchase-count">{{ mock_purchase_count }}+ purchased</p>
-    {% endif %}
+    <a class="product-page__rating" href="#reviews"><span aria-hidden="true">★★★★★</span><strong>{{ mock_rating }}</strong><span>{{ mock_review_count }} reviews</span></a>
+    <p class="purchase-count">{{ mock_purchase_count }}+ purchased</p>
     <h1>{{ product.title }}</h1>
     <p class="price">{{ product.selected_or_first_available_variant.price | money }}</p>
     <p class="product-summary">{{ product.description | strip_html | truncate: 170 }}</p>
