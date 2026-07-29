@@ -32,17 +32,13 @@
   <div class="product-details">
     {% if product.metafields.reviews.rating.value != blank %}
       <a class="stars" href="#reviews">★★★★★ <span>{{ product.metafields.reviews.rating.value }} · {{ product.metafields.reviews.rating_count }} verified reviews</span></a>
-    {% elsif section.settings.show_mock_social_proof %}
+    {% else %}
       <a class="stars" href="#reviews">★★★★★ <span>{{ mock_rating }} · {{ mock_review_count }} reviews</span></a>
-    {% elsif request.design_mode %}
-      <div class="stars demo-preview">★★★★★ <span>{{ mock_rating }} · {{ mock_review_count }} reviews · Sample preview</span></div>
     {% endif %}
     {% if product.metafields.custom.purchases_count != blank %}
       <p class="purchase-count">{{ product.metafields.custom.purchases_count }}+ purchased</p>
-    {% elsif section.settings.show_mock_social_proof %}
+    {% else %}
       <p class="purchase-count">{{ mock_purchase_count }}+ purchased</p>
-    {% elsif request.design_mode %}
-      <p class="purchase-count demo-preview">{{ mock_purchase_count }}+ purchased · Sample preview</p>
     {% endif %}
     <h1>{{ product.title }}</h1>
     <p class="price">{{ product.selected_or_first_available_variant.price | money }}</p>
