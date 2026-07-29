@@ -30,9 +30,17 @@
 .review-card .stars{letter-spacing:.08em}
 .review-avatar{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;margin-bottom:18px;background:#e8eee3;color:var(--olive);font-size:12px;font-weight:700;letter-spacing:.08em}
 .product-card__proof{margin:14px 0 4px;padding:14px;background:#f6f3eb;border-left:2px solid var(--olive);border-radius:0 6px 6px 0}
-.product-card__proof .stars{font-size:10px}
+.product-card__rating{display:flex;align-items:center;gap:7px;margin:2px 0 8px;font-size:11px}
+.product-card__rating>span{color:var(--gold);font-size:14px;letter-spacing:.08em}
+.product-card__rating strong{color:var(--ink);font-size:12px}
+.product-card__rating a{color:var(--muted);text-decoration:underline;text-underline-offset:3px}
+.product-info>.purchase-count{display:inline-flex;align-items:center;min-height:25px;margin:0 0 2px;padding:5px 9px;border-radius:99px;background:#e8eee3;color:var(--olive);font-size:10px;font-weight:650}
+.product-card__proof .stars{font-size:13px;letter-spacing:.08em}
 .product-card__proof p{margin:7px 0 6px!important;font:500 14px/1.4 'Playfair Display',Georgia,serif!important;color:#3d493e}
 .product-card__proof small{font-size:9px;color:var(--muted)}
+.product-page__rating{display:flex;align-items:center;gap:8px;margin-bottom:8px;font-size:12px}
+.product-page__rating>span:first-child{color:var(--gold);font-size:17px;letter-spacing:.08em}
+.product-page__rating>span:last-child{color:var(--muted);text-decoration:underline;text-underline-offset:3px}
 
 @media(max-width:750px){
   .confidence-center{grid-template-columns:1fr;gap:32px}
