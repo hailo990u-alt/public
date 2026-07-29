@@ -1,0 +1,12 @@
+{% assign krozo_title = product.title | downcase %}
+{% if krozo_title contains 'choke' or krozo_title contains 'slow feeder' %}
+  Turn rushed meals into a calmer routine. The raised feeding pattern encourages a slower pace while rounded grooves make everyday cleaning simple.
+{% elsif krozo_title contains 'water cup' or krozo_title contains 'water bottle' %}
+  Water, treats and waste bags in one walk-ready bottle. A lockable one-hand dispenser helps reduce leaks and makes outdoor breaks feel effortless.
+{% elsif krozo_title contains 'gps' or krozo_title contains 'tracker' or krozo_title contains 'smart tag' %}
+  A lightweight Bluetooth finder made for everyday peace of mind. Use the sound alert and compatible nearby-device network to help locate a collar, keys or bag.
+{% elsif krozo_title contains 'scratch' %}
+  Give natural scratching instincts a better place to land. The stable wooden frame and rotating sisal ball combine satisfying scratching with engaging daily play.
+{% else %}
+  A thoughtfully selected everyday essential designed to make life with your pet simpler, calmer and more considered.
+{% endif %}
