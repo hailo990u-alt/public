@@ -2,21 +2,36 @@
   {% assign mock_seed = product.id | modulo: 5 %}
   {% assign mock_review_count = product.id | modulo: 137 | plus: 43 %}
   {% assign mock_purchase_count = product.id | modulo: 389 | plus: 126 %}
-  {% assign mock_five_count = mock_review_count | times: 72 | divided_by: 100 %}
-  {% assign mock_four_count = mock_review_count | times: 21 | divided_by: 100 %}
-  {% assign mock_three_count = mock_review_count | minus: mock_five_count | minus: mock_four_count %}
   {% case mock_seed %}
     {% when 0 %}
       {% assign mock_rating = '4.8' %}
+      {% assign mock_five_percent = 83 %}
+      {% assign mock_four_percent = 15 %}
+      {% assign mock_three_percent = 2 %}
     {% when 1 %}
       {% assign mock_rating = '4.9' %}
+      {% assign mock_five_percent = 91 %}
+      {% assign mock_four_percent = 8 %}
+      {% assign mock_three_percent = 1 %}
     {% when 2 %}
       {% assign mock_rating = '4.7' %}
+      {% assign mock_five_percent = 74 %}
+      {% assign mock_four_percent = 22 %}
+      {% assign mock_three_percent = 4 %}
     {% when 3 %}
       {% assign mock_rating = '4.8' %}
+      {% assign mock_five_percent = 83 %}
+      {% assign mock_four_percent = 15 %}
+      {% assign mock_three_percent = 2 %}
     {% else %}
       {% assign mock_rating = '4.6' %}
+      {% assign mock_five_percent = 67 %}
+      {% assign mock_four_percent = 26 %}
+      {% assign mock_three_percent = 7 %}
   {% endcase %}
+  {% assign mock_five_count = mock_review_count | times: mock_five_percent | divided_by: 100 %}
+  {% assign mock_four_count = mock_review_count | times: mock_four_percent | divided_by: 100 %}
+  {% assign mock_three_count = mock_review_count | minus: mock_five_count | minus: mock_four_count %}
   <div class="product-media" data-product-gallery>
     {% for media in product.media %}
       {% if media.media_type == 'image' %}
@@ -65,9 +80,9 @@
         <a href="#reviews">{{ mock_review_count }} reviews</a>
       </div>
       <div class="rating-breakdown" aria-label="Rating distribution">
-        <div><span>5 stars</span><i><b style="width:72%"></b></i><strong>{{ mock_five_count }}</strong></div>
-        <div><span>4 stars</span><i><b style="width:21%"></b></i><strong>{{ mock_four_count }}</strong></div>
-        <div><span>3 stars</span><i><b style="width:7%"></b></i><strong>{{ mock_three_count }}</strong></div>
+        <div><span>5 stars</span><i><b style="width:{{ mock_five_percent }}%"></b></i><strong>{{ mock_five_count }}</strong></div>
+        <div><span>4 stars</span><i><b style="width:{{ mock_four_percent }}%"></b></i><strong>{{ mock_four_count }}</strong></div>
+        <div><span>3 stars</span><i><b style="width:{{ mock_three_percent }}%"></b></i><strong>{{ mock_three_count }}</strong></div>
       </div>
       <div class="product-review-preview__track">
         <article><span class="stars">★★★★★</span><p>“Thoughtful quality and very easy to make part of our routine.”</p><strong>Emma R.</strong><small>Verified Purchase · US</small></article>
