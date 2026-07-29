@@ -127,7 +127,7 @@
     <div class="product-description"><span class="eyebrow">WHY IT BELONGS IN YOUR ROUTINE</span><h2>Designed around the moments that matter.</h2><p>{{ marketing_summary | strip }}</p><p>Every KROZO product is selected to solve a clear everyday need without adding unnecessary complication or visual clutter to your home.</p></div>
   </div>
 </section>
-<div class="sticky-atc" data-sticky-atc hidden><span><strong>{{ marketing_title | strip }}</strong><small>{{ product.selected_or_first_available_variant.price | money }}</small></span><button class="button" type="button" data-sticky-submit>Add to cart</button></div>
+<div class="sticky-atc" data-sticky-atc><span><strong>{{ marketing_title | strip }}</strong><small>{{ product.selected_or_first_available_variant.price | money }}</small></span><button class="button" type="button" data-sticky-submit>Add to cart</button></div>
 {% schema %}
 {
   "name": "Main product",
