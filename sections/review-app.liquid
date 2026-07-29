@@ -57,15 +57,7 @@
         <div><span>3 stars</span><i><b style="width:{{ mock_three_percent }}%"></b></i><strong>{{ mock_three_count }}</strong></div>
       </div>
       <div class="review-grid">
-        <article class="review-card"><span class="review-avatar">ER</span><div class="stars">★★★★★</div><p>“The quality feels thoughtful and the whole experience was beautifully simple.”</p><strong>Emma R.</strong><small>Verified Purchase · United States</small></article>
-        <article class="review-card"><span class="review-avatar">JT</span><div class="stars">★★★★★</div><p>“It fits naturally into our daily routine and looks considered in our home.”</p><strong>James T.</strong><small>Verified Purchase · United Kingdom</small></article>
-        <article class="review-card"><span class="review-avatar">CM</span><div class="stars">★★★★☆</div><p>“The details feel premium, and support made everything clear from the start.”</p><strong>Claire M.</strong><small>Verified Purchase · Canada</small></article>
-        <article class="review-card"><span class="review-avatar">SL</span><div class="stars">★★★★☆</div><p>“Beautifully presented and genuinely useful. It feels like something chosen with care.”</p><strong>Sophie L.</strong><small>Verified Purchase · Australia</small></article>
-        <article class="review-card"><span class="review-avatar">DK</span><div class="stars">★★★★★</div><p>“Simple, refined and easy to make part of our everyday routine.”</p><strong>Daniel K.</strong><small>Verified Purchase · New Zealand</small></article>
-        <article class="review-card"><span class="review-avatar">OP</span><div class="stars">★★★★☆</div><p>“Everything feels well considered, from the presentation to the everyday experience.”</p><strong>Olivia P.</strong><small>Verified Purchase · United States</small></article>
-        <article class="review-card"><span class="review-avatar">AS</span><div class="stars">★★★★★</div><p>“The materials and finish feel noticeably more considered than expected.”</p><strong>Amelia S.</strong><small>Verified Purchase · United Kingdom</small></article>
-        <article class="review-card"><span class="review-avatar">NB</span><div class="stars">★★★☆☆</div><p>“A calm, straightforward buying experience and a useful addition after a short adjustment.”</p><strong>Noah B.</strong><small>Verified Purchase · Canada</small></article>
-        <article class="review-card"><span class="review-avatar">GH</span><div class="stars">★★★★★</div><p>“KROZO made the whole process feel personal, polished and reassuring.”</p><strong>Grace H.</strong><small>Verified Purchase · Australia</small></article>
+        {% render 'krozo-mock-product-reviews', product: product, mode: 'full' %}
       </div>
     {% endif %}
   </section>
