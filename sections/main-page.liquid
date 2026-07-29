@@ -1,2 +1,23 @@
-<section class="section content-page"><div class="section-title"><span class="eyebrow">KROZO</span><h1>{{ page.title }}</h1></div><div class="rte">{{ page.content }}</div></section>
+{% if page.handle == 'contact' %}
+  <section class="section contact-page">
+    <div class="contact-page__intro"><span class="eyebrow">KROZO CARE</span><h1>How can we help?</h1><p>Questions about a product, delivery or an existing order? Send us a message and our support team will get back to you.</p>
+      <div class="contact-promises"><span>✓ Clear, helpful answers</span><span>✓ Support before and after ordering</span><span>✓ Your information stays private</span></div>
+    </div>
+    <div class="contact-card">
+      {% form 'contact', id: 'ContactForm', class: 'contact-form' %}
+        {% if form.posted_successfully? %}<p class="form-success">Thank you — your message has been sent.</p>{% endif %}
+        {{ form.errors | default_errors }}
+        <label>Name<input type="text" name="contact[name]" required></label>
+        <label>Email<input type="email" name="contact[email]" required></label>
+        <label>How can we help?<select name="contact[Reason]"><option>Product question</option><option>Order support</option><option>Shipping or returns</option><option>Partnership enquiry</option><option>Other</option></select></label>
+        <label>Order number <small>Optional</small><input type="text" name="contact[Order number]"></label>
+        <label class="contact-form__wide">Message<textarea name="contact[body]" rows="7" required placeholder="Tell us how we can help..."></textarea></label>
+        <button class="button contact-form__wide" type="submit">Send message</button>
+      {% endform %}
+      <p class="contact-card__note">For order support, include the email used at checkout and your order number if available.</p>
+    </div>
+  </section>
+{% else %}
+  <section class="section content-page"><div class="section-title"><span class="eyebrow">KROZO</span><h1>{{ page.title }}</h1></div><div class="rte">{{ page.content }}</div></section>
+{% endif %}
 {% schema %}{"name":"Main page","settings":[]}{% endschema %}
