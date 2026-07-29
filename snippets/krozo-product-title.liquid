@@ -1,0 +1,12 @@
+{% assign krozo_title = product.title | downcase %}
+{% if krozo_title contains 'choke' or krozo_title contains 'slow feeder' %}
+  CalmFlow™ Slow Feeder Bowl
+{% elsif krozo_title contains 'water cup' or krozo_title contains 'water bottle' %}
+  TrailSip™ 3-in-1 Pet Travel Bottle
+{% elsif krozo_title contains 'gps' or krozo_title contains 'tracker' or krozo_title contains 'smart tag' %}
+  SafeTag™ Smart Pet Finder
+{% elsif krozo_title contains 'scratch' %}
+  PawSpin™ Cat Scratcher & Play Ball
+{% else %}
+  {{ product.title }}
+{% endif %}
