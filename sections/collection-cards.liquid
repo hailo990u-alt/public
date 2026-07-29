@@ -1,5 +1,9 @@
 <section id="collections" class="section section--sand">
-  <div class="section-title"><span class="eyebrow">FIND THEIR FAVOURITE</span><h2>{{ section.settings.heading }}</h2></div>
+  <div class="section-title">
+    <span class="eyebrow">{{ section.settings.eyebrow }}</span>
+    <h2>{{ section.settings.heading }}</h2>
+    {% if section.settings.text != blank %}<p>{{ section.settings.text }}</p>{% endif %}
+  </div>
   <div class="collection-grid">
     {% for block in section.blocks %}
       {% assign item = block.settings.collection %}
@@ -9,14 +13,14 @@
       {% assign fallback_image = 'krozo-hero-lifestyle.png' %}
       {% if card_key contains 'cat' %}
         {% assign fallback_image = 'krozo-gallery-cat.png' %}
-      {% elsif card_key contains 'travel' %}
+      {% elsif card_key contains 'travel' or card_key contains 'walk' %}
         {% assign fallback_image = 'krozo-lifestyle-banner.png' %}
-      {% elsif card_key contains 'health' %}
-        {% assign fallback_image = 'krozo-sample-review-claire.png' %}
-      {% elsif card_key contains 'play' %}
-        {% assign fallback_image = 'krozo-sample-review-james.png' %}
-      {% elsif card_key contains 'feeding' %}
-        {% assign fallback_image = 'krozo-sample-review-emma.png' %}
+      {% elsif card_key contains 'health' or card_key contains 'wellness' or card_key contains 'care' %}
+        {% assign fallback_image = 'krozo-category-wellness.webp' %}
+      {% elsif card_key contains 'play' or card_key contains 'enrichment' %}
+        {% assign fallback_image = 'krozo-category-play.webp' %}
+      {% elsif card_key contains 'feeding' or card_key contains 'hydration' %}
+        {% assign fallback_image = 'krozo-category-feeding.webp' %}
       {% endif %}
       <a class="collection-card" href="{{ card_url }}" {{ block.shopify_attributes }}>
         {% if item != blank and item.featured_image != blank %}
@@ -24,9 +28,13 @@
         {% else %}
           <img src="{{ fallback_image | asset_url }}" loading="lazy" alt="{{ card_label }} collection" width="900" height="900">
         {% endif %}
-        <span>{{ card_label }} <small>Shop now →</small></span>
+        <span class="collection-card__content">
+          <strong>{{ card_label }}</strong>
+          {% if block.settings.blurb != blank %}<em>{{ block.settings.blurb }}</em>{% endif %}
+          <small>Explore collection →</small>
+        </span>
       </a>
     {% endfor %}
   </div>
 </section>
-{% schema %}{"name":"Collection cards","settings":[{"type":"text","id":"heading","label":"Heading","default":"Made for every kind of day."}],"blocks":[{"type":"collection","name":"Collection","settings":[{"type":"collection","id":"collection","label":"Collection"},{"type":"text","id":"label","label":"Label override"}]}],"max_blocks":6,"presets":[{"name":"Collection cards","blocks":[{"type":"collection"},{"type":"collection"},{"type":"collection"}]}]}{% endschema %}
+{% schema %}{"name":"Shop by need","settings":[{"type":"text","id":"eyebrow","label":"Eyebrow","default":"SHOP BY NEED"},{"type":"text","id":"heading","label":"Heading","default":"Thoughtful essentials for every part of life together."},{"type":"textarea","id":"text","label":"Supporting text","default":"Find purposeful products for calmer routines, happier pets, and better moments at home or away."}],"blocks":[{"type":"collection","name":"Collection","settings":[{"type":"collection","id":"collection","label":"Collection"},{"type":"text","id":"label","label":"Label override"},{"type":"text","id":"blurb","label":"Short benefit","default":"Considered for everyday life"}]}],"max_blocks":6,"presets":[{"name":"Shop by need","blocks":[{"type":"collection"},{"type":"collection"},{"type":"collection"}]}]}{% endschema %}
