@@ -60,8 +60,107 @@
 .product-review-preview__track strong,.product-review-preview__track small{display:block;font-size:10px}
 .product-review-preview__track small{margin-top:3px;color:var(--muted)}
 .product-review-preview__all{display:inline-block;margin-top:3px;font-weight:650}
+.visually-hidden{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
+.collection-card span{display:flex;flex-direction:column;gap:4px}
+.collection-card span small{font:600 9px/1 Inter,Arial,sans-serif;letter-spacing:.1em;text-transform:uppercase;opacity:.9}
+.product-card__benefit{color:var(--muted)!important;font-size:11px!important;line-height:1.55!important;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.essential-trust-badges{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:18px 0}
+.essential-trust-badges article{display:flex;align-items:center;gap:11px;padding:13px;border:1px solid #ded9cf;border-radius:8px;background:#fffefa}
+.essential-trust-badges svg{width:25px;height:25px;flex:0 0 25px;fill:none;stroke:var(--olive);stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.essential-trust-badges strong,.essential-trust-badges small{display:block}
+.essential-trust-badges strong{font-size:10px}
+.essential-trust-badges small{margin-top:2px;font-size:8px;color:var(--muted)}
+.product-description{padding:24px;border-radius:9px;background:#f2eee4}
+.product-description h2{margin:8px 0 12px;font-size:27px;line-height:1.15}
+.product-description p{font-size:12px;line-height:1.7}
+.review-grid--approved:empty{display:none}
+.review-card--genuine{border-color:#b9c4b3}
+.review-submission{max-width:880px;margin:32px auto 0;border:1px solid #cfc9bc;border-radius:10px;background:#fffefa;overflow:hidden}
+.review-submission>summary{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:21px 24px;cursor:pointer;list-style:none}
+.review-submission>summary::-webkit-details-marker{display:none}
+.review-submission>summary strong,.review-submission>summary small{display:block}
+.review-submission>summary strong{font:500 20px/1.2 'Playfair Display',Georgia,serif}
+.review-submission>summary small{margin-top:4px;font-size:10px;color:var(--muted)}
+.review-submission>summary>span:last-child{font-size:11px;font-weight:650;color:var(--olive)}
+.review-submit-form,.contact-form{display:grid;grid-template-columns:1fr 1fr;gap:14px;padding:24px;border-top:1px solid #e1ddd4}
+.review-submit-form label,.contact-form label{display:grid;gap:6px;font-size:10px;font-weight:650;letter-spacing:.03em}
+.review-submit-form label small,.contact-form label small{font-weight:400;color:var(--muted)}
+.review-submit-form input,.review-submit-form select,.review-submit-form textarea,.contact-form input,.contact-form select,.contact-form textarea{width:100%;padding:13px;border:1px solid #d8d3c8;border-radius:4px;background:#fff;font:12px/1.5 Inter,Arial,sans-serif;color:var(--ink)}
+.review-submit-form__wide,.contact-form__wide,.form-success,.errors{grid-column:1/-1}
+.form-success{padding:12px;background:#e8eee3;color:var(--olive);font-size:12px}
+.contact-page{display:grid;grid-template-columns:.75fr 1.25fr;gap:7vw;align-items:start;min-height:70vh;background:linear-gradient(135deg,#f5f0e5 0%,#f9f7f1 55%)}
+.contact-page__intro{position:sticky;top:130px}
+.contact-page__intro h1{font:500 clamp(46px,5.5vw,76px)/1.02 'Playfair Display',Georgia,serif;margin:14px 0 22px}
+.contact-page__intro>p{max-width:480px;color:var(--muted);font-size:15px;line-height:1.75}
+.contact-promises{display:grid;gap:10px;margin-top:30px;font-size:11px;color:var(--olive)}
+.contact-card{background:#fffefa;border:1px solid #ded9cf;border-radius:12px;box-shadow:0 24px 60px rgba(49,61,47,.08);overflow:hidden}
+.contact-card .contact-form{border:0;padding:32px}
+.contact-card__note{margin:0;padding:16px 32px;border-top:1px solid #e5e0d5;color:var(--muted);font-size:10px}
+.footer-newsletter{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:end;padding:8px 0 38px;margin-bottom:38px;border-bottom:1px solid #d3ccbd}
+.footer-newsletter h3{font:500 32px/1.15 'Playfair Display',Georgia,serif;margin:8px 0}
+.footer-newsletter p{max-width:none}
+.newsletter-form{display:flex;border-bottom:1px solid var(--olive)}
+.newsletter-form input{flex:1;min-width:0;border:0;background:transparent;padding:13px 0;font:12px Inter,Arial,sans-serif}
+.newsletter-form button{border:0;background:transparent;color:var(--olive);font-size:11px;font-weight:700;cursor:pointer}
+.footer-confidence{display:flex;flex-wrap:wrap;gap:6px;margin-top:18px}
+.footer-confidence span{padding:5px 7px;border:1px solid #d3ccbd;border-radius:99px;color:var(--olive);font-size:8px}
 
 @media(max-width:750px){
+  .global-trust-bar{display:grid!important;grid-template-columns:1fr 1fr;overflow:visible}
+  .global-trust-bar span{min-width:0!important;min-height:42px;padding:7px 5px;text-align:center;font-size:9px}
+  .global-trust-bar svg{width:18px;height:18px}
+  .hero{min-height:560px;padding:42px 20px;background-position:62% center}
+  .hero h1{font-size:37px;line-height:1.04;margin:13px 0}
+  .hero p{font-size:13px;line-height:1.6}
+  .hero .button-row{display:grid;grid-template-columns:1fr;margin-top:22px}
+  .hero .button-row .button{width:100%;padding:14px 12px}
+  .hero .button--outline{background:rgba(249,247,241,.74)}
+  .hero .trust-line{margin-top:20px;padding:12px;background:rgba(249,247,241,.68);border-radius:7px}
+  .section{padding:56px 16px}
+  .section-title{margin-bottom:28px}
+  .section-title h2{font-size:32px}
+  .value-grid{grid-template-columns:1fr 1fr}
+  .value-grid article{min-width:0;padding:17px}
+  .value-grid h3{font-size:16px}
+  .value-grid p{font-size:11px}
+  .collection-grid{grid-template-columns:1fr 1fr}
+  .collection-card{height:220px}
+  .collection-card span{font-size:20px}
+  .product-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px 10px;margin-right:0;padding-right:0;overflow:visible}
+  .product-card{min-width:0;width:auto}
+  .product-image{height:auto;aspect-ratio:1/1.15}
+  .product-info h3{font-size:14px;line-height:1.35}
+  .product-card__rating{gap:4px;flex-wrap:wrap}
+  .product-card__rating>span{font-size:11px}
+  .product-card__proof{padding:10px;margin-top:10px}
+  .product-card__proof p{font-size:12px!important}
+  .product-card__benefit{-webkit-line-clamp:4;font-size:10px!important}
+  .lifestyle-banner{min-height:570px}
+  .lifestyle-banner__content{padding:38px 20px}
+  .lifestyle-banner__content h2{font-size:36px;line-height:1.05}
+  .product-page{padding-top:22px}
+  .product-details h1{font-size:33px}
+  .essential-trust-badges{grid-template-columns:1fr 1fr;gap:7px}
+  .essential-trust-badges article{padding:10px 8px;gap:8px}
+  .essential-trust-badges svg{width:22px;height:22px}
+  .product-review-preview{padding:15px}
+  .product-review-preview__head{align-items:flex-start}
+  .product-review-preview__head h2{font-size:22px}
+  .product-review-preview__track article{min-width:92%;padding:14px}
+  .rating-breakdown>div{grid-template-columns:44px minmax(90px,1fr) 24px}
+  .review-submit-form,.contact-form{grid-template-columns:1fr;padding:18px}
+  .review-submit-form__wide,.contact-form__wide,.form-success,.errors{grid-column:auto}
+  .review-submission>summary{align-items:flex-start;padding:18px}
+  .review-submission>summary>span:last-child{white-space:nowrap}
+  .contact-page{grid-template-columns:1fr;gap:30px}
+  .contact-page__intro{position:static}
+  .contact-page__intro h1{font-size:45px}
+  .contact-card .contact-form{padding:22px}
+  .footer-newsletter{grid-template-columns:1fr;gap:18px}
+  .footer-newsletter h3{font-size:28px}
+  .footer-grid{grid-template-columns:1fr 1fr}
+  .footer-grid>div:first-child{grid-column:1/-1}
+  .footer-bottom{display:grid}
   .confidence-center{grid-template-columns:1fr;gap:32px}
   .confidence-center__intro{position:static}
   .confidence-center__cards{grid-template-columns:1fr}
@@ -70,4 +169,15 @@
   .confidence-center__cards h3{font-size:22px}
   .review-summary{grid-template-columns:auto 1fr}
   .review-summary>span:last-child{grid-column:1/-1;padding-top:12px;border-top:1px solid #e3ded3}
+}
+
+@media(max-width:390px){
+  .site-header{padding:0 10px}
+  .brand{width:100px;flex-basis:100px}
+  .brand-logo{width:98px}
+  .hero h1{font-size:34px}
+  .collection-card{height:195px}
+  .product-grid{grid-template-columns:1fr}
+  .product-image{aspect-ratio:1.2/1}
+  .essential-trust-badges{grid-template-columns:1fr}
 }
