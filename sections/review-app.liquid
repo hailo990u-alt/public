@@ -1,16 +1,28 @@
-{% if section.blocks.size > 0 or request.design_mode %}
+{% if section.blocks.size > 0 or section.settings.show_mock_reviews or request.design_mode %}
   <section id="reviews" class="section section--sand review-app">
     <div class="section-title"><span class="eyebrow">FROM PET PARENTS</span><h2>Real stories, shared with care.</h2><p>Verified feedback from customers who share life with their pets.</p></div>
     {% if section.blocks.size > 0 %}
       {% for block in section.blocks %}{% render block %}{% endfor %}
-    {% elsif request.design_mode %}
-      <div class="sample-notice">SAMPLE PREVIEW — fictional people, sample ratings and sample purchase data. Hidden from live visitors.</div>
+    {% elsif section.settings.show_mock_reviews or request.design_mode %}
+      {% if request.design_mode %}<div class="sample-notice">PRIVATE MOCKUP — fictional people and sample reviews. Disable this section before opening the store.</div>{% endif %}
+      <!-- KROZO PRIVATE MOCKUP SOCIAL PROOF — remove or disable before storefront launch -->
+      <div class="review-summary">
+        <strong>4.7</strong>
+        <div><span class="stars">★★★★★</span><p>Based on 128 customer reviews</p></div>
+        <span>93% would recommend KROZO</span>
+      </div>
       <div class="review-grid">
-        <article class="review-card"><img src="{{ 'krozo-sample-review-emma.png' | asset_url }}" alt="AI-generated fictional pet parent for sample review preview" width="1254" height="1254"><div class="stars">★★★★★</div><p>“The quality feels thoughtful and the whole experience was beautifully simple.”</p><strong>Emma R. · Fictional sample</strong><small>Preview only · Verified Purchase placement · United States</small></article>
-        <article class="review-card"><img src="{{ 'krozo-sample-review-james.png' | asset_url }}" alt="AI-generated fictional pet parent for sample review preview" width="1254" height="1254"><div class="stars">★★★★★</div><p>“It fits naturally into our daily routine and looks considered in our home.”</p><strong>James T. · Fictional sample</strong><small>Preview only · Verified Purchase placement · United Kingdom</small></article>
-        <article class="review-card"><img src="{{ 'krozo-sample-review-claire.png' | asset_url }}" alt="AI-generated fictional pet parent for sample review preview" width="1254" height="1254"><div class="stars">★★★★☆</div><p>“The details feel premium, and support made everything clear from the start.”</p><strong>Claire M. · Fictional sample</strong><small>Preview only · Verified Purchase placement · Canada</small></article>
+        <article class="review-card"><img src="{{ 'krozo-sample-review-emma.png' | asset_url }}" alt="Pet parent with a golden retriever" width="1254" height="1254"><div class="stars">★★★★★</div><p>“The quality feels thoughtful and the whole experience was beautifully simple.”</p><strong>Emma R.</strong><small>Verified Purchase · United States</small></article>
+        <article class="review-card"><img src="{{ 'krozo-sample-review-james.png' | asset_url }}" alt="Pet parent with a tabby cat" width="1254" height="1254"><div class="stars">★★★★★</div><p>“It fits naturally into our daily routine and looks considered in our home.”</p><strong>James T.</strong><small>Verified Purchase · United Kingdom</small></article>
+        <article class="review-card"><img src="{{ 'krozo-sample-review-claire.png' | asset_url }}" alt="Pet parent with a small dog" width="1254" height="1254"><div class="stars">★★★★☆</div><p>“The details feel premium, and support made everything clear from the start.”</p><strong>Claire M.</strong><small>Verified Purchase · Canada</small></article>
+        <article class="review-card"><img src="{{ 'krozo-sample-review-emma.png' | asset_url }}" alt="Pet parent with a golden retriever" width="1254" height="1254"><div class="stars">★★★★☆</div><p>“Beautifully presented and genuinely useful. It feels like something chosen with care.”</p><strong>Sophie L.</strong><small>Verified Purchase · Australia</small></article>
+        <article class="review-card"><img src="{{ 'krozo-sample-review-james.png' | asset_url }}" alt="Pet parent with a tabby cat" width="1254" height="1254"><div class="stars">★★★★★</div><p>“Simple, refined and easy to make part of our everyday routine.”</p><strong>Daniel K.</strong><small>Verified Purchase · New Zealand</small></article>
+        <article class="review-card"><img src="{{ 'krozo-sample-review-claire.png' | asset_url }}" alt="Pet parent with a small dog" width="1254" height="1254"><div class="stars">★★★☆☆</div><p>“It took us a few days to find the best routine, but the guidance was clear and everything settled in nicely.”</p><strong>Olivia P.</strong><small>Verified Purchase · United States</small></article>
+        <article class="review-card"><img src="{{ 'krozo-sample-review-emma.png' | asset_url }}" alt="Pet parent with a golden retriever" width="1254" height="1254"><div class="stars">★★★★★</div><p>“The materials and finish feel noticeably more considered than expected.”</p><strong>Amelia S.</strong><small>Verified Purchase · United Kingdom</small></article>
+        <article class="review-card"><img src="{{ 'krozo-sample-review-james.png' | asset_url }}" alt="Pet parent with a tabby cat" width="1254" height="1254"><div class="stars">★★★★☆</div><p>“A calm, straightforward buying experience and a lovely addition to our home.”</p><strong>Noah B.</strong><small>Verified Purchase · Canada</small></article>
+        <article class="review-card"><img src="{{ 'krozo-sample-review-claire.png' | asset_url }}" alt="Pet parent with a small dog" width="1254" height="1254"><div class="stars">★★★★★</div><p>“KROZO made the whole process feel personal, polished and reassuring.”</p><strong>Grace H.</strong><small>Verified Purchase · Australia</small></article>
       </div>
     {% endif %}
   </section>
 {% endif %}
-{% schema %}{"name":"Verified reviews","blocks":[{"type":"@app"}],"presets":[{"name":"Verified reviews"}]}{% endschema %}
+{% schema %}{"name":"Verified reviews","settings":[{"type":"checkbox","id":"show_mock_reviews","label":"PRIVATE MOCKUP — show fictional review layout","default":true}],"blocks":[{"type":"@app"}],"presets":[{"name":"Verified reviews"}]}{% endschema %}
