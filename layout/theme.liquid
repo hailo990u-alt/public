@@ -11,12 +11,45 @@
     {{ 'krozo.css' | asset_url | stylesheet_tag }}
     {{ 'krozo-enhancements.css' | asset_url | stylesheet_tag }}
     {{ 'krozo-conversion.css' | asset_url | stylesheet_tag }}
+    <style>
+      html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+      @media(max-width:750px){
+        .product-page,.product-media,.product-details,.product-details>*{min-width:0;max-width:100%}
+        .product-media{display:flex!important;width:100%;gap:10px;margin:0!important;padding:0 0 10px!important;overflow-x:auto!important;overflow-y:hidden;scroll-snap-type:x mandatory}
+        .product-media__item,.product-media__item:first-child{display:block;flex:0 0 100%;width:100%;min-width:100%!important;aspect-ratio:1/1;grid-column:auto;overflow:hidden;border-radius:8px;background:#fff;scroll-snap-align:start}
+        .product-media img,.product-media video{width:100%!important;height:100%!important;object-fit:contain!important;background:#fff}
+        .product-details h1{font-size:clamp(27px,8vw,34px)!important;line-height:1.08;overflow-wrap:anywhere}
+        .product-summary{font-size:14px;line-height:1.65;overflow-wrap:anywhere}
+        .product-benefit p,.product-description p,.purchase-accordions div{overflow-wrap:anywhere}
+        .product-details select,.product-details input{width:100%;max-width:100%;font-size:16px}
+        .product-review-preview,.review-summary,.rating-breakdown--wide{width:100%;max-width:100%;overflow:hidden}
+        .product-review-preview__track{width:100%;max-width:100%}
+        .product-review-preview__track article{flex:0 0 88%;min-width:0!important;width:88%;max-width:88%;overflow:hidden}
+        .product-review-preview__track p{font-size:14px!important;line-height:1.5;overflow-wrap:anywhere}
+        .sticky-atc{display:flex!important;visibility:visible!important;opacity:1!important;bottom:0;padding:10px 14px calc(10px + env(safe-area-inset-bottom));min-height:72px}
+        .sticky-atc>span{min-width:0;overflow:hidden}
+        .sticky-atc strong{font-size:12px;line-height:1.25}
+        .sticky-atc .button{flex:0 0 auto;min-width:122px;min-height:48px;padding:12px 18px;font-size:14px}
+        body{padding-bottom:calc(76px + env(safe-area-inset-bottom))}
+      }
+    </style>
     <title>{{ page_title }}{% unless page_title contains shop.name %} — {{ shop.name }}{% endunless %}</title>
   </head>
   <body>
     {% sections 'header-group' %}
     <main id="MainContent">{{ content_for_layout }}</main>
     {% sections 'footer-group' %}
-    <script src="{{ 'krozo.js' | asset_url }}" defer></script>
+    <script>
+      document.addEventListener('click',function(event){
+        if(event.target.closest('[data-menu-toggle]')){
+          var navigation=document.querySelector('[data-mobile-nav]');
+          if(navigation) navigation.hidden=!navigation.hidden;
+        }
+        if(event.target.closest('[data-sticky-submit]')){
+          var addToCart=document.querySelector('.product-atc');
+          if(addToCart) addToCart.click();
+        }
+      });
+    </script>
   </body>
 </html>
