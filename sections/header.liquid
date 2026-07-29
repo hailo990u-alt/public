@@ -1,4 +1,3 @@
-{% comment %} KROZO direct sync 2026-07-29 {% endcomment %}
 <div class="announcement">{{ section.settings.announcement }}</div>
 <header class="site-header">
   <button class="mobile-menu icon-button" type="button" aria-label="Open menu" data-menu-toggle>
@@ -12,7 +11,16 @@
     {% endif %}
   </a>
   <nav class="desktop-nav" aria-label="Main navigation">
-    {% for link in section.settings.menu.links %}<a href="{{ link.url }}">{{ link.title }}</a>{% endfor %}
+    {% if section.settings.use_custom_menu and section.settings.menu != blank %}
+      {% for link in section.settings.menu.links %}<a href="{{ link.url }}">{{ link.title }}</a>{% endfor %}
+    {% else %}
+      <a href="{{ routes.all_products_collection_url }}">Shop All</a>
+      <a href="/collections/dog">Dogs</a>
+      <a href="/collections/cat">Cats</a>
+      <a href="{{ routes.root_url }}#best-sellers">Best Sellers</a>
+      <a href="{{ routes.root_url }}#our-standard">Our Standard</a>
+      <a href="/pages/contact">Help</a>
+    {% endif %}
   </nav>
   <div class="header-actions">
     <a class="header-action" href="{{ routes.search_url }}" aria-label="Search">
@@ -26,11 +34,22 @@
     </a>
   </div>
 </header>
-<nav class="mobile-nav" data-mobile-nav hidden>{% for link in section.settings.menu.links %}<a href="{{ link.url }}">{{ link.title }}</a>{% endfor %}</nav>
+<nav class="mobile-nav" data-mobile-nav hidden>
+  {% if section.settings.use_custom_menu and section.settings.menu != blank %}
+    {% for link in section.settings.menu.links %}<a href="{{ link.url }}">{{ link.title }}</a>{% endfor %}
+  {% else %}
+    <a href="{{ routes.all_products_collection_url }}">Shop All</a>
+    <a href="/collections/dog">Dogs</a>
+    <a href="/collections/cat">Cats</a>
+    <a href="{{ routes.root_url }}#best-sellers">Best Sellers</a>
+    <a href="{{ routes.root_url }}#our-standard">Our Standard</a>
+    <a href="/pages/contact">Help & Contact</a>
+  {% endif %}
+</nav>
 <div class="global-trust-bar" aria-label="Store guarantees">
   <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 20 6v5c0 5-3.2 8.3-8 10-4.8-1.7-8-5-8-10V6l8-3Z"/><path d="m8.5 12 2.2 2.2 4.8-5"/></svg>Secure checkout</span>
   <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h12v10H3zM15 10h3l3 3v4h-6z"/><circle cx="7" cy="18" r="2"/><circle cx="18" cy="18" r="2"/></svg>Free shipping</span>
   <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7v5h5"/><path d="M5.5 12A7 7 0 1 0 7 6.5L4 9"/></svg>30-day returns</span>
   <span><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="6" width="16" height="12" rx="2"/><path d="M4 10h16M8 15h3"/></svg>Shopify-powered payments</span>
 </div>
-{% schema %}{"name":"Krozo header","settings":[{"type":"text","id":"announcement","label":"Announcement","default":"COMPLIMENTARY SHIPPING ON EVERY ORDER"},{"type":"image_picker","id":"logo","label":"Logo"},{"type":"link_list","id":"menu","label":"Menu","default":"main-menu"}]}{% endschema %}
+{% schema %}{"name":"Krozo header","settings":[{"type":"text","id":"announcement","label":"Announcement","default":"COMPLIMENTARY SHIPPING ON EVERY ORDER"},{"type":"image_picker","id":"logo","label":"Logo"},{"type":"checkbox","id":"use_custom_menu","label":"Use Shopify navigation menu","default":false},{"type":"link_list","id":"menu","label":"Custom menu","default":"main-menu"}]}{% endschema %}
