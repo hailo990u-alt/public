@@ -6,6 +6,7 @@
       {% assign featured_collection = collections.all %}
     {% endif %}
     {% for product in featured_collection.products limit: section.settings.products_to_show %}
+      {% capture marketing_title %}{% render 'krozo-product-title', product: product %}{% endcapture %}
       {% assign sample_seed = product.id | modulo: 5 %}
       {% assign sample_reviews = product.id | modulo: 137 | plus: 43 %}
       {% assign sample_purchases = product.id | modulo: 389 | plus: 126 %}
@@ -54,7 +55,8 @@
             <p>“{{ sample_quote }}”</p>
             <small>{{ sample_reviewer }} · Verified Purchase</small>
           </div>
-          <a href="{{ product.url }}"><h3>{{ product.title }}</h3></a>
+          <a href="{{ product.url }}"><h3>{{ marketing_title | strip }}</h3></a>
+          <p class="product-card__benefit">{% render 'krozo-product-summary', product: product %}</p>
           <p>{{ product.price | money }} {% if product.compare_at_price > product.price %}<s>{{ product.compare_at_price | money }}</s>{% endif %}</p>
           <a class="quick-add" href="{{ product.url }}">View product</a>
         </div>
