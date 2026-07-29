@@ -53,6 +53,8 @@
 .rating-breakdown--wide{max-width:620px;margin:-14px auto 30px;padding:18px 22px;border:1px solid #dfdbd0;border-radius:9px;background:#fffefa}
 .product-review-preview__track{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;padding:2px 2px 12px}
 .product-review-preview__track article{min-width:86%;padding:16px;border-radius:8px;background:#f5f1e8;scroll-snap-align:start}
+.review-photo{width:58px;height:58px;border-radius:50%;object-fit:cover;margin-bottom:18px;border:2px solid #fff;box-shadow:0 5px 16px rgba(49,61,47,.12)}
+.review-photo--small{width:44px;height:44px;margin-bottom:10px}
 .product-review-preview__track .stars{font-size:13px;letter-spacing:.08em}
 .product-review-preview__track p{margin:9px 0;font:500 14px/1.45 'Playfair Display',Georgia,serif;color:#3d493e}
 .product-review-preview__track strong,.product-review-preview__track small{display:block;font-size:10px}
