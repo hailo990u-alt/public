@@ -13,13 +13,17 @@
   <div class="product-details">
     {% if product.metafields.reviews.rating.value != blank %}
       <a class="stars" href="#reviews">★★★★★ <span>{{ product.metafields.reviews.rating.value }} · {{ product.metafields.reviews.rating_count }} verified reviews</span></a>
+    {% elsif section.settings.show_mock_social_proof %}
+      <a class="stars" href="#reviews">★★★★★ <span>4.7 · 128 reviews</span></a>
     {% elsif request.design_mode %}
-      <div class="stars demo-preview">★★★★★ <span>4.9 · 128 reviews · Sample preview</span></div>
+      <div class="stars demo-preview">★★★★★ <span>4.7 · 128 reviews · Sample preview</span></div>
     {% endif %}
     {% if product.metafields.custom.purchases_count != blank %}
       <p class="purchase-count">{{ product.metafields.custom.purchases_count }}+ purchased</p>
+    {% elsif section.settings.show_mock_social_proof %}
+      <p class="purchase-count">350+ purchased</p>
     {% elsif request.design_mode %}
-      <p class="purchase-count demo-preview">250+ purchased · Sample preview</p>
+      <p class="purchase-count demo-preview">350+ purchased · Sample preview</p>
     {% endif %}
     <h1>{{ product.title }}</h1>
     <p class="price">{{ product.selected_or_first_available_variant.price | money }}</p>
@@ -70,7 +74,14 @@
 {% schema %}
 {
   "name": "Main product",
-  "settings": [],
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_mock_social_proof",
+      "label": "PRIVATE MOCKUP — show sample ratings and purchases",
+      "default": true
+    }
+  ],
   "blocks": [
     {
       "type": "benefit",
