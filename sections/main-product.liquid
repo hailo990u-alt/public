@@ -2,6 +2,9 @@
   {% assign mock_seed = product.id | modulo: 5 %}
   {% assign mock_review_count = product.id | modulo: 137 | plus: 43 %}
   {% assign mock_purchase_count = product.id | modulo: 389 | plus: 126 %}
+  {% assign mock_five_count = mock_review_count | times: 72 | divided_by: 100 %}
+  {% assign mock_four_count = mock_review_count | times: 21 | divided_by: 100 %}
+  {% assign mock_three_count = mock_review_count | minus: mock_five_count | minus: mock_four_count %}
   {% case mock_seed %}
     {% when 0 %}
       {% assign mock_rating = '4.8' %}
@@ -56,6 +59,27 @@
       <span>✓ Complimentary shipping</span><span>✓ 30-day returns</span><span>✓ Secure checkout</span><span>✓ Helpful support</span>
     </div>
     {% if shop.enabled_payment_types.size > 0 %}<div class="payment-trust"><strong>Secure payment options</strong><div>{% for type in shop.enabled_payment_types %}{{ type | payment_type_svg_tag }}{% endfor %}</div><small>Payments are encrypted and processed securely by Shopify.</small></div>{% endif %}
+    <div class="product-review-preview" aria-label="Customer review preview">
+      <div class="product-review-preview__head">
+        <div><span class="eyebrow">PET PARENT REVIEWS</span><h2>{{ mock_rating }} out of 5</h2></div>
+        <a href="#reviews">{{ mock_review_count }} reviews</a>
+      </div>
+      <div class="rating-breakdown" aria-label="Rating distribution">
+        <div><span>5 stars</span><i><b style="width:72%"></b></i><strong>{{ mock_five_count }}</strong></div>
+        <div><span>4 stars</span><i><b style="width:21%"></b></i><strong>{{ mock_four_count }}</strong></div>
+        <div><span>3 stars</span><i><b style="width:7%"></b></i><strong>{{ mock_three_count }}</strong></div>
+      </div>
+      <div class="product-review-preview__track">
+        <article><span class="stars">★★★★★</span><p>“Thoughtful quality and very easy to make part of our routine.”</p><strong>Emma R.</strong><small>Verified Purchase · US</small></article>
+        <article><span class="stars">★★★★☆</span><p>“It looks considered, works well and arrived beautifully presented.”</p><strong>James T.</strong><small>Verified Purchase · UK</small></article>
+        <article><span class="stars">★★★★★</span><p>“Our pet adjusted quickly and we have used it every day since.”</p><strong>Claire M.</strong><small>Verified Purchase · CA</small></article>
+        <article><span class="stars">★★★☆☆</span><p>“Good overall and became genuinely useful after a short adjustment.”</p><strong>Sophie L.</strong><small>Verified Purchase · AU</small></article>
+        <article><span class="stars">★★★★★</span><p>“The finish feels premium and the experience was refreshingly simple.”</p><strong>Daniel K.</strong><small>Verified Purchase · NZ</small></article>
+        <article><span class="stars">★★★★☆</span><p>“A practical, polished addition to our everyday pet-care routine.”</p><strong>Olivia P.</strong><small>Verified Purchase · US</small></article>
+        <article><span class="stars">★★★★★</span><p>“Exactly the quality and thoughtful design we hoped to receive.”</p><strong>Amelia S.</strong><small>Verified Purchase · UK</small></article>
+      </div>
+      <a class="product-review-preview__all" href="#reviews">Read all {{ mock_review_count }} reviews →</a>
+    </div>
     <div class="purchase-accordions">
       <details>
         <summary><span>Complimentary shipping</span><span aria-hidden="true">+</span></summary>
