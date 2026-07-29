@@ -23,6 +23,11 @@
 .confidence-center__cards h3{font:500 25px/1.1 'Playfair Display',Georgia,serif;margin:0 0 12px}
 .confidence-center__cards p{font-size:12px;line-height:1.65;color:var(--muted);margin:0 0 16px}
 .confidence-center__cards a{font-size:11px;font-weight:650}
+.review-summary{max-width:880px;margin:-12px auto 30px;padding:22px 26px;background:#fffefa;border:1px solid #dfdbd0;border-radius:10px;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:22px}
+.review-summary>strong{font:500 48px/1 'Playfair Display',Georgia,serif;color:var(--olive)}
+.review-summary p{margin:4px 0 0;font-size:10px;color:var(--muted)}
+.review-summary>span:last-child{font-size:11px;font-weight:650;color:var(--olive)}
+.review-card .stars{letter-spacing:.08em}
 
 @media(max-width:750px){
   .confidence-center{grid-template-columns:1fr;gap:32px}
@@ -31,4 +36,6 @@
   .confidence-center__cards article{min-height:0;padding:24px;display:grid;grid-template-columns:48px 1fr;gap:18px}
   .confidence-icon{margin:0}
   .confidence-center__cards h3{font-size:22px}
+  .review-summary{grid-template-columns:auto 1fr}
+  .review-summary>span:last-child{grid-column:1/-1;padding-top:12px;border-top:1px solid #e3ded3}
 }
