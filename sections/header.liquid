@@ -1,3 +1,7 @@
+{% assign dog_url = routes.all_products_collection_url %}
+{% assign cat_url = routes.all_products_collection_url %}
+{% if collections['dog'] != blank %}{% assign dog_url = collections['dog'].url %}{% endif %}
+{% if collections['cat'] != blank %}{% assign cat_url = collections['cat'].url %}{% endif %}
 <div class="announcement">{{ section.settings.announcement }}</div>
 <header class="site-header">
   <button class="mobile-menu icon-button" type="button" aria-label="Open menu" data-menu-toggle>
@@ -15,8 +19,8 @@
       {% for link in section.settings.menu.links %}<a href="{{ link.url }}">{{ link.title }}</a>{% endfor %}
     {% else %}
       <a href="{{ routes.all_products_collection_url }}">Shop All</a>
-      <a href="/collections/dog">Dogs</a>
-      <a href="/collections/cat">Cats</a>
+      <a href="{{ dog_url }}">Dogs</a>
+      <a href="{{ cat_url }}">Cats</a>
       <a href="{{ routes.root_url }}#best-sellers">Best Sellers</a>
       <a href="{{ routes.root_url }}#our-standard">Our Standard</a>
       <a href="/pages/contact">Help</a>
@@ -39,8 +43,8 @@
     {% for link in section.settings.menu.links %}<a href="{{ link.url }}">{{ link.title }}</a>{% endfor %}
   {% else %}
     <a href="{{ routes.all_products_collection_url }}">Shop All</a>
-    <a href="/collections/dog">Dogs</a>
-    <a href="/collections/cat">Cats</a>
+    <a href="{{ dog_url }}">Dogs</a>
+    <a href="{{ cat_url }}">Cats</a>
     <a href="{{ routes.root_url }}#best-sellers">Best Sellers</a>
     <a href="{{ routes.root_url }}#our-standard">Our Standard</a>
     <a href="/pages/contact">Help & Contact</a>
