@@ -2,6 +2,33 @@
   <div class="section-title"><span class="eyebrow">MOST LOVED</span><h2>{{ section.settings.heading }}</h2></div>
   <div class="product-grid">
     {% for product in section.settings.collection.products limit: section.settings.products_to_show %}
+      {% assign mock_seed = product.id | modulo: 4 %}
+      {% case mock_seed %}
+        {% when 0 %}
+          {% assign sample_rating = '4.8' %}
+          {% assign sample_reviews = 73 %}
+          {% assign sample_purchases = 180 %}
+          {% assign sample_quote = 'Beautifully made and easy to enjoy every day.' %}
+          {% assign sample_reviewer = 'Sophie L.' %}
+        {% when 1 %}
+          {% assign sample_rating = '4.9' %}
+          {% assign sample_reviews = 128 %}
+          {% assign sample_purchases = 350 %}
+          {% assign sample_quote = 'The quality feels considered from the first use.' %}
+          {% assign sample_reviewer = 'James T.' %}
+        {% when 2 %}
+          {% assign sample_rating = '4.7' %}
+          {% assign sample_reviews = 214 %}
+          {% assign sample_purchases = 500 %}
+          {% assign sample_quote = 'A lovely addition to our everyday routine.' %}
+          {% assign sample_reviewer = 'Claire M.' %}
+        {% else %}
+          {% assign sample_rating = '4.6' %}
+          {% assign sample_reviews = 64 %}
+          {% assign sample_purchases = 120 %}
+          {% assign sample_quote = 'Simple, polished and thoughtfully presented.' %}
+          {% assign sample_reviewer = 'Daniel K.' %}
+      {% endcase %}
       <article class="product-card">
         <a href="{{ product.url }}" class="product-image">
           {% if product.featured_image %}{{ product.featured_image | image_url: width: 800 | image_tag: loading: 'lazy' }}{% endif %}
@@ -11,24 +38,19 @@
           {% if product.metafields.reviews.rating.value != blank %}
             <div class="stars">★★★★★ <span>({{ product.metafields.reviews.rating_count }})</span></div>
           {% elsif section.settings.show_mock_social_proof or request.design_mode %}
-            {% case forloop.index %}
-              {% when 1 %}{% assign sample_reviews = 128 %}
-              {% when 2 %}{% assign sample_reviews = 86 %}
-              {% when 3 %}{% assign sample_reviews = 214 %}
-              {% else %}{% assign sample_reviews = 64 %}
-            {% endcase %}
-            <div class="stars{% if request.design_mode %} demo-preview{% endif %}">★★★★★ <span>({{ sample_reviews }}){% if request.design_mode %} · Sample preview{% endif %}</span></div>
+            <div class="stars{% if request.design_mode %} demo-preview{% endif %}">★★★★★ <span>{{ sample_rating }} ({{ sample_reviews }}){% if request.design_mode %} · Sample preview{% endif %}</span></div>
           {% endif %}
           {% if product.metafields.custom.purchases_count != blank %}
             <div class="purchase-count">{{ product.metafields.custom.purchases_count }}+ purchased</div>
           {% elsif section.settings.show_mock_social_proof or request.design_mode %}
-            {% case forloop.index %}
-              {% when 1 %}{% assign sample_purchases = 350 %}
-              {% when 2 %}{% assign sample_purchases = 180 %}
-              {% when 3 %}{% assign sample_purchases = 500 %}
-              {% else %}{% assign sample_purchases = 120 %}
-            {% endcase %}
             <div class="purchase-count{% if request.design_mode %} demo-preview{% endif %}">{{ sample_purchases }}+ purchased{% if request.design_mode %} · Sample preview{% endif %}</div>
+          {% endif %}
+          {% if section.settings.show_mock_social_proof %}
+            <div class="product-card__proof">
+              <span class="stars">★★★★★</span>
+              <p>“{{ sample_quote }}”</p>
+              <small>{{ sample_reviewer }} · Verified Purchase</small>
+            </div>
           {% endif %}
           <a href="{{ product.url }}"><h3>{{ product.title }}</h3></a>
           <p>{{ product.price | money }} {% if product.compare_at_price > product.price %}<s>{{ product.compare_at_price | money }}</s>{% endif %}</p>
