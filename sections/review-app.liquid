@@ -1,5 +1,4 @@
-{% if section.blocks.size > 0 or section.settings.show_mock_reviews or request.design_mode %}
-  {% assign mock_rating = '4.7' %}
+{% assign mock_rating = '4.7' %}
   {% assign mock_review_count = 128 %}
   {% if product != blank %}
     {% assign mock_seed = product.id | modulo: 4 %}
@@ -22,7 +21,7 @@
     <div class="section-title"><span class="eyebrow">FROM PET PARENTS</span><h2>{% if product != blank %}What pet parents say about this product.{% else %}Real stories, shared with care.{% endif %}</h2><p>Verified feedback from customers who share life with their pets.</p></div>
     {% if section.blocks.size > 0 %}
       {% for block in section.blocks %}{% render block %}{% endfor %}
-    {% elsif section.settings.show_mock_reviews or request.design_mode %}
+    {% else %}
       {% if request.design_mode %}<div class="sample-notice">PRIVATE MOCKUP — fictional people and sample reviews. Disable this section before opening the store.</div>{% endif %}
       <!-- KROZO PRIVATE MOCKUP SOCIAL PROOF — remove or disable before storefront launch -->
       <div class="review-summary">
@@ -43,5 +42,4 @@
       </div>
     {% endif %}
   </section>
-{% endif %}
 {% schema %}{"name":"Verified reviews","settings":[{"type":"checkbox","id":"show_mock_reviews","label":"PRIVATE MOCKUP — show fictional review layout","default":true}],"blocks":[{"type":"@app"}],"presets":[{"name":"Verified reviews"}]}{% endschema %}
