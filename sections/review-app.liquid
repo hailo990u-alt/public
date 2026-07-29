@@ -1,15 +1,14 @@
-{% comment %} KROZO direct sync 2026-07-29 {% endcomment %}
 {% if section.blocks.size > 0 or request.design_mode %}
   <section id="reviews" class="section section--sand review-app">
     <div class="section-title"><span class="eyebrow">FROM PET PARENTS</span><h2>Real stories, shared with care.</h2><p>Verified feedback from customers who share life with their pets.</p></div>
     {% if section.blocks.size > 0 %}
       {% for block in section.blocks %}{% render block %}{% endfor %}
     {% elsif request.design_mode %}
-      <div class="sample-notice">SAMPLE PREVIEW — replace with verified customer reviews before publishing.</div>
+      <div class="sample-notice">SAMPLE PREVIEW — fictional people, sample ratings and sample purchase data. Hidden from live visitors.</div>
       <div class="review-grid">
-        <article class="review-card"><img src="{{ 'krozo-lifestyle-banner.png' | asset_url }}" alt="Sample customer review layout" width="120" height="120"><div class="stars">★★★★★</div><p>“The layout makes customer feedback feel personal, calm and trustworthy.”</p><strong>Sample customer</strong><small>Preview only · Verified Purchase placement</small></article>
-        <article class="review-card"><img src="{{ 'krozo-hero-lifestyle.png' | asset_url }}" alt="Sample customer review layout" width="120" height="120"><div class="stars">★★★★★</div><p>“This card is ready for a genuine review collected through your review app.”</p><strong>Sample customer</strong><small>Preview only · United States</small></article>
-        <article class="review-card"><img src="{{ 'krozo-gallery-cat.png' | asset_url }}" alt="Sample customer review layout" width="120" height="120"><div class="stars">★★★★★</div><p>“Customer photos, country and verification will appear here once available.”</p><strong>Sample customer</strong><small>Preview only · United Kingdom</small></article>
+        <article class="review-card"><img src="{{ 'krozo-sample-review-emma.png' | asset_url }}" alt="AI-generated fictional pet parent for sample review preview" width="1254" height="1254"><div class="stars">★★★★★</div><p>“The quality feels thoughtful and the whole experience was beautifully simple.”</p><strong>Emma R. · Fictional sample</strong><small>Preview only · Verified Purchase placement · United States</small></article>
+        <article class="review-card"><img src="{{ 'krozo-sample-review-james.png' | asset_url }}" alt="AI-generated fictional pet parent for sample review preview" width="1254" height="1254"><div class="stars">★★★★★</div><p>“It fits naturally into our daily routine and looks considered in our home.”</p><strong>James T. · Fictional sample</strong><small>Preview only · Verified Purchase placement · United Kingdom</small></article>
+        <article class="review-card"><img src="{{ 'krozo-sample-review-claire.png' | asset_url }}" alt="AI-generated fictional pet parent for sample review preview" width="1254" height="1254"><div class="stars">★★★★☆</div><p>“The details feel premium, and support made everything clear from the start.”</p><strong>Claire M. · Fictional sample</strong><small>Preview only · Verified Purchase placement · Canada</small></article>
       </div>
     {% endif %}
   </section>
