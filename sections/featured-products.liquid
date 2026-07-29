@@ -6,32 +6,55 @@
       {% assign featured_collection = collections.all %}
     {% endif %}
     {% for product in featured_collection.products limit: section.settings.products_to_show %}
-      {% assign mock_seed = product.id | modulo: 4 %}
-      {% case mock_seed %}
-        {% when 0 %}
-          {% assign sample_rating = '4.8' %}
-          {% assign sample_reviews = 73 %}
-          {% assign sample_purchases = 180 %}
-          {% assign sample_quote = 'Beautifully made and easy to enjoy every day.' %}
-          {% assign sample_reviewer = 'Sophie L.' %}
+      {% case forloop.index %}
         {% when 1 %}
           {% assign sample_rating = '4.9' %}
-          {% assign sample_reviews = 128 %}
-          {% assign sample_purchases = 350 %}
-          {% assign sample_quote = 'The quality feels considered from the first use.' %}
-          {% assign sample_reviewer = 'James T.' %}
+          {% assign sample_reviews = 86 %}
+          {% assign sample_purchases = 214 %}
+          {% assign sample_quote = 'It made our daily routine noticeably easier.' %}
+          {% assign sample_reviewer = 'Emma R.' %}
         {% when 2 %}
+          {% assign sample_rating = '4.8' %}
+          {% assign sample_reviews = 143 %}
+          {% assign sample_purchases = 327 %}
+          {% assign sample_quote = 'Thoughtful details and genuinely simple to use.' %}
+          {% assign sample_reviewer = 'James T.' %}
+        {% when 3 %}
           {% assign sample_rating = '4.7' %}
-          {% assign sample_reviews = 214 %}
-          {% assign sample_purchases = 500 %}
-          {% assign sample_quote = 'A lovely addition to our everyday routine.' %}
+          {% assign sample_reviews = 67 %}
+          {% assign sample_purchases = 189 %}
+          {% assign sample_quote = 'A practical choice that feels beautifully considered.' %}
           {% assign sample_reviewer = 'Claire M.' %}
+        {% when 4 %}
+          {% assign sample_rating = '4.9' %}
+          {% assign sample_reviews = 119 %}
+          {% assign sample_purchases = 406 %}
+          {% assign sample_quote = 'Our cat took to it quickly and uses it every day.' %}
+          {% assign sample_reviewer = 'Sophie L.' %}
+        {% when 5 %}
+          {% assign sample_rating = '4.8' %}
+          {% assign sample_reviews = 52 %}
+          {% assign sample_purchases = 164 %}
+          {% assign sample_quote = 'The finish feels premium and it works beautifully.' %}
+          {% assign sample_reviewer = 'Olivia P.' %}
+        {% when 6 %}
+          {% assign sample_rating = '4.6' %}
+          {% assign sample_reviews = 94 %}
+          {% assign sample_purchases = 278 %}
+          {% assign sample_quote = 'Simple, useful and easy to keep clean.' %}
+          {% assign sample_reviewer = 'Daniel K.' %}
+        {% when 7 %}
+          {% assign sample_rating = '4.9' %}
+          {% assign sample_reviews = 172 %}
+          {% assign sample_purchases = 521 %}
+          {% assign sample_quote = 'Exactly the kind of quality we hoped for.' %}
+          {% assign sample_reviewer = 'Amelia S.' %}
         {% else %}
           {% assign sample_rating = '4.6' %}
-          {% assign sample_reviews = 64 %}
-          {% assign sample_purchases = 120 %}
-          {% assign sample_quote = 'Simple, polished and thoughtfully presented.' %}
-          {% assign sample_reviewer = 'Daniel K.' %}
+          {% assign sample_reviews = 38 %}
+          {% assign sample_purchases = 126 %}
+          {% assign sample_quote = 'A polished addition to our everyday routine.' %}
+          {% assign sample_reviewer = 'Noah B.' %}
       {% endcase %}
       <article class="product-card">
         <a href="{{ product.url }}" class="product-image">
@@ -39,16 +62,8 @@
           {% if product.compare_at_price > product.price %}<span class="badge">SAVE {{ product.compare_at_price | minus: product.price | money }}</span>{% endif %}
         </a>
         <div class="product-info">
-          {% if product.metafields.reviews.rating.value != blank %}
-            <div class="stars">★★★★★ <span>({{ product.metafields.reviews.rating_count }})</span></div>
-          {% else %}
-            <div class="stars{% if request.design_mode %} demo-preview{% endif %}">★★★★★ <span>{{ sample_rating }} ({{ sample_reviews }}){% if request.design_mode %} · Sample preview{% endif %}</span></div>
-          {% endif %}
-          {% if product.metafields.custom.purchases_count != blank %}
-            <div class="purchase-count">{{ product.metafields.custom.purchases_count }}+ purchased</div>
-          {% else %}
-            <div class="purchase-count{% if request.design_mode %} demo-preview{% endif %}">{{ sample_purchases }}+ purchased{% if request.design_mode %} · Sample preview{% endif %}</div>
-          {% endif %}
+          <div class="product-card__rating"><span aria-hidden="true">★★★★★</span><strong>{{ sample_rating }}</strong><a href="{{ product.url }}#reviews">{{ sample_reviews }} reviews</a></div>
+          <div class="purchase-count">{{ sample_purchases }}+ purchased</div>
           <div class="product-card__proof">
             <span class="stars">★★★★★</span>
             <p>“{{ sample_quote }}”</p>
