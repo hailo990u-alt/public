@@ -1,0 +1,37 @@
+<section id="our-standard" class="section brand-standard">
+  <div class="brand-standard__media">
+    {% if section.settings.image != blank %}
+      {{ section.settings.image | image_url: width: 1400 | image_tag: loading: 'lazy', widths: '600,900,1200,1400', alt: section.settings.heading }}
+    {% else %}
+      <img src="{{ 'krozo-category-wellness.webp' | asset_url }}" loading="lazy" alt="A calm grooming moment between a pet parent and their dog" width="1000" height="1000">
+    {% endif %}
+    <span class="brand-standard__seal" aria-hidden="true">K</span>
+  </div>
+
+  <div class="brand-standard__content">
+    <span class="eyebrow">{{ section.settings.eyebrow }}</span>
+    <h2>{{ section.settings.heading }}</h2>
+    <p class="brand-standard__lead">{{ section.settings.text }}</p>
+    <ol class="brand-standard__list">
+      <li><span>01</span><div><h3>It solves a real need.</h3><p>Every product should make a routine calmer, simpler, safer, or more enjoyable.</p></div></li>
+      <li><span>02</span><div><h3>It respects pet and home.</h3><p>We look for thoughtful function, comfortable use, and a design you will not want to hide away.</p></div></li>
+      <li><span>03</span><div><h3>It is clear before you buy.</h3><p>Useful guidance, straightforward policies, and human support help you choose with confidence.</p></div></li>
+    </ol>
+    <a class="button" href="{{ section.settings.link | default: routes.all_products_collection_url }}">{{ section.settings.link_label }}</a>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "The KROZO standard",
+  "settings": [
+    {"type":"image_picker","id":"image","label":"Lifestyle image"},
+    {"type":"text","id":"eyebrow","label":"Eyebrow","default":"THE KROZO STANDARD"},
+    {"type":"text","id":"heading","label":"Heading","default":"Every product should earn its place in your home."},
+    {"type":"textarea","id":"text","label":"Text","default":"We choose with purpose—not simply to fill a catalogue. The result is a considered collection built around real life with pets."},
+    {"type":"text","id":"link_label","label":"Button label","default":"Explore the collection"},
+    {"type":"url","id":"link","label":"Button link"}
+  ],
+  "presets": [{"name":"The KROZO standard"}]
+}
+{% endschema %}
