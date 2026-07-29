@@ -1,7 +1,11 @@
 <section class="section">
   <div class="section-title"><span class="eyebrow">MOST LOVED</span><h2>{{ section.settings.heading }}</h2></div>
   <div class="product-grid">
-    {% for product in section.settings.collection.products limit: section.settings.products_to_show %}
+    {% assign featured_collection = section.settings.collection %}
+    {% if featured_collection == blank %}
+      {% assign featured_collection = collections.all %}
+    {% endif %}
+    {% for product in featured_collection.products limit: section.settings.products_to_show %}
       {% assign mock_seed = product.id | modulo: 4 %}
       {% case mock_seed %}
         {% when 0 %}
@@ -37,21 +41,19 @@
         <div class="product-info">
           {% if product.metafields.reviews.rating.value != blank %}
             <div class="stars">★★★★★ <span>({{ product.metafields.reviews.rating_count }})</span></div>
-          {% elsif section.settings.show_mock_social_proof or request.design_mode %}
+          {% else %}
             <div class="stars{% if request.design_mode %} demo-preview{% endif %}">★★★★★ <span>{{ sample_rating }} ({{ sample_reviews }}){% if request.design_mode %} · Sample preview{% endif %}</span></div>
           {% endif %}
           {% if product.metafields.custom.purchases_count != blank %}
             <div class="purchase-count">{{ product.metafields.custom.purchases_count }}+ purchased</div>
-          {% elsif section.settings.show_mock_social_proof or request.design_mode %}
+          {% else %}
             <div class="purchase-count{% if request.design_mode %} demo-preview{% endif %}">{{ sample_purchases }}+ purchased{% if request.design_mode %} · Sample preview{% endif %}</div>
           {% endif %}
-          {% if section.settings.show_mock_social_proof %}
-            <div class="product-card__proof">
-              <span class="stars">★★★★★</span>
-              <p>“{{ sample_quote }}”</p>
-              <small>{{ sample_reviewer }} · Verified Purchase</small>
-            </div>
-          {% endif %}
+          <div class="product-card__proof">
+            <span class="stars">★★★★★</span>
+            <p>“{{ sample_quote }}”</p>
+            <small>{{ sample_reviewer }} · Verified Purchase</small>
+          </div>
           <a href="{{ product.url }}"><h3>{{ product.title }}</h3></a>
           <p>{{ product.price | money }} {% if product.compare_at_price > product.price %}<s>{{ product.compare_at_price | money }}</s>{% endif %}</p>
           <a class="quick-add" href="{{ product.url }}">View product</a>
