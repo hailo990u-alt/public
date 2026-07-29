@@ -1,6 +1,20 @@
 <section class="section product-faq">
+  {% assign product_title_downcase = product.title | downcase %}
   <div class="section-title"><span class="eyebrow">{{ section.settings.eyebrow }}</span><h2>{{ section.settings.heading }}</h2></div>
   <div class="faq-list">
+    {% if product_title_downcase contains 'choke' or product_title_downcase contains 'slow feeder' %}
+      <details><summary>How does a slow feeder help?<span>+</span></summary><div>Its raised pattern encourages pets to work around the grooves instead of reaching all their food at once. Introduce it gradually and always supervise meals.</div></details>
+      <details><summary>How do I clean the bowl?<span>+</span></summary><div>Rinse after use and wash with mild soap. Follow the material-specific care instructions supplied with your product and allow it to dry fully before the next meal.</div></details>
+    {% elsif product_title_downcase contains 'water cup' or product_title_downcase contains 'water bottle' %}
+      <details><summary>What does the 3-in-1 design hold?<span>+</span></summary><div>The travel format combines a drinking dispenser with storage for small treats or food and a compartment for waste bags, helping keep walk essentials together.</div></details>
+      <details><summary>How do I help prevent leaks?<span>+</span></summary><div>Close the flow control fully after use, check the seal before placing it in a bag and keep the bottle upright whenever possible.</div></details>
+    {% elsif product_title_downcase contains 'gps' or product_title_downcase contains 'tracker' or product_title_downcase contains 'smart tag' %}
+      <details><summary>Is this a live GPS tracker?<span>+</span></summary><div>This product is a compatible Bluetooth finder, not a subscription cellular GPS tracker. Its range and location features depend on the compatible nearby-device network and app.</div></details>
+      <details><summary>Where can I attach it?<span>+</span></summary><div>Use a secure holder to attach it to a suitable collar, bag or keys. Check the attachment regularly and keep it away from chewing.</div></details>
+    {% elsif product_title_downcase contains 'scratch' %}
+      <details><summary>How can I encourage my cat to use it?<span>+</span></summary><div>Place it near a favourite resting or scratching area, let your cat investigate at their own pace and reward interest without forcing interaction.</div></details>
+      <details><summary>Will it replace every scratching post?<span>+</span></summary><div>Cats have different scratching preferences. This provides an engaging option, but some cats benefit from having both horizontal and vertical scratching surfaces.</div></details>
+    {% endif %}
     {% for block in section.blocks %}
       <details {{ block.shopify_attributes }}><summary>{{ block.settings.question }}<span>+</span></summary><div>{{ block.settings.answer }}</div></details>
     {% endfor %}

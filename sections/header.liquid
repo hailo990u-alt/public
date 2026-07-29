@@ -4,7 +4,7 @@
 {% if collections['cat'] != blank %}{% assign cat_url = collections['cat'].url %}{% endif %}
 <div class="announcement">{{ section.settings.announcement }}</div>
 <header class="site-header">
-  <button class="mobile-menu icon-button" type="button" aria-label="Open menu" data-menu-toggle>
+  <button class="mobile-menu icon-button" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="MobileNavigation" data-menu-toggle>
     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
   </button>
   <a class="brand" href="{{ routes.root_url }}" aria-label="{{ shop.name }}">
@@ -23,6 +23,8 @@
       <a href="{{ cat_url }}">Cats</a>
       <a href="{{ routes.root_url }}#best-sellers">Best Sellers</a>
       <a href="{{ routes.root_url }}#our-standard">Our Standard</a>
+      <a href="/blogs/news">Journal</a>
+      <a href="{{ routes.root_url }}#faq">FAQs</a>
       <a href="/pages/contact">Help</a>
     {% endif %}
   </nav>
@@ -38,18 +40,32 @@
     </a>
   </div>
 </header>
-<nav class="mobile-nav" data-mobile-nav hidden>
-  {% if section.settings.use_custom_menu and section.settings.menu != blank %}
-    {% for link in section.settings.menu.links %}<a href="{{ link.url }}">{{ link.title }}</a>{% endfor %}
-  {% else %}
-    <a href="{{ routes.all_products_collection_url }}">Shop All</a>
-    <a href="{{ dog_url }}">Dogs</a>
-    <a href="{{ cat_url }}">Cats</a>
-    <a href="{{ routes.root_url }}#best-sellers">Best Sellers</a>
-    <a href="{{ routes.root_url }}#our-standard">Our Standard</a>
-    <a href="/pages/contact">Help & Contact</a>
-  {% endif %}
-</nav>
+<div class="mobile-nav-shell" data-mobile-nav-shell hidden>
+  <button class="mobile-nav-overlay" type="button" aria-label="Close menu" data-menu-close></button>
+  <nav id="MobileNavigation" class="mobile-nav" data-mobile-nav aria-label="Mobile navigation">
+    <div class="mobile-nav__head">
+      <span class="eyebrow">EXPLORE KROZO</span>
+      <button class="icon-button mobile-nav__close" type="button" aria-label="Close menu" data-menu-close>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg>
+      </button>
+    </div>
+    <div class="mobile-nav__links">
+      {% if section.settings.use_custom_menu and section.settings.menu != blank %}
+        {% for link in section.settings.menu.links %}<a href="{{ link.url }}"><span>{{ link.title }}</span><span aria-hidden="true">→</span></a>{% endfor %}
+      {% else %}
+        <a href="{{ routes.all_products_collection_url }}"><span>Shop All</span><span aria-hidden="true">→</span></a>
+        <a href="{{ dog_url }}"><span>For Dogs</span><span aria-hidden="true">→</span></a>
+        <a href="{{ cat_url }}"><span>For Cats</span><span aria-hidden="true">→</span></a>
+        <a href="{{ routes.root_url }}#best-sellers"><span>Best Sellers</span><span aria-hidden="true">→</span></a>
+        <a href="{{ routes.root_url }}#our-standard"><span>Why KROZO</span><span aria-hidden="true">→</span></a>
+        <a href="{{ routes.root_url }}#faq"><span>FAQs</span><span aria-hidden="true">→</span></a>
+        <a href="/blogs/news"><span>Pet Care Journal</span><span aria-hidden="true">→</span></a>
+        <a href="/pages/contact"><span>Help & Contact</span><span aria-hidden="true">→</span></a>
+      {% endif %}
+    </div>
+    <div class="mobile-nav__footer"><strong>Complimentary shipping</strong><small>On every KROZO order</small></div>
+  </nav>
+</div>
 <div class="global-trust-bar" aria-label="Store guarantees">
   <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 20 6v5c0 5-3.2 8.3-8 10-4.8-1.7-8-5-8-10V6l8-3Z"/><path d="m8.5 12 2.2 2.2 4.8-5"/></svg>Secure checkout</span>
   <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h12v10H3zM15 10h3l3 3v4h-6z"/><circle cx="7" cy="18" r="2"/><circle cx="18" cy="18" r="2"/></svg>Free shipping</span>

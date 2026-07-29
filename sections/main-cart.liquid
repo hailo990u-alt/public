@@ -1,7 +1,42 @@
 <section class="section cart-page">
-  <div class="section-title"><span class="eyebrow">YOUR KROZO ORDER</span><h1>Your bag</h1></div>
+  <header class="cart-page__head"><span class="eyebrow">YOUR KROZO ORDER</span><h1>Your bag</h1><p>{{ cart.item_count }} {% if cart.item_count == 1 %}item{% else %}items{% endif %} selected with care.</p></header>
   {% if cart.item_count > 0 %}
-    <form action="{{ routes.cart_url }}" method="post">{% for item in cart.items %}<div class="cart-line"><a href="{{ item.url }}">{% if item.image != blank %}{{ item.image | image_url: width: 240 | image_tag: loading: 'lazy', alt: item.product.title }}{% endif %}</a><div><a href="{{ item.url }}"><h2>{{ item.product.title }}</h2></a><p>{{ item.final_price | money }}</p><label>Quantity <input type="number" name="updates[]" value="{{ item.quantity }}" min="0"></label><a href="{{ item.url_to_remove }}">Remove</a></div></div>{% endfor %}<div class="cart-summary"><p>Subtotal <strong>{{ cart.total_price | money }}</strong></p><small>Complimentary shipping. Taxes calculated at checkout.</small><button class="button" type="submit" name="checkout">Secure checkout</button></div></form>
-  {% else %}<div class="empty-state"><p>Your bag is waiting for something special.</p><a class="button" href="{{ routes.all_products_collection_url }}">Explore the collection</a></div>{% endif %}
+    <form action="{{ routes.cart_url }}" method="post" class="cart-layout">
+      <div class="cart-items">
+        {% for item in cart.items %}
+          {% capture marketing_title %}{% render 'krozo-product-title', product: item.product %}{% endcapture %}
+          <div class="cart-line">
+            <a class="cart-line__image" href="{{ item.url }}">{% if item.image != blank %}{{ item.image | image_url: width: 420 | image_tag: loading: 'lazy', alt: marketing_title }}{% endif %}</a>
+            <div class="cart-line__content">
+              <a href="{{ item.url }}"><h2>{{ marketing_title | strip }}</h2></a>
+              {% unless item.product.has_only_default_variant %}<p class="cart-line__variant">{{ item.variant.title }}</p>{% endunless %}
+              <p class="cart-line__price">{{ item.final_line_price | money }}</p>
+              <div class="cart-line__actions">
+                <label><span>Quantity</span><input type="number" name="updates[]" value="{{ item.quantity }}" min="0" inputmode="numeric"></label>
+                <a href="{{ item.url_to_remove }}">Remove</a>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+        <label class="cart-note"><span>Add an order note <small>Optional</small></span><textarea name="note" rows="3" placeholder="Anything our team should know?">{{ cart.note }}</textarea></label>
+      </div>
+      <aside class="cart-summary">
+        <span class="eyebrow">ORDER SUMMARY</span>
+        <div class="cart-summary__row"><span>Subtotal</span><strong>{{ cart.total_price | money }}</strong></div>
+        <div class="cart-summary__row"><span>Standard shipping</span><strong>Complimentary</strong></div>
+        <p>Taxes and final delivery estimates are calculated at checkout.</p>
+        <button class="button" type="submit" name="checkout">Continue to secure checkout</button>
+        {% if additional_checkout_buttons %}<div class="additional-checkout-buttons">{{ content_for_additional_checkout_buttons }}</div>{% endif %}
+        <div class="cart-security">
+          <span>✓ Encrypted Shopify checkout</span>
+          <span>✓ 30-day return requests</span>
+          <span>✓ Helpful order support</span>
+        </div>
+        <button class="cart-update" type="submit">Update bag</button>
+      </aside>
+    </form>
+  {% else %}
+    <div class="empty-state"><span class="eyebrow">YOUR BAG IS EMPTY</span><h1>Find something they’ll love.</h1><p>Considered essentials for happier pets and easier everyday routines.</p><a class="button" href="{{ routes.all_products_collection_url }}">Explore the collection</a></div>
+  {% endif %}
 </section>
-{% schema %}{"name":"Main cart","settings":[]}{% endschema %}
+{% schema %}{"name":"Premium cart","settings":[]}{% endschema %}

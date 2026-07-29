@@ -1,12 +1,26 @@
 {% assign krozo_title = product.title | downcase %}
 {% if krozo_title contains 'choke' or krozo_title contains 'slow feeder' %}
-  CalmFlow™ Slow Feeder Bowl
+  CalmBite™ Slow Feeder Bowl
 {% elsif krozo_title contains 'water cup' or krozo_title contains 'water bottle' %}
-  TrailSip™ 3-in-1 Pet Travel Bottle
+  TrailMate™ 3-in-1 Pet Travel Bottle
 {% elsif krozo_title contains 'gps' or krozo_title contains 'tracker' or krozo_title contains 'smart tag' %}
-  SafeTag™ Smart Pet Finder
+  SafeTag™ Bluetooth Pet Finder
 {% elsif krozo_title contains 'scratch' %}
-  PawSpin™ Cat Scratcher & Play Ball
+  PawSpin™ Cat Scratcher & Activity Ball
+{% elsif krozo_title contains 'lick mat' or krozo_title contains 'licking mat' %}
+  CalmLick™ Enrichment Mat
+{% elsif krozo_title contains 'groom' or krozo_title contains 'brush' %}
+  SoftCare™ Pet Grooming Brush
+{% elsif krozo_title contains 'seat cover' or krozo_title contains 'car cover' %}
+  RoadNest™ Protective Pet Car Cover
+{% elsif krozo_title contains 'leash' or krozo_title contains 'lead' %}
+  Everyday Walk™ Comfort Leash
+{% elsif krozo_title contains 'harness' %}
+  ComfortFit™ Everyday Harness
+{% elsif krozo_title contains 'toy' and krozo_title contains 'cat' %}
+  CuriousPaw™ Cat Enrichment Toy
+{% elsif krozo_title contains 'toy' %}
+  HappyPaw™ Everyday Play Toy
 {% else %}
-  {{ product.title }}
+  {{ product.title | replace: 'Pet Supplies', '' | replace: 'For Dogs Cats', '' | replace: 'For Dog Cat', '' | replace: 'Portable', '' | strip | truncatewords: 8, '' }}
 {% endif %}

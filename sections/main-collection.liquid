@@ -1,16 +1,124 @@
+{% assign collection_handle = collection.handle | downcase %}
+{% assign hero_eyebrow = 'THE KROZO COLLECTION' %}
+{% assign hero_title = collection.title %}
+{% assign hero_text = 'Thoughtfully selected essentials for calmer routines, happier pets and homes that still feel beautifully yours.' %}
+{% assign hero_note = 'Considered design · Pet-first function · Everyday ease' %}
+{% if collection_handle == 'all' %}
+  {% assign hero_eyebrow = 'EVERYDAY ESSENTIALS' %}
+  {% assign hero_title = 'Better routines start here.' %}
+  {% assign hero_text = 'Explore the complete KROZO edit—useful, considered products chosen to make everyday life with your pet feel simpler.' %}
+{% elsif collection_handle contains 'dog' %}
+  {% assign hero_eyebrow = 'FOR DOGS' %}
+  {% assign hero_title = 'Made for walks, meals and everything between.' %}
+  {% assign hero_text = 'Practical essentials for calmer mealtimes, easier outings and more rewarding everyday moments with your dog.' %}
+  {% assign hero_note = 'Walk · Feed · Play · Care' %}
+{% elsif collection_handle contains 'cat' %}
+  {% assign hero_eyebrow = 'FOR CATS' %}
+  {% assign hero_title = 'Designed for curious, comfortable lives.' %}
+  {% assign hero_text = 'Enrichment, comfort and care essentials selected around the instincts and routines that help cats thrive.' %}
+  {% assign hero_note = 'Scratch · Play · Rest · Care' %}
+{% elsif collection_handle contains 'feed' %}
+  {% assign hero_eyebrow = 'FEEDING & HYDRATION' %}
+  {% assign hero_title = 'Calmer meals. Easier clean-up.' %}
+  {% assign hero_text = 'Bowls, travel hydration and feeding tools chosen to make daily routines more comfortable and considered.' %}
+{% elsif collection_handle contains 'travel' or collection_handle contains 'walk' %}
+  {% assign hero_eyebrow = 'WALK & TRAVEL' %}
+  {% assign hero_title = 'Ready whenever you are.' %}
+  {% assign hero_text = 'Compact, practical companions for daily walks, road trips and unplanned adventures together.' %}
+{% elsif collection_handle contains 'play' %}
+  {% assign hero_eyebrow = 'PLAY & ENRICHMENT' %}
+  {% assign hero_title = 'More engagement. Better everyday moments.' %}
+  {% assign hero_text = 'Purposeful play essentials that support natural instincts and help prevent boredom.' %}
+{% elsif collection_handle contains 'health' or collection_handle contains 'wellness' %}
+  {% assign hero_eyebrow = 'WELLNESS & CARE' %}
+  {% assign hero_title = 'Small acts of care, made simpler.' %}
+  {% assign hero_text = 'Gentle, practical tools for the routines that help your pet feel comfortable, clean and cared for.' %}
+{% endif %}
+
+<section class="catalogue-hero">
+  {% assign hero_image = collection.image %}
+  {% if hero_image == blank and collection.products.first.featured_image != blank %}{% assign hero_image = collection.products.first.featured_image %}{% endif %}
+  {% if hero_image != blank %}<div class="catalogue-hero__media">{{ hero_image | image_url: width: 1800 | image_tag: loading: 'eager', alt: hero_title }}</div>{% endif %}
+  <div class="catalogue-hero__content">
+    <span class="eyebrow">{{ hero_eyebrow }}</span>
+    <h1>{{ hero_title }}</h1>
+    <p>{{ hero_text }}</p>
+    <small>{{ hero_note }}</small>
+  </div>
+</section>
+
+<nav class="collection-tabs" aria-label="Shop by collection">
+  <a href="{{ routes.all_products_collection_url }}" {% if collection_handle == 'all' %}aria-current="page"{% endif %}>Shop All</a>
+  <a href="{% if collections['dog'] != blank %}{{ collections['dog'].url }}{% else %}{{ routes.all_products_collection_url }}{% endif %}" {% if collection_handle contains 'dog' %}aria-current="page"{% endif %}>Dogs</a>
+  <a href="{% if collections['cat'] != blank %}{{ collections['cat'].url }}{% else %}{{ routes.all_products_collection_url }}{% endif %}" {% if collection_handle contains 'cat' %}aria-current="page"{% endif %}>Cats</a>
+  <a href="{% if collections['feeding'] != blank %}{{ collections['feeding'].url }}{% else %}{{ routes.all_products_collection_url }}{% endif %}" {% if collection_handle contains 'feed' %}aria-current="page"{% endif %}>Feeding</a>
+  <a href="{% if collections['play'] != blank %}{{ collections['play'].url }}{% else %}{{ routes.all_products_collection_url }}{% endif %}" {% if collection_handle contains 'play' %}aria-current="page"{% endif %}>Play</a>
+  <a href="{% if collections['travel'] != blank %}{{ collections['travel'].url }}{% else %}{{ routes.all_products_collection_url }}{% endif %}" {% if collection_handle contains 'travel' %}aria-current="page"{% endif %}>Travel</a>
+  <a href="{% if collections['health'] != blank %}{{ collections['health'].url }}{% else %}{{ routes.all_products_collection_url }}{% endif %}" {% if collection_handle contains 'health' %}aria-current="page"{% endif %}>Care</a>
+</nav>
+
 <section class="section catalogue-page">
-  <div class="section-title"><span class="eyebrow">THE KROZO COLLECTION</span><h1>{{ collection.title }}</h1>{% if collection.description != blank %}<div class="collection-description">{{ collection.description }}</div>{% endif %}</div>
+  <div class="catalogue-toolbar">
+    <div><span class="eyebrow">CURATED FOR REAL LIFE</span><h2>{{ collection.products_count }} thoughtful {% if collection.products_count == 1 %}essential{% else %}essentials{% endif %}</h2></div>
+    <label>Sort by
+      <select data-collection-sort>
+        {% assign sort_by = collection.sort_by | default: collection.default_sort_by %}
+        {% for option in collection.sort_options %}<option value="{{ option.value }}" {% if option.value == sort_by %}selected{% endif %}>{{ option.name }}</option>{% endfor %}
+      </select>
+    </label>
+  </div>
   {% paginate collection.products by 24 %}
-    <div class="product-grid">
+    <div class="catalogue-grid">
       {% for product in collection.products %}
         {% capture marketing_title %}{% render 'krozo-product-title', product: product %}{% endcapture %}
-        <article class="product-card">
-          <a href="{{ product.url }}" class="product-image">{% if product.featured_image != blank %}{{ product.featured_image | image_url: width: 900 | image_tag: loading: 'lazy', alt: product.title }}{% endif %}{% if product.compare_at_price > product.price %}<span class="badge">SAVE {{ product.compare_at_price | minus: product.price | money }}</span>{% endif %}</a>
-          <div class="product-info">{% if product.metafields.reviews.rating.value != blank %}<div class="stars">★★★★★ <span>({{ product.metafields.reviews.rating_count }})</span></div>{% endif %}{% if product.metafields.custom.purchases_count != blank %}<div class="purchase-count">{{ product.metafields.custom.purchases_count }}+ purchased</div>{% endif %}<a href="{{ product.url }}"><h3>{{ marketing_title | strip }}</h3></a><p class="product-card__benefit">{% render 'krozo-product-summary', product: product %}</p><p>{{ product.price | money }} {% if product.compare_at_price > product.price %}<s>{{ product.compare_at_price | money }}</s>{% endif %}</p><a class="quick-add" href="{{ product.url }}">View product</a></div>
+        {% assign rating_value = product.metafields.reviews.rating.value %}
+        {% assign rating_count = product.metafields.reviews.rating_count.value | default: product.metafields.reviews.rating_count %}
+        <article class="catalogue-card">
+          <a href="{{ product.url }}" class="catalogue-card__media">
+            {% if product.featured_image != blank %}{{ product.featured_image | image_url: width: 900 | image_tag: loading: 'lazy', alt: marketing_title }}{% endif %}
+            {% if product.compare_at_price > product.price %}<span class="badge">SAVE {{ product.compare_at_price | minus: product.price | money }}</span>{% endif %}
+            {% unless product.available %}<span class="badge badge--right">SOLD OUT</span>{% endunless %}
+          </a>
+          <div class="catalogue-card__body">
+            {% if rating_value != blank %}
+              <a class="catalogue-card__rating" href="{{ product.url }}#reviews"><span>★★★★★</span><strong>{{ rating_value.rating | round: 1 }}</strong><small>{{ rating_count }} reviews</small></a>
+            {% endif %}
+            <a href="{{ product.url }}"><h3>{{ marketing_title | strip }}</h3></a>
+            <p class="catalogue-card__benefit">{% render 'krozo-product-summary', product: product %}</p>
+            <div class="catalogue-card__buy">
+              <p>{{ product.price | money }} {% if product.compare_at_price > product.price %}<s>{{ product.compare_at_price | money }}</s>{% endif %}</p>
+              {% if product.available and product.has_only_default_variant %}
+                {% form 'product', product, class: 'card-atc-form' %}
+                  <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+                  <button type="submit" aria-label="Add {{ marketing_title | strip | escape }} to cart">Add to bag</button>
+                {% endform %}
+              {% else %}
+                <a href="{{ product.url }}">Choose options</a>
+              {% endif %}
+            </div>
+          </div>
         </article>
-      {% else %}<p>No products have been added to this collection yet.</p>{% endfor %}
+      {% else %}
+        <div class="catalogue-empty"><span class="eyebrow">COMING SOON</span><h2>We are curating this collection.</h2><p>Each KROZO product is considered carefully before it joins the edit.</p><a class="button" href="{{ routes.all_products_collection_url }}">Shop all essentials</a></div>
+      {% endfor %}
     </div>
-    {{ paginate | default_pagination }}
+    <div class="catalogue-pagination">{{ paginate | default_pagination }}</div>
   {% endpaginate %}
 </section>
-{% schema %}{"name":"Main collection","settings":[]}{% endschema %}
+
+<section class="collection-confidence">
+  <article><strong>Complimentary shipping</strong><span>On every order</span></article>
+  <article><strong>30-day returns</strong><span>Simple return requests</span></article>
+  <article><strong>Secure checkout</strong><span>Shopify-powered payments</span></article>
+  <article><strong>Helpful support</strong><span>Before and after ordering</span></article>
+</section>
+
+<script>
+  document.addEventListener('change',function(event){
+    if(!event.target.matches('[data-collection-sort]'))return;
+    var url=new URL(window.location.href);
+    url.searchParams.set('sort_by',event.target.value);
+    window.location.assign(url.toString());
+  });
+</script>
+{% schema %}{"name":"Modern collection","settings":[]}{% endschema %}

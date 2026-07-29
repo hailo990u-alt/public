@@ -2,6 +2,8 @@
   {% capture marketing_title %}{% render 'krozo-product-title', product: product %}{% endcapture %}
   {% capture marketing_summary %}{% render 'krozo-product-summary', product: product %}{% endcapture %}
   {% assign product_title_downcase = product.title | downcase %}
+  {% assign real_rating = product.metafields.reviews.rating.value %}
+  {% assign real_review_count = product.metafields.reviews.rating_count.value | default: product.metafields.reviews.rating_count %}
   {% assign mock_seed = product.id | modulo: 5 %}
   {% assign mock_review_count = product.id | modulo: 137 | plus: 43 %}
   {% assign mock_purchase_count = product.id | modulo: 389 | plus: 126 %}
@@ -47,8 +49,17 @@
     {% endfor %}
   </div>
   <div class="product-details">
-    <a class="product-page__rating" href="#reviews"><span aria-hidden="true">★★★★★</span><strong>{{ mock_rating }}</strong><span>{{ mock_review_count }} reviews</span></a>
-    <p class="purchase-count">{{ mock_purchase_count }}+ purchased</p>
+    {% if real_rating != blank %}
+      <a class="product-page__rating" href="#reviews"><span aria-hidden="true">★★★★★</span><strong>{{ real_rating.rating | round: 1 }}</strong><span>{{ real_review_count }} reviews</span></a>
+    {% elsif section.settings.show_mock_social_proof %}
+      {% if request.design_mode %}<span class="demo-preview">PRIVATE PREVIEW</span>{% endif %}
+      <a class="product-page__rating" href="#reviews"><span aria-hidden="true">★★★★★</span><strong>{{ mock_rating }}</strong><span>{{ mock_review_count }} sample reviews</span></a>
+    {% endif %}
+    {% if product.metafields.custom.purchases_count != blank %}
+      <p class="purchase-count">{{ product.metafields.custom.purchases_count }}+ purchased</p>
+    {% elsif section.settings.show_mock_social_proof %}
+      <p class="purchase-count">{{ mock_purchase_count }}+ sample purchases</p>
+    {% endif %}
     <h1>{{ marketing_title | strip }}</h1>
     <p class="price">{{ product.selected_or_first_available_variant.price | money }}</p>
     <p class="product-summary">{{ marketing_summary | strip }}</p>
@@ -95,11 +106,14 @@
       <article><svg viewBox="0 0 24 24"><path d="M5 18v-6a7 7 0 0 1 14 0v6"/><path d="M5 14H3v5h4v-5zM19 14h2v5h-4v-5z"/></svg><span><strong>Helpful support</strong><small>Before and after ordering</small></span></article>
     </div>
     {% if shop.enabled_payment_types.size > 0 %}<div class="payment-trust"><strong>Secure payment options</strong><div>{% for type in shop.enabled_payment_types %}{{ type | payment_type_svg_tag }}{% endfor %}</div><small>Payments are encrypted and processed securely by Shopify.</small></div>{% endif %}
+    {% for block in section.blocks %}{% if block.type == '@app' %}<div class="product-app-block" {{ block.shopify_attributes }}>{% render block %}</div>{% endif %}{% endfor %}
+    {% if real_rating != blank or section.settings.show_mock_social_proof %}
     <div class="product-review-preview" aria-label="Customer review preview">
       <div class="product-review-preview__head">
-        <div><span class="eyebrow">PET PARENT REVIEWS</span><h2>{{ mock_rating }} out of 5</h2></div>
-        <a href="#reviews">{{ mock_review_count }} reviews</a>
+        <div><span class="eyebrow">PET PARENT REVIEWS</span><h2>{% if real_rating != blank %}{{ real_rating.rating | round: 1 }}{% else %}{{ mock_rating }}{% endif %} out of 5</h2></div>
+        <a href="#reviews">{% if real_rating != blank %}{{ real_review_count }}{% else %}{{ mock_review_count }} sample{% endif %} reviews</a>
       </div>
+      {% if section.settings.show_mock_social_proof and real_rating == blank %}
       <div class="rating-breakdown" aria-label="Rating distribution">
         <div><span>5 stars</span><i><b style="width:{{ mock_five_percent }}%"></b></i><strong>{{ mock_five_count }}</strong></div>
         <div><span>4 stars</span><i><b style="width:{{ mock_four_percent }}%"></b></i><strong>{{ mock_four_count }}</strong></div>
@@ -108,8 +122,10 @@
       <div class="product-review-preview__track">
         {% render 'krozo-mock-product-reviews', product: product, mode: 'preview' %}
       </div>
-      <a class="product-review-preview__all" href="#reviews">Read all {{ mock_review_count }} reviews →</a>
+      {% endif %}
+      <a class="product-review-preview__all" href="#reviews">Read all reviews →</a>
     </div>
+    {% endif %}
     <div class="purchase-accordions">
       <details>
         <summary><span>Complimentary shipping</span><span aria-hidden="true">+</span></summary>
@@ -136,10 +152,13 @@
       "type": "checkbox",
       "id": "show_mock_social_proof",
       "label": "PRIVATE MOCKUP — show sample ratings and purchases",
-      "default": true
+      "default": false
     }
   ],
   "blocks": [
+    {
+      "type": "@app"
+    },
     {
       "type": "benefit",
       "name": "Benefit",

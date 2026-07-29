@@ -1,3 +1,7 @@
+{% assign app_block_count = 0 %}
+{% assign approved_review_count = 0 %}
+{% for block in section.blocks %}{% if block.type == '@app' %}{% assign app_block_count = app_block_count | plus: 1 %}{% endif %}{% endfor %}
+{% for block in section.blocks %}{% if block.type == 'review' %}{% assign approved_review_count = approved_review_count | plus: 1 %}{% endif %}{% endfor %}
 {% assign mock_rating = '4.7' %}
   {% assign mock_review_count = 128 %}
   {% if product != blank %}
@@ -39,6 +43,7 @@
   {% assign mock_five_count = mock_review_count | times: mock_five_percent | divided_by: 100 %}
   {% assign mock_four_count = mock_review_count | times: mock_four_percent | divided_by: 100 %}
   {% assign mock_three_count = mock_review_count | minus: mock_five_count | minus: mock_four_count %}
+  {% if product != blank or app_block_count > 0 or approved_review_count > 0 or section.settings.show_mock_reviews %}
   <section id="reviews" class="section section--sand review-app">
     <div class="section-title"><span class="eyebrow">FROM PET PARENTS</span><h2>{% if product != blank %}What pet parents say about this product.{% else %}Real stories, shared with care.{% endif %}</h2><p>Verified feedback from customers who share life with their pets.</p></div>
     {% for block in section.blocks %}{% if block.type == '@app' %}{% render block %}{% endif %}{% endfor %}
@@ -69,6 +74,7 @@
         {% render 'krozo-mock-product-reviews', product: product, mode: 'full' %}
       </div>
     {% endif %}
+    {% if product != blank and app_block_count == 0 %}
     <details class="review-submission">
       <summary><span><strong>Purchased this product?</strong><small>Share an honest review with the KROZO team.</small></span><span>Write a review →</span></summary>
       {% form 'contact', id: 'ProductReviewForm', class: 'review-submit-form' %}
@@ -84,5 +90,7 @@
         <button class="button review-submit-form__wide" type="submit">Submit review</button>
       {% endform %}
     </details>
+    {% endif %}
   </section>
-{% schema %}{"name":"Verified reviews","settings":[{"type":"checkbox","id":"show_mock_reviews","label":"PRIVATE MOCKUP — show fictional review layout","default":true}],"blocks":[{"type":"@app"},{"type":"review","name":"Approved review","settings":[{"type":"image_picker","id":"image","label":"Customer photo"},{"type":"select","id":"rating","label":"Rating","default":"★★★★★","options":[{"value":"★★★★★","label":"5 stars"},{"value":"★★★★☆","label":"4 stars"},{"value":"★★★☆☆","label":"3 stars"}]},{"type":"textarea","id":"text","label":"Review"},{"type":"text","id":"name","label":"Customer name"},{"type":"text","id":"country","label":"Country"}]}],"presets":[{"name":"Verified reviews"}]}{% endschema %}
+  {% endif %}
+{% schema %}{"name":"Verified reviews","settings":[{"type":"checkbox","id":"show_mock_reviews","label":"PRIVATE MOCKUP — show fictional review layout","default":false}],"blocks":[{"type":"@app"},{"type":"review","name":"Approved review","settings":[{"type":"image_picker","id":"image","label":"Customer photo"},{"type":"select","id":"rating","label":"Rating","default":"★★★★★","options":[{"value":"★★★★★","label":"5 stars"},{"value":"★★★★☆","label":"4 stars"},{"value":"★★★☆☆","label":"3 stars"}]},{"type":"textarea","id":"text","label":"Review"},{"type":"text","id":"name","label":"Customer name"},{"type":"text","id":"country","label":"Country"}]}],"presets":[{"name":"Verified reviews"}]}{% endschema %}
