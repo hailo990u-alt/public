@@ -53,7 +53,7 @@
   {% if mode == 'preview' %}
     <article>
       {% if review_image != blank %}
-        {{ review_image | asset_url | image_tag: class: 'review-photo review-photo--small', loading: 'lazy', alt: 'Private review mockup customer photo' }}
+        <img class="review-photo review-photo--small" src="{{ review_image | asset_url }}" loading="lazy" alt="Private review mockup customer photo" width="120" height="120">
       {% endif %}
       <span class="stars" aria-label="{{ review_score }} out of 5 stars">{{ review_star_line }}</span>
       <p>“{{ review_quote }}”</p>
@@ -63,7 +63,7 @@
   {% else %}
     <article class="review-card">
       {% if review_image != blank %}
-        {{ review_image | asset_url | image_tag: class: 'review-photo', loading: 'lazy', alt: 'Private review mockup customer photo' }}
+        <img class="review-photo" src="{{ review_image | asset_url }}" loading="lazy" alt="Private review mockup customer photo" width="120" height="120">
       {% else %}
         <span class="review-avatar">{{ review_name | slice: 0 }}{{ review_name | split: ' ' | last | slice: 0 }}</span>
       {% endif %}
