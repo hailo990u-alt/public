@@ -7,10 +7,3 @@ document.addEventListener('click',e=>{
     document.querySelector('.product-atc')?.click();
   }
 });
-
-const atc=document.querySelector('.product-atc');
-const sticky=document.querySelector('[data-sticky-atc]');
-if(atc&&sticky){
-  const observer=new IntersectionObserver(([entry])=>{sticky.hidden=entry.isIntersecting},{threshold:.1});
-  observer.observe(atc);
-}
