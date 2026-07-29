@@ -1,4 +1,7 @@
 <section class="product-page section">
+  {% capture marketing_title %}{% render 'krozo-product-title', product: product %}{% endcapture %}
+  {% capture marketing_summary %}{% render 'krozo-product-summary', product: product %}{% endcapture %}
+  {% assign product_title_downcase = product.title | downcase %}
   {% assign mock_seed = product.id | modulo: 5 %}
   {% assign mock_review_count = product.id | modulo: 137 | plus: 43 %}
   {% assign mock_purchase_count = product.id | modulo: 389 | plus: 126 %}
@@ -46,16 +49,31 @@
   <div class="product-details">
     <a class="product-page__rating" href="#reviews"><span aria-hidden="true">★★★★★</span><strong>{{ mock_rating }}</strong><span>{{ mock_review_count }} reviews</span></a>
     <p class="purchase-count">{{ mock_purchase_count }}+ purchased</p>
-    <h1>{{ product.title }}</h1>
+    <h1>{{ marketing_title | strip }}</h1>
     <p class="price">{{ product.selected_or_first_available_variant.price | money }}</p>
-    <p class="product-summary">{{ product.description | strip_html | truncate: 170 }}</p>
+    <p class="product-summary">{{ marketing_summary | strip }}</p>
     <div class="product-benefit-list" aria-label="Product benefits">
-      {% for block in section.blocks %}
-        <div class="product-benefit" {{ block.shopify_attributes }}>
-          <span aria-hidden="true">✓</span>
-          <p>{{ block.settings.text }}</p>
-        </div>
-      {% endfor %}
+      {% if product_title_downcase contains 'choke' or product_title_downcase contains 'slow feeder' %}
+        <div class="product-benefit"><span>✓</span><p>Encourages a calmer, slower eating pace</p></div>
+        <div class="product-benefit"><span>✓</span><p>Rounded grooves rinse clean with less effort</p></div>
+        <div class="product-benefit"><span>✓</span><p>Wide shape helps the bowl stay steady during meals</p></div>
+      {% elsif product_title_downcase contains 'water cup' or product_title_downcase contains 'water bottle' %}
+        <div class="product-benefit"><span>✓</span><p>Carries water, treats and waste bags together</p></div>
+        <div class="product-benefit"><span>✓</span><p>Lockable one-hand flow helps prevent leaks</p></div>
+        <div class="product-benefit"><span>✓</span><p>Designed for walks, car journeys and day trips</p></div>
+      {% elsif product_title_downcase contains 'gps' or product_title_downcase contains 'tracker' or product_title_downcase contains 'smart tag' %}
+        <div class="product-benefit"><span>✓</span><p>Lightweight design for collars, keys and bags</p></div>
+        <div class="product-benefit"><span>✓</span><p>Audible search alert helps with nearby finding</p></div>
+        <div class="product-benefit"><span>✓</span><p>Compatible app connection for everyday reassurance</p></div>
+      {% elsif product_title_downcase contains 'scratch' %}
+        <div class="product-benefit"><span>✓</span><p>Satisfies natural scratching and batting instincts</p></div>
+        <div class="product-benefit"><span>✓</span><p>Rotating sisal ball encourages active daily play</p></div>
+        <div class="product-benefit"><span>✓</span><p>Stable wooden frame helps redirect furniture scratching</p></div>
+      {% else %}
+        {% for block in section.blocks %}
+          <div class="product-benefit" {{ block.shopify_attributes }}><span>✓</span><p>{{ block.settings.text }}</p></div>
+        {% endfor %}
+      {% endif %}
     </div>
     <p class="availability"><span></span>{% if product.selected_or_first_available_variant.available %}In stock and ready to order{% else %}Currently unavailable{% endif %}</p>
     {% form 'product', product %}
@@ -70,8 +88,11 @@
       <button class="button product-atc" type="submit" {% unless product.selected_or_first_available_variant.available %}disabled{% endunless %}>{% if product.selected_or_first_available_variant.available %}Add to cart{% else %}Sold out{% endif %}</button>
       {{ form | payment_button }}
     {% endform %}
-    <div class="purchase-reassurance">
-      <span>✓ Complimentary shipping</span><span>✓ 30-day returns</span><span>✓ Secure checkout</span><span>✓ Helpful support</span>
+    <div class="essential-trust-badges" aria-label="Essential trust badges">
+      <article><svg viewBox="0 0 24 24"><path d="M12 3 20 6v5c0 5-3.2 8.3-8 10-4.8-1.7-8-5-8-10V6l8-3Z"/><path d="m8.5 12 2.2 2.2 4.8-5"/></svg><span><strong>Secure checkout</strong><small>Encrypted Shopify payment</small></span></article>
+      <article><svg viewBox="0 0 24 24"><path d="M3 7h12v10H3zM15 10h3l3 3v4h-6z"/><circle cx="7" cy="18" r="2"/><circle cx="18" cy="18" r="2"/></svg><span><strong>Free shipping</strong><small>On every KROZO order</small></span></article>
+      <article><svg viewBox="0 0 24 24"><path d="M4 7v5h5"/><path d="M5.5 12A7 7 0 1 0 7 6.5L4 9"/></svg><span><strong>30-day returns</strong><small>Simple return request</small></span></article>
+      <article><svg viewBox="0 0 24 24"><path d="M5 18v-6a7 7 0 0 1 14 0v6"/><path d="M5 14H3v5h4v-5zM19 14h2v5h-4v-5z"/></svg><span><strong>Helpful support</strong><small>Before and after ordering</small></span></article>
     </div>
     {% if shop.enabled_payment_types.size > 0 %}<div class="payment-trust"><strong>Secure payment options</strong><div>{% for type in shop.enabled_payment_types %}{{ type | payment_type_svg_tag }}{% endfor %}</div><small>Payments are encrypted and processed securely by Shopify.</small></div>{% endif %}
     <div class="product-review-preview" aria-label="Customer review preview">
@@ -103,10 +124,10 @@
         <div>Checkout is encrypted and payments are processed securely by Shopify. Need help? <a href="/pages/contact">Contact KROZO support</a>.</div>
       </details>
     </div>
-    <div class="product-description">{{ product.description }}</div>
+    <div class="product-description"><span class="eyebrow">WHY IT BELONGS IN YOUR ROUTINE</span><h2>Designed around the moments that matter.</h2><p>{{ marketing_summary | strip }}</p><p>Every KROZO product is selected to solve a clear everyday need without adding unnecessary complication or visual clutter to your home.</p></div>
   </div>
 </section>
-<div class="sticky-atc" data-sticky-atc hidden><span><strong>{{ product.title }}</strong><small>{{ product.selected_or_first_available_variant.price | money }}</small></span><button class="button" type="button" data-sticky-submit>Add to cart</button></div>
+<div class="sticky-atc" data-sticky-atc hidden><span><strong>{{ marketing_title | strip }}</strong><small>{{ product.selected_or_first_available_variant.price | money }}</small></span><button class="button" type="button" data-sticky-submit>Add to cart</button></div>
 {% schema %}
 {
   "name": "Main product",
