@@ -6,55 +6,30 @@
       {% assign featured_collection = collections.all %}
     {% endif %}
     {% for product in featured_collection.products limit: section.settings.products_to_show %}
-      {% case forloop.index %}
-        {% when 1 %}
-          {% assign sample_rating = '4.9' %}
-          {% assign sample_reviews = 86 %}
-          {% assign sample_purchases = 214 %}
+      {% assign sample_seed = product.id | modulo: 5 %}
+      {% assign sample_reviews = product.id | modulo: 137 | plus: 43 %}
+      {% assign sample_purchases = product.id | modulo: 389 | plus: 126 %}
+      {% case sample_seed %}
+        {% when 0 %}
+          {% assign sample_rating = '4.8' %}
           {% assign sample_quote = 'It made our daily routine noticeably easier.' %}
           {% assign sample_reviewer = 'Emma R.' %}
-        {% when 2 %}
-          {% assign sample_rating = '4.8' %}
-          {% assign sample_reviews = 143 %}
-          {% assign sample_purchases = 327 %}
+        {% when 1 %}
+          {% assign sample_rating = '4.9' %}
           {% assign sample_quote = 'Thoughtful details and genuinely simple to use.' %}
           {% assign sample_reviewer = 'James T.' %}
-        {% when 3 %}
+        {% when 2 %}
           {% assign sample_rating = '4.7' %}
-          {% assign sample_reviews = 67 %}
-          {% assign sample_purchases = 189 %}
           {% assign sample_quote = 'A practical choice that feels beautifully considered.' %}
           {% assign sample_reviewer = 'Claire M.' %}
-        {% when 4 %}
-          {% assign sample_rating = '4.9' %}
-          {% assign sample_reviews = 119 %}
-          {% assign sample_purchases = 406 %}
+        {% when 3 %}
+          {% assign sample_rating = '4.8' %}
           {% assign sample_quote = 'Our cat took to it quickly and uses it every day.' %}
           {% assign sample_reviewer = 'Sophie L.' %}
-        {% when 5 %}
-          {% assign sample_rating = '4.8' %}
-          {% assign sample_reviews = 52 %}
-          {% assign sample_purchases = 164 %}
-          {% assign sample_quote = 'The finish feels premium and it works beautifully.' %}
-          {% assign sample_reviewer = 'Olivia P.' %}
-        {% when 6 %}
-          {% assign sample_rating = '4.6' %}
-          {% assign sample_reviews = 94 %}
-          {% assign sample_purchases = 278 %}
-          {% assign sample_quote = 'Simple, useful and easy to keep clean.' %}
-          {% assign sample_reviewer = 'Daniel K.' %}
-        {% when 7 %}
-          {% assign sample_rating = '4.9' %}
-          {% assign sample_reviews = 172 %}
-          {% assign sample_purchases = 521 %}
-          {% assign sample_quote = 'Exactly the kind of quality we hoped for.' %}
-          {% assign sample_reviewer = 'Amelia S.' %}
         {% else %}
           {% assign sample_rating = '4.6' %}
-          {% assign sample_reviews = 38 %}
-          {% assign sample_purchases = 126 %}
-          {% assign sample_quote = 'A polished addition to our everyday routine.' %}
-          {% assign sample_reviewer = 'Noah B.' %}
+          {% assign sample_quote = 'Simple, useful and easy to keep clean.' %}
+          {% assign sample_reviewer = 'Daniel K.' %}
       {% endcase %}
       <article class="product-card">
         <a href="{{ product.url }}" class="product-image">
