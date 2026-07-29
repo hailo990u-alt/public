@@ -183,6 +183,29 @@ body.menu-open{overflow:hidden}
 .store-faq__list details[open] summary span:last-child{transform:rotate(45deg)}
 .store-faq__list details>div{padding:0 44px 22px 2px;color:var(--muted);font-size:12px;line-height:1.75}
 .store-faq__list details>div p{margin:0}
+.faq-drawer-shell{position:fixed;inset:0;z-index:120}
+.faq-drawer-shell[hidden]{display:none}
+.faq-drawer-overlay{position:absolute;inset:0;border:0;background:rgba(25,34,26,.48);opacity:0;transition:opacity .26s}
+.faq-drawer{position:absolute;top:0;right:0;width:min(680px,100%);height:100%;padding:42px clamp(24px,5vw,62px);overflow:auto;background:#f8f5ed;box-shadow:-24px 0 70px rgba(25,34,26,.18);transform:translateX(100%);transition:transform .26s}
+.faq-drawer-shell.is-open .faq-drawer-overlay{opacity:1}
+.faq-drawer-shell.is-open .faq-drawer{transform:translateX(0)}
+body.faq-open{overflow:hidden}
+.faq-drawer__head{display:flex;align-items:flex-start;justify-content:space-between;gap:24px}
+.faq-drawer__head h2{margin:9px 0 0;font:500 clamp(38px,5vw,58px)/1.02 'Playfair Display',Georgia,serif;letter-spacing:-.035em}
+.faq-drawer__close{flex:0 0 44px;width:44px;height:44px;border:1px solid #d7d1c5;border-radius:50%;background:#fffefa}
+.faq-drawer__intro{max-width:520px;margin:24px 0 30px;color:var(--muted);line-height:1.7}
+.faq-drawer__list{border-top:1px solid #d8d3c8}
+.faq-drawer__list details{border-bottom:1px solid #d8d3c8}
+.faq-drawer__list summary{display:flex;justify-content:space-between;gap:18px;padding:21px 0;cursor:pointer;list-style:none;font:500 19px/1.35 'Playfair Display',Georgia,serif}
+.faq-drawer__list summary::-webkit-details-marker{display:none}
+.faq-drawer__list summary span:last-child{font:400 22px Inter,Arial,sans-serif;transition:transform .2s}
+.faq-drawer__list details[open] summary span:last-child{transform:rotate(45deg)}
+.faq-drawer__list details>div{padding:0 36px 21px 0;color:var(--muted);font-size:12px;line-height:1.75}
+.faq-drawer__list details>div p{margin:0}
+.faq-drawer__support{margin-top:34px;padding:28px;border-radius:10px;background:#ebe6d9}
+.faq-drawer__support strong{font:500 25px 'Playfair Display',Georgia,serif}
+.faq-drawer__support p{max-width:470px;color:var(--muted);font-size:12px}
+.sample-notice{max-width:900px;margin:0 auto 24px;padding:11px 14px;border:1px solid #d8d0bd;border-radius:6px;background:#fffaf0;color:#6c624c;font-size:10px;text-align:center}
 .journal-hero{padding:88px 5.5vw;background:#e9e4d7}
 .journal-hero>div{max-width:760px;margin:auto;text-align:center}
 .journal-hero h1{margin:14px 0;font:500 clamp(48px,6vw,78px)/1.02 'Playfair Display',Georgia,serif;letter-spacing:-.04em}
@@ -259,6 +282,11 @@ body.menu-open{overflow:hidden}
   .store-faq__intro{position:static}
   .store-faq__intro h2{font-size:38px}
   .store-faq__list summary{font-size:18px;padding:20px 0}
+  .faq-drawer{padding:28px 20px 40px}
+  .faq-drawer__head h2{font-size:38px}
+  .faq-drawer__intro{margin:18px 0 24px;font-size:13px}
+  .faq-drawer__list summary{font-size:17px;padding:19px 0}
+  .faq-drawer__support{padding:23px}
   .journal-hero{padding:60px 20px}
   .journal-hero h1{font-size:44px}
   .journal-topics{justify-content:flex-start;padding:13px 18px}

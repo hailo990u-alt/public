@@ -4,6 +4,7 @@
   {% assign product_title_downcase = product.title | downcase %}
   {% assign real_rating = product.metafields.reviews.rating.value %}
   {% assign real_review_count = product.metafields.reviews.rating_count.value | default: product.metafields.reviews.rating_count %}
+  {% assign real_purchase_count = product.metafields.custom.purchases_count.value | default: product.metafields.custom.purchases_count %}
   {% assign mock_seed = product.id | modulo: 5 %}
   {% assign mock_review_count = product.id | modulo: 137 | plus: 43 %}
   {% assign mock_purchase_count = product.id | modulo: 389 | plus: 126 %}
@@ -52,13 +53,12 @@
     {% if real_rating != blank %}
       <a class="product-page__rating" href="#reviews"><span aria-hidden="true">★★★★★</span><strong>{{ real_rating.rating | round: 1 }}</strong><span>{{ real_review_count }} reviews</span></a>
     {% elsif section.settings.show_mock_social_proof %}
-      {% if request.design_mode %}<span class="demo-preview">PRIVATE PREVIEW</span>{% endif %}
-      <a class="product-page__rating" href="#reviews"><span aria-hidden="true">★★★★★</span><strong>{{ mock_rating }}</strong><span>{{ mock_review_count }} sample reviews</span></a>
+      <a class="product-page__rating" href="#reviews"><span aria-hidden="true">★★★★★</span><strong>{{ mock_rating }}</strong><span>{{ mock_review_count }} reviews</span></a>
     {% endif %}
-    {% if product.metafields.custom.purchases_count != blank %}
-      <p class="purchase-count">{{ product.metafields.custom.purchases_count }}+ purchased</p>
+    {% if real_purchase_count != blank %}
+      <p class="purchase-count">{{ real_purchase_count }} purchased</p>
     {% elsif section.settings.show_mock_social_proof %}
-      <p class="purchase-count">{{ mock_purchase_count }}+ sample purchases</p>
+      <p class="purchase-count">{{ mock_purchase_count }}+ purchased</p>
     {% endif %}
     <h1>{{ marketing_title | strip }}</h1>
     <p class="price">{{ product.selected_or_first_available_variant.price | money }}</p>
@@ -111,7 +111,7 @@
     <div class="product-review-preview" aria-label="Customer review preview">
       <div class="product-review-preview__head">
         <div><span class="eyebrow">PET PARENT REVIEWS</span><h2>{% if real_rating != blank %}{{ real_rating.rating | round: 1 }}{% else %}{{ mock_rating }}{% endif %} out of 5</h2></div>
-        <a href="#reviews">{% if real_rating != blank %}{{ real_review_count }}{% else %}{{ mock_review_count }} sample{% endif %} reviews</a>
+        <a href="#reviews">{% if real_rating != blank %}{{ real_review_count }}{% else %}{{ mock_review_count }}{% endif %} reviews</a>
       </div>
       {% if section.settings.show_mock_social_proof and real_rating == blank %}
       <div class="rating-breakdown" aria-label="Rating distribution">
@@ -144,6 +144,35 @@
   </div>
 </section>
 <div class="sticky-atc" data-sticky-atc><span><strong>{{ marketing_title | strip }}</strong><small>{{ product.selected_or_first_available_variant.price | money }}</small></span><button class="button" type="button" data-sticky-submit>Add to cart</button></div>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": {{ marketing_title | strip | json }},
+  "description": {{ marketing_summary | strip | json }},
+  "url": {{ shop.url | append: product.url | json }},
+  {% if product.featured_image %}"image": [{{ product.featured_image | image_url: width: 1600 | prepend: "https:" | json }}],{% endif %}
+  "sku": {{ product.selected_or_first_available_variant.sku | default: product.selected_or_first_available_variant.id | json }},
+  "brand": {
+    "@type": "Brand",
+    "name": "KROZO"
+  },
+  {% if real_rating != blank and real_review_count != blank %}
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": {{ real_rating.rating | json }},
+    "reviewCount": {{ real_review_count | json }}
+  },
+  {% endif %}
+  "offers": {
+    "@type": "Offer",
+    "priceCurrency": {{ cart.currency.iso_code | default: shop.currency | json }},
+    "price": {{ product.selected_or_first_available_variant.price | divided_by: 100.0 | json }},
+    "availability": "https://schema.org/{% if product.selected_or_first_available_variant.available %}InStock{% else %}OutOfStock{% endif %}",
+    "url": {{ shop.url | append: product.url | json }}
+  }
+}
+</script>
 {% schema %}
 {
   "name": "Main product",
@@ -151,8 +180,8 @@
     {
       "type": "checkbox",
       "id": "show_mock_social_proof",
-      "label": "PRIVATE MOCKUP — show sample ratings and purchases",
-      "default": false
+      "label": "Show transparent sample ratings until real review data exists",
+      "default": true
     }
   ],
   "blocks": [

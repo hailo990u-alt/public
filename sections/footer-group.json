@@ -1,1 +1,88 @@
-{"type":"footer","name":"Footer group","sections":{"footer":{"type":"footer","settings":{}}},"order":["footer"]}
+{
+  "type": "footer",
+  "name": "Footer group",
+  "sections": {
+    "faq_drawer": {
+      "type": "faq-drawer",
+      "blocks": {
+        "shipping": {
+          "type": "question",
+          "settings": {
+            "question": "Where does KROZO ship?",
+            "answer": "<p>We currently serve customers in the United States, Canada, the United Kingdom, Australia and New Zealand. Available delivery options and estimates are shown at checkout.</p>"
+          }
+        },
+        "free_shipping": {
+          "type": "question",
+          "settings": {
+            "question": "Is shipping complimentary?",
+            "answer": "<p>Yes. Standard shipping is complimentary on every KROZO order.</p>"
+          }
+        },
+        "delivery": {
+          "type": "question",
+          "settings": {
+            "question": "How long will delivery take?",
+            "answer": "<p>Delivery time depends on your destination and product. The relevant estimate is shown during checkout and in your order confirmation.</p>"
+          }
+        },
+        "returns": {
+          "type": "question",
+          "settings": {
+            "question": "Can I return an item?",
+            "answer": "<p>You may request a return within 30 days of delivery, subject to our returns policy. Contact support with your order number for help.</p>"
+          }
+        },
+        "sizing": {
+          "type": "question",
+          "settings": {
+            "question": "How do I choose the right product or size?",
+            "answer": "<p>Check the dimensions and guidance on the product page. If you are unsure, contact us before ordering and tell us about your pet.</p>"
+          }
+        },
+        "safety": {
+          "type": "question",
+          "settings": {
+            "question": "Are KROZO products safe for pets?",
+            "answer": "<p>Each product page includes its available material and care information. Always supervise pets during play and replace damaged items.</p>"
+          }
+        },
+        "tracking": {
+          "type": "question",
+          "settings": {
+            "question": "How can I track my order?",
+            "answer": "<p>When tracking is available, you will receive it by email after dispatch. You can also contact us with your order number.</p>"
+          }
+        },
+        "checkout": {
+          "type": "question",
+          "settings": {
+            "question": "Is checkout secure?",
+            "answer": "<p>Payments are encrypted and processed through Shopify-powered checkout. Available payment methods appear during checkout.</p>"
+          }
+        },
+        "changes": {
+          "type": "question",
+          "settings": {
+            "question": "Can I change or cancel my order?",
+            "answer": "<p>Contact us as quickly as possible. Changes cannot be guaranteed after an order enters processing.</p>"
+          }
+        },
+        "reviews": {
+          "type": "question",
+          "settings": {
+            "question": "How do product reviews work?",
+            "answer": "<p>Customers can submit honest feedback through the review area on each product page. Reviews may be moderated for spam, privacy and relevance.</p>"
+          }
+        }
+      },
+      "block_order": ["shipping", "free_shipping", "delivery", "returns", "sizing", "safety", "tracking", "checkout", "changes", "reviews"],
+      "settings": {}
+    },
+    "footer": {
+      "type": "footer",
+      "settings": {}
+    }
+  },
+  "order": ["faq_drawer", "footer"]
+}

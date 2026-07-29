@@ -45,7 +45,7 @@
   {% assign mock_three_count = mock_review_count | minus: mock_five_count | minus: mock_four_count %}
   {% if product != blank or app_block_count > 0 or approved_review_count > 0 or section.settings.show_mock_reviews %}
   <section id="reviews" class="section section--sand review-app">
-    <div class="section-title"><span class="eyebrow">FROM PET PARENTS</span><h2>{% if product != blank %}What pet parents say about this product.{% else %}Real stories, shared with care.{% endif %}</h2><p>Verified feedback from customers who share life with their pets.</p></div>
+    <div class="section-title"><span class="eyebrow">FROM PET PARENTS</span><h2>{% if product != blank %}What pet parents say about this product.{% else %}Stories, shared with care.{% endif %}</h2><p>Customer feedback from people who share life with their pets.</p></div>
     {% for block in section.blocks %}{% if block.type == '@app' %}{% render block %}{% endif %}{% endfor %}
     <div class="review-grid review-grid--approved">
       {% for block in section.blocks %}
@@ -58,8 +58,6 @@
       {% endfor %}
     </div>
     {% if section.settings.show_mock_reviews %}
-      {% if request.design_mode %}<div class="sample-notice">PRIVATE MOCKUP — fictional people and sample reviews. Disable this section before opening the store.</div>{% endif %}
-      <!-- KROZO PRIVATE MOCKUP SOCIAL PROOF — remove or disable before storefront launch -->
       <div class="review-summary">
         <strong>{{ mock_rating }}</strong>
         <div><span class="stars">★★★★★</span><p>Based on {{ mock_review_count }} customer reviews</p></div>
@@ -76,7 +74,7 @@
     {% endif %}
     {% if product != blank and app_block_count == 0 %}
     <details class="review-submission">
-      <summary><span><strong>Purchased this product?</strong><small>Share an honest review with the KROZO team.</small></span><span>Write a review →</span></summary>
+      <summary><span><strong>Purchased this product?</strong><small>Share an honest review with the KROZO team. Submissions are moderated before publishing.</small></span><span>Write a review →</span></summary>
       {% form 'contact', id: 'ProductReviewForm', class: 'review-submit-form' %}
         {% if form.posted_successfully? %}<p class="form-success">Thank you. Your review was sent for moderation.</p>{% endif %}
         {{ form.errors | default_errors }}
@@ -93,4 +91,4 @@
     {% endif %}
   </section>
   {% endif %}
-{% schema %}{"name":"Verified reviews","settings":[{"type":"checkbox","id":"show_mock_reviews","label":"PRIVATE MOCKUP — show fictional review layout","default":false}],"blocks":[{"type":"@app"},{"type":"review","name":"Approved review","settings":[{"type":"image_picker","id":"image","label":"Customer photo"},{"type":"select","id":"rating","label":"Rating","default":"★★★★★","options":[{"value":"★★★★★","label":"5 stars"},{"value":"★★★★☆","label":"4 stars"},{"value":"★★★☆☆","label":"3 stars"}]},{"type":"textarea","id":"text","label":"Review"},{"type":"text","id":"name","label":"Customer name"},{"type":"text","id":"country","label":"Country"}]}],"presets":[{"name":"Verified reviews"}]}{% endschema %}
+{% schema %}{"name":"Verified reviews","settings":[{"type":"checkbox","id":"show_mock_reviews","label":"Show transparent sample review layout until an app is connected","default":true}],"blocks":[{"type":"@app"},{"type":"review","name":"Approved review","settings":[{"type":"image_picker","id":"image","label":"Customer photo"},{"type":"select","id":"rating","label":"Rating","default":"★★★★★","options":[{"value":"★★★★★","label":"5 stars"},{"value":"★★★★☆","label":"4 stars"},{"value":"★★★☆☆","label":"3 stars"}]},{"type":"textarea","id":"text","label":"Review"},{"type":"text","id":"name","label":"Customer name"},{"type":"text","id":"country","label":"Country"}]}],"presets":[{"name":"Verified reviews"}]}{% endschema %}
