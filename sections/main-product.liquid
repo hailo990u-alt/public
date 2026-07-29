@@ -85,13 +85,7 @@
         <div><span>3 stars</span><i><b style="width:{{ mock_three_percent }}%"></b></i><strong>{{ mock_three_count }}</strong></div>
       </div>
       <div class="product-review-preview__track">
-        <article><span class="stars">★★★★★</span><p>“Thoughtful quality and very easy to make part of our routine.”</p><strong>Emma R.</strong><small>Verified Purchase · US</small></article>
-        <article><span class="stars">★★★★☆</span><p>“It looks considered, works well and arrived beautifully presented.”</p><strong>James T.</strong><small>Verified Purchase · UK</small></article>
-        <article><span class="stars">★★★★★</span><p>“Our pet adjusted quickly and we have used it every day since.”</p><strong>Claire M.</strong><small>Verified Purchase · CA</small></article>
-        <article><span class="stars">★★★☆☆</span><p>“Good overall and became genuinely useful after a short adjustment.”</p><strong>Sophie L.</strong><small>Verified Purchase · AU</small></article>
-        <article><span class="stars">★★★★★</span><p>“The finish feels premium and the experience was refreshingly simple.”</p><strong>Daniel K.</strong><small>Verified Purchase · NZ</small></article>
-        <article><span class="stars">★★★★☆</span><p>“A practical, polished addition to our everyday pet-care routine.”</p><strong>Olivia P.</strong><small>Verified Purchase · US</small></article>
-        <article><span class="stars">★★★★★</span><p>“Exactly the quality and thoughtful design we hoped to receive.”</p><strong>Amelia S.</strong><small>Verified Purchase · UK</small></article>
+        {% render 'krozo-mock-product-reviews', product: product, mode: 'preview' %}
       </div>
       <a class="product-review-preview__all" href="#reviews">Read all {{ mock_review_count }} reviews →</a>
     </div>
