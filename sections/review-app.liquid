@@ -6,18 +6,38 @@
     {% case mock_seed %}
       {% when 0 %}
         {% assign mock_rating = '4.8' %}
+        {% assign mock_five_percent = 83 %}
+        {% assign mock_four_percent = 15 %}
+        {% assign mock_three_percent = 2 %}
       {% when 1 %}
         {% assign mock_rating = '4.9' %}
+        {% assign mock_five_percent = 91 %}
+        {% assign mock_four_percent = 8 %}
+        {% assign mock_three_percent = 1 %}
       {% when 2 %}
         {% assign mock_rating = '4.7' %}
+        {% assign mock_five_percent = 74 %}
+        {% assign mock_four_percent = 22 %}
+        {% assign mock_three_percent = 4 %}
       {% when 3 %}
         {% assign mock_rating = '4.8' %}
+        {% assign mock_five_percent = 83 %}
+        {% assign mock_four_percent = 15 %}
+        {% assign mock_three_percent = 2 %}
       {% else %}
         {% assign mock_rating = '4.6' %}
+        {% assign mock_five_percent = 67 %}
+        {% assign mock_four_percent = 26 %}
+        {% assign mock_three_percent = 7 %}
     {% endcase %}
   {% endif %}
-  {% assign mock_five_count = mock_review_count | times: 72 | divided_by: 100 %}
-  {% assign mock_four_count = mock_review_count | times: 21 | divided_by: 100 %}
+  {% if product == blank %}
+    {% assign mock_five_percent = 74 %}
+    {% assign mock_four_percent = 22 %}
+    {% assign mock_three_percent = 4 %}
+  {% endif %}
+  {% assign mock_five_count = mock_review_count | times: mock_five_percent | divided_by: 100 %}
+  {% assign mock_four_count = mock_review_count | times: mock_four_percent | divided_by: 100 %}
   {% assign mock_three_count = mock_review_count | minus: mock_five_count | minus: mock_four_count %}
   <section id="reviews" class="section section--sand review-app">
     <div class="section-title"><span class="eyebrow">FROM PET PARENTS</span><h2>{% if product != blank %}What pet parents say about this product.{% else %}Real stories, shared with care.{% endif %}</h2><p>Verified feedback from customers who share life with their pets.</p></div>
@@ -32,9 +52,9 @@
         <span>93% would recommend KROZO</span>
       </div>
       <div class="rating-breakdown rating-breakdown--wide" aria-label="Rating distribution">
-        <div><span>5 stars</span><i><b style="width:72%"></b></i><strong>{{ mock_five_count }}</strong></div>
-        <div><span>4 stars</span><i><b style="width:21%"></b></i><strong>{{ mock_four_count }}</strong></div>
-        <div><span>3 stars</span><i><b style="width:7%"></b></i><strong>{{ mock_three_count }}</strong></div>
+        <div><span>5 stars</span><i><b style="width:{{ mock_five_percent }}%"></b></i><strong>{{ mock_five_count }}</strong></div>
+        <div><span>4 stars</span><i><b style="width:{{ mock_four_percent }}%"></b></i><strong>{{ mock_four_count }}</strong></div>
+        <div><span>3 stars</span><i><b style="width:{{ mock_three_percent }}%"></b></i><strong>{{ mock_three_count }}</strong></div>
       </div>
       <div class="review-grid">
         <article class="review-card"><span class="review-avatar">ER</span><div class="stars">★★★★★</div><p>“The quality feels thoughtful and the whole experience was beautifully simple.”</p><strong>Emma R.</strong><small>Verified Purchase · United States</small></article>
