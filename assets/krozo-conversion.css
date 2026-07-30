@@ -236,3 +236,8 @@ img,video,iframe{max-width:100%}
   .product-image{aspect-ratio:1.2/1}
   .essential-trust-badges{grid-template-columns:1fr}
 }
+
+
+/* Theme Editor product-card ratio override */
+.catalogue-card__media,.product-image{height:auto!important;aspect-ratio:var(--product-card-ratio,1/1)!important}
+.catalogue-card__media img,.product-image img{width:100%;height:100%;object-fit:cover}
