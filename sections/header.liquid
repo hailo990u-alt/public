@@ -63,11 +63,11 @@
       {% if section.settings.use_custom_menu and section.settings.menu != blank %}
         {% for link in section.settings.menu.links limit: 5 %}<a href="{{ link.url }}"><span>{{ link.title }}</span><span aria-hidden="true">→</span></a>{% endfor %}
       {% else %}
-        <a href="{{ routes.all_products_collection_url }}"><span>Shop All</span><span aria-hidden="true">→</span></a>
-        <a href="{{ dog_url }}"><span>For Dogs</span><span aria-hidden="true">→</span></a>
-        <a href="{{ cat_url }}"><span>For Cats</span><span aria-hidden="true">→</span></a>
+        <a href="{{ routes.all_products_collection_url }}"><span>Shop</span><span aria-hidden="true">→</span></a>
+        <a href="{{ dog_url }}"><span>Dogs</span><span aria-hidden="true">→</span></a>
+        <a href="{{ cat_url }}"><span>Cats</span><span aria-hidden="true">→</span></a>
         <a href="{{ best_sellers_url }}"><span>Best Sellers</span><span aria-hidden="true">→</span></a>
-        <a href="{{ why_krozo_url }}"><span>Why KROZO</span><span aria-hidden="true">→</span></a>
+        <a href="{{ why_krozo_url }}"><span>Our Story</span><span aria-hidden="true">→</span></a>
       {% endif %}
     </div>
     <div class="mobile-nav__help" aria-labelledby="MobileHelpTitle">
