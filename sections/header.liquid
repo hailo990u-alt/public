@@ -12,8 +12,8 @@
 {% if pages['why-krozo'] != blank %}{% assign why_krozo_url = pages['why-krozo'].url %}{% endif %}
 {% if blogs['pet-care-journal'] != blank %}{% assign journal_url = blogs['pet-care-journal'].url %}{% elsif blogs['news'] != blank %}{% assign journal_url = blogs['news'].url %}{% endif %}
 {% if pages['contact'] != blank %}{% assign contact_url = pages['contact'].url %}{% endif %}
-<div class="announcement">{{ section.settings.announcement }}</div>
-<header class="site-header">
+{% if section.settings.show_announcement %}<div class="announcement">{% if section.settings.announcement_link != blank %}<a href="{{ section.settings.announcement_link }}">{{ section.settings.announcement }}</a>{% else %}{{ section.settings.announcement }}{% endif %}</div>{% endif %}
+<header class="site-header" style="--header-logo-desktop:{{ section.settings.logo_width_desktop }}px;--header-logo-mobile:{{ section.settings.logo_width_mobile }}px;">
   <button class="mobile-menu icon-button" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="MobileNavigation" data-menu-toggle>
     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
   </button>
@@ -54,7 +54,7 @@
   <button class="mobile-nav-overlay" type="button" aria-label="Close menu" data-menu-close></button>
   <nav id="MobileNavigation" class="mobile-nav" data-mobile-nav aria-label="Mobile navigation">
     <div class="mobile-nav__head">
-      <span class="eyebrow">EXPLORE KROZO</span>
+      <span class="eyebrow">{{ section.settings.drawer_heading }}</span>
       <button class="icon-button mobile-nav__close" type="button" aria-label="Close menu" data-menu-close>
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg>
       </button>
@@ -76,13 +76,10 @@
       <a href="{{ journal_url }}">Pet Care Journal</a>
       <a href="{{ contact_url }}">Help & Contact</a>
     </div>
-    <div class="mobile-nav__footer"><strong>Complimentary shipping</strong><small>On every KROZO order</small></div>
+    <div class="mobile-nav__footer">{% if section.blocks.size > 0 %}{% for block in section.blocks %}<span {{ block.shopify_attributes }}><strong>{{ block.settings.text }}</strong><small>{{ block.settings.subtext }}</small></span>{% endfor %}{% else %}<strong>Complimentary shipping</strong><small>On every KROZO order</small>{% endif %}</div>
   </nav>
 </div>
-<div class="global-trust-bar" aria-label="Store guarantees">
-  <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 20 6v5c0 5-3.2 8.3-8 10-4.8-1.7-8-5-8-10V6l8-3Z"/><path d="m8.5 12 2.2 2.2 4.8-5"/></svg>Secure checkout</span>
-  <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h12v10H3zM15 10h3l3 3v4h-6z"/><circle cx="7" cy="18" r="2"/><circle cx="18" cy="18" r="2"/></svg>Free shipping</span>
-  <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7v5h5"/><path d="M5.5 12A7 7 0 1 0 7 6.5L4 9"/></svg>30-day returns</span>
-  <span><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="6" width="16" height="12" rx="2"/><path d="M4 10h16M8 15h3"/></svg>Shopify-powered payments</span>
-</div>
-{% schema %}{"name":"Krozo header","settings":[{"type":"text","id":"announcement","label":"Announcement","default":"COMPLIMENTARY SHIPPING ON EVERY ORDER"},{"type":"image_picker","id":"logo","label":"Logo"},{"type":"checkbox","id":"use_custom_menu","label":"Use Shopify navigation menu","default":false},{"type":"link_list","id":"menu","label":"Custom menu","default":"main-menu"}]}{% endschema %}
+<div class="global-trust-bar" aria-label="Store guarantees">{% if section.blocks.size > 0 %}{% for block in section.blocks %}<span {{ block.shopify_attributes }}>{{ block.settings.icon }} {{ block.settings.text }}</span>{% endfor %}{% else %}<span>✓ Secure checkout</span><span>✓ Free shipping</span><span>✓ 30-day returns</span><span>✓ Shopify-powered payments</span>{% endif %}</div>
+{% schema %}
+{"name":"Krozo header","settings":[{"type":"header","content":"Announcement"},{"type":"checkbox","id":"show_announcement","label":"Show announcement","default":true},{"type":"text","id":"announcement","label":"Announcement","default":"COMPLIMENTARY SHIPPING ON EVERY ORDER"},{"type":"url","id":"announcement_link","label":"Announcement link"},{"type":"header","content":"Logo and navigation"},{"type":"image_picker","id":"logo","label":"Logo"},{"type":"range","id":"logo_width_desktop","min":80,"max":220,"step":2,"unit":"px","label":"Desktop logo width","default":126},{"type":"range","id":"logo_width_mobile","min":70,"max":160,"step":2,"unit":"px","label":"Mobile logo width","default":100},{"type":"checkbox","id":"use_custom_menu","label":"Use Shopify navigation menu","default":false},{"type":"link_list","id":"menu","label":"Custom menu","default":"main-menu"},{"type":"text","id":"drawer_heading","label":"Drawer heading","default":"EXPLORE KROZO"}],"blocks":[{"type":"trust_item","name":"Trust item","limit":4,"settings":[{"type":"text","id":"icon","label":"Icon","default":"✓"},{"type":"text","id":"text","label":"Text","default":"Secure checkout"},{"type":"text","id":"subtext","label":"Drawer subtext","default":"Shop with confidence"}]}],"presets":[{"name":"Krozo header"}]}
+{% endschema %}

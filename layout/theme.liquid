@@ -4,14 +4,42 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
     <meta name="theme-color" content="#344535">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+    {% liquid
+      assign body_font = settings.font_body
+      assign heading_font = settings.font_heading
+    %}
+    {% if body_font != blank %}{{ body_font | font_face: font_display: 'swap' }}{% endif %}
+    {% if heading_font != blank %}{{ heading_font | font_face: font_display: 'swap' }}{% endif %}
     {{ content_for_header }}
     {{ 'krozo.css' | asset_url | stylesheet_tag }}
     {{ 'krozo-enhancements.css' | asset_url | stylesheet_tag }}
     {{ 'krozo-conversion.css' | asset_url | stylesheet_tag }}
     <style>
+
+      :root{
+        --cream:{{ settings.color_page_background | default: '#f9f7f1' }};
+        --sand:{{ settings.color_surface_background | default: '#eee8da' }};
+        --olive:{{ settings.color_brand | default: '#344535' }};
+        --ink:{{ settings.color_text | default: '#263328' }};
+        --muted:{{ settings.color_muted_text | default: '#687068' }};
+        --border:{{ settings.color_border | default: '#e8e4dc' }};
+        --button-bg:{{ settings.color_button_background | default: '#344535' }};
+        --button-text:{{ settings.color_button_text | default: '#ffffff' }};
+        --gold:{{ settings.color_rating | default: '#a68740' }};
+        --font-body:{% if body_font != blank %}{{ body_font.family }}, {{ body_font.fallback_families }}{% else %}Inter, Arial, sans-serif{% endif %};
+        --font-heading:{% if heading_font != blank %}{{ heading_font.family }}, {{ heading_font.fallback_families }}{% else %}'Playfair Display', Georgia, serif{% endif %};
+        --body-scale:{{ settings.body_scale | default: 100 | divided_by: 100.0 }};
+        --heading-scale:{{ settings.heading_scale | default: 100 | divided_by: 100.0 }};
+        --container-width:{{ settings.container_width | default: 1320 }}px;
+        --section-spacing-desktop:{{ settings.section_spacing_desktop | default: 90 }}px;
+        --section-spacing-mobile:{{ settings.section_spacing_mobile | default: 62 }}px;
+        --button-radius:{{ settings.button_radius | default: 4 }}px;
+        --card-radius:{{ settings.card_radius | default: 6 }}px;
+        --input-radius:{{ settings.input_radius | default: 0 }}px;
+        --card-shadow-strength:{{ settings.card_shadow_strength | default: 8 | divided_by: 100.0 }};
+        --button-case:{{ settings.button_text_transform | default: 'none' }};
+        --button-letter-spacing:{{ settings.button_letter_spacing | default: 3 | divided_by: 100.0 }}em;
+      }
       html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
       @media(max-width:750px){
         .product-page,.product-media,.product-details,.product-details>*{min-width:0;max-width:100%}
