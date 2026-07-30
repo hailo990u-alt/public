@@ -1,14 +1,16 @@
 <section class="journal-hero">
   <div><span class="eyebrow">{{ section.settings.hero_eyebrow }}</span><h1>{{ section.settings.hero_heading }}</h1><p>{{ section.settings.hero_text }}</p></div>
 </section>
-<nav class="journal-topics" aria-label="Journal topics">
-  <a href="{{ blog.url }}">All guides</a>
-  <a href="{{ blog.url }}/tagged/dog-care">Dog care</a>
-  <a href="{{ blog.url }}/tagged/cat-care">Cat care</a>
-  <a href="{{ blog.url }}/tagged/feeding">Feeding</a>
-  <a href="{{ blog.url }}/tagged/enrichment">Enrichment</a>
-  <a href="{{ blog.url }}/tagged/travel">Travel</a>
-</nav>
+{% if section.settings.show_topics %}
+  <nav class="journal-topics" aria-label="Journal topics">
+    <a href="{{ blog.url }}">All guides</a>
+    <a href="{{ blog.url }}/tagged/dog-care">Dog care</a>
+    <a href="{{ blog.url }}/tagged/cat-care">Cat care</a>
+    <a href="{{ blog.url }}/tagged/feeding">Feeding</a>
+    <a href="{{ blog.url }}/tagged/enrichment">Enrichment</a>
+    <a href="{{ blog.url }}/tagged/travel">Travel</a>
+  </nav>
+{% endif %}
 <section class="section content-page journal-page">
   {% paginate blog.articles by 12 %}
     {% if blog.articles.size > 0 %}
@@ -21,7 +23,13 @@
       <div class="article-grid">
         {% for article in blog.articles offset: 1 %}
           <article class="article-card">
-            <a href="{{ article.url }}" class="article-card__image">{% if article.image != blank %}{{ article.image | image_url: width: 1000 | image_tag: loading: 'lazy', alt: article.title }}{% endif %}</a>
+            <a href="{{ article.url }}" class="article-card__image">
+              {% if article.image != blank %}
+                {{ article.image | image_url: width: 1000 | image_tag: loading: 'lazy', alt: article.title }}
+              {% else %}
+                <span class="article-card__placeholder" aria-hidden="true">KROZO Journal</span>
+              {% endif %}
+            </a>
             <small>{% if article.tags.first %}{{ article.tags.first }} · {% endif %}{{ article.published_at | date: '%B %d, %Y' }}</small>
             <a href="{{ article.url }}"><h2>{{ article.title }}</h2></a>
             <p>{{ article.excerpt_or_content | strip_html | truncate: 150 }}</p>
@@ -40,6 +48,7 @@
     {% endif %}
   {% endpaginate %}
 </section>
+{% if section.settings.show_signup %}
 <section class="journal-signup">
   <div>
     <span class="eyebrow">{{ section.settings.signup_eyebrow }}</span>
@@ -55,6 +64,7 @@
     <button type="submit">{{ section.settings.signup_button }}</button>
   {% endform %}
 </section>
+{% endif %}
 <section class="section journal-shop">
   <div><span class="eyebrow">{{ section.settings.shop_eyebrow }}</span><h2>{{ section.settings.shop_heading }}</h2><p>{{ section.settings.shop_text }}</p></div>
   <a class="button" href="{{ routes.all_products_collection_url }}">{{ section.settings.shop_button }}</a>
@@ -65,7 +75,9 @@
   {"type":"text","id":"hero_eyebrow","label":"Eyebrow","default":"THE KROZO JOURNAL"},
   {"type":"text","id":"hero_heading","label":"Heading","default":"Thoughtful guidance for life with pets."},
   {"type":"textarea","id":"hero_text","label":"Text","default":"Practical, calm and carefully considered advice for feeding, enrichment, travel and everyday care."},
+  {"type":"checkbox","id":"show_topics","label":"Show topic navigation","default":false},
   {"type":"header","content":"Email signup"},
+  {"type":"checkbox","id":"show_signup","label":"Show Journal email signup","default":false},
   {"type":"text","id":"signup_eyebrow","label":"Eyebrow","default":"A CALMER INBOX"},
   {"type":"text","id":"signup_heading","label":"Heading","default":"Useful pet care, without the noise."},
   {"type":"textarea","id":"signup_text","label":"Text","default":"Get practical guides, seasonal checklists and thoughtful product advice from KROZO."},
