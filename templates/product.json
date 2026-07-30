@@ -31,9 +31,21 @@
           }
         }
       },
-      "block_order": ["benefit_one", "benefit_two", "benefit_three"],
+      "block_order": [
+        "benefit_one",
+        "benefit_two",
+        "benefit_three"
+      ],
       "settings": {
-        "show_mock_social_proof": true
+        "show_ratings_summary": true,
+        "show_mock_social_proof": true,
+        "show_purchase_count": true,
+        "show_benefits": true,
+        "show_trust_badges": true,
+        "show_dynamic_checkout": true,
+        "show_sticky_atc": true,
+        "description_eyebrow": "WHY IT BELONGS IN YOUR ROUTINE",
+        "description_heading": "Designed around the moments that matter."
       }
     },
     "benefits": {
@@ -64,8 +76,15 @@
           }
         }
       },
-      "block_order": ["comfort", "design", "care"],
-      "settings": {}
+      "block_order": [
+        "comfort",
+        "design",
+        "care"
+      ],
+      "settings": {
+        "eyebrow": "DESIGNED AROUND REAL LIFE",
+        "heading": "Why you'll love it."
+      }
     },
     "comparison": {
       "type": "comparison-table",
@@ -95,8 +114,16 @@
           }
         }
       },
-      "block_order": ["design", "look", "support"],
-      "settings": {}
+      "block_order": [
+        "design",
+        "look",
+        "support"
+      ],
+      "settings": {
+        "eyebrow": "THE KROZO DIFFERENCE",
+        "heading": "A more considered choice.",
+        "text": ""
+      }
     },
     "steps": {
       "type": "how-it-works",
@@ -123,15 +150,25 @@
           }
         }
       },
-      "block_order": ["one", "two", "three"],
-      "settings": {}
+      "block_order": [
+        "one",
+        "two",
+        "three"
+      ],
+      "settings": {
+        "eyebrow": "SIMPLE BY DESIGN",
+        "heading": "Easy from the very first day."
+      }
     },
     "faq": {
       "type": "product-faq",
       "blocks": {
         "one": {
           "type": "question",
-          "settings": {}
+          "settings": {
+            "question": "How do I choose the right option?",
+            "answer": "<p>Use the sizing or option guidance above. If you are unsure, contact us before ordering and we will help.</p>"
+          }
         },
         "two": {
           "type": "question",
@@ -148,8 +185,15 @@
           }
         }
       },
-      "block_order": ["one", "two", "three"],
-      "settings": {}
+      "block_order": [
+        "one",
+        "two",
+        "three"
+      ],
+      "settings": {
+        "eyebrow": "GOOD TO KNOW",
+        "heading": "Questions, answered."
+      }
     },
     "reviews": {
       "type": "review-app",
@@ -158,5 +202,12 @@
       }
     }
   },
-  "order": ["main", "benefits", "comparison", "steps", "faq", "reviews"]
+  "order": [
+    "main",
+    "benefits",
+    "comparison",
+    "steps",
+    "faq",
+    "reviews"
+  ]
 }
