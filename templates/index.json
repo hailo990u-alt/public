@@ -98,7 +98,7 @@
     "featured": {
       "type": "featured-products",
       "settings": {
-        "hide_section": true,
+        "hide_section": false,
         "eyebrow": "MOST LOVED",
         "heading": "Everyday favourites.",
         "text": "",
