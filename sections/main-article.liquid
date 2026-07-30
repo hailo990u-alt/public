@@ -1,3 +1,28 @@
-<article class="section article-page"><header><span class="eyebrow">THE KROZO JOURNAL</span><h1>{{ article.title }}</h1><p>{% if article.tags.first %}{{ article.tags.first }} · {% endif %}{{ article.published_at | date: '%B %d, %Y' }} · {{ article.content | strip_html | size | divided_by: 900 | plus: 1 }} min read</p></header>{% if article.image != blank %}{{ article.image | image_url: width: 1800 | image_tag: loading: 'eager', alt: article.title }}{% endif %}<div class="rte">{{ article.content }}</div><footer class="article-footer"><strong>Thoughtful essentials for better everyday routines.</strong><a class="button" href="{{ routes.all_products_collection_url }}">Explore KROZO</a></footer></article>
+<article class="article-page" style="--article-width:{{ section.settings.content_width }}px;--article-copy-size:{{ section.settings.copy_size }}px;">
+  <header class="article-page__header">
+    <a class="eyebrow" href="{{ blog.url }}">{{ section.settings.eyebrow }}</a>
+    <h1>{{ article.title }}</h1>
+    <p>{% if article.tags.first %}{{ article.tags.first }} · {% endif %}{{ article.published_at | date: '%B %d, %Y' }} · {{ article.content | strip_html | size | divided_by: 900 | plus: 1 }} min read</p>
+  </header>
+  {% if article.image != blank %}
+    <figure class="article-page__hero">
+      {{ article.image | image_url: width: 1800 | image_tag: loading: 'eager', alt: article.image.alt | default: article.title }}
+    </figure>
+  {% endif %}
+  <div class="article-page__body rte">{{ article.content }}</div>
+  <footer class="article-footer">
+    <div><span class="eyebrow">{{ section.settings.cta_eyebrow }}</span><strong>{{ section.settings.cta_heading }}</strong></div>
+    <a class="button" href="{{ routes.all_products_collection_url }}">{{ section.settings.cta_button }}</a>
+  </footer>
+</article>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":{{ article.title | json }},"description":{{ article.excerpt_or_content | strip_html | truncate: 220 | json }},"datePublished":{{ article.published_at | date: "%Y-%m-%dT%H:%M:%S%z" | json }},"dateModified":{{ article.updated_at | date: "%Y-%m-%dT%H:%M:%S%z" | json }},"mainEntityOfPage":{{ canonical_url | json }}{% if article.image != blank %},"image":[{{ article.image | image_url: width: 1600 | prepend: "https:" | json }}]{% endif %},"publisher":{"@type":"Organization","name":{{ shop.name | json }}}}</script>
-{% schema %}{"name":"Main article","settings":[]}{% endschema %}
+{% schema %}
+{"name":"Main article","settings":[
+  {"type":"text","id":"eyebrow","label":"Article eyebrow","default":"THE KROZO JOURNAL"},
+  {"type":"range","id":"content_width","label":"Reading width","min":620,"max":900,"step":20,"unit":"px","default":760},
+  {"type":"range","id":"copy_size","label":"Body text size","min":16,"max":21,"step":1,"unit":"px","default":18},
+  {"type":"header","content":"Article footer"},
+  {"type":"text","id":"cta_eyebrow","label":"Eyebrow","default":"CONTINUE THE ROUTINE"},
+  {"type":"text","id":"cta_heading","label":"Heading","default":"Thoughtful essentials for better everyday care."},
+  {"type":"text","id":"cta_button","label":"Button","default":"Explore KROZO"}
+]}{% endschema %}
