@@ -1,1 +1,209 @@
-[{"name":"theme_info","theme_name":"Krozo","theme_author":"Krozo Store","theme_version":"1.0.0","theme_documentation_url":"https://krozostore.com","theme_support_email":"support@krozostore.com"}]
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Krozo",
+    "theme_author": "Krozo Store",
+    "theme_version": "1.1.0",
+    "theme_documentation_url": "https://krozostore.com",
+    "theme_support_email": "support@krozostore.com"
+  },
+  {
+    "name": "Design system",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Colors"
+      },
+      {
+        "type": "color",
+        "id": "color_page_background",
+        "label": "Page background",
+        "default": "#f9f7f1"
+      },
+      {
+        "type": "color",
+        "id": "color_surface_background",
+        "label": "Surface/section background",
+        "default": "#eee8da"
+      },
+      {
+        "type": "color",
+        "id": "color_text",
+        "label": "Primary text",
+        "default": "#263328"
+      },
+      {
+        "type": "color",
+        "id": "color_muted_text",
+        "label": "Muted text",
+        "default": "#687068"
+      },
+      {
+        "type": "color",
+        "id": "color_border",
+        "label": "Borders",
+        "default": "#e8e4dc"
+      },
+      {
+        "type": "color",
+        "id": "color_brand",
+        "label": "Brand/accent",
+        "default": "#344535"
+      },
+      {
+        "type": "color",
+        "id": "color_button_background",
+        "label": "Button background",
+        "default": "#344535"
+      },
+      {
+        "type": "color",
+        "id": "color_button_text",
+        "label": "Button text",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "color_rating",
+        "label": "Star/rating color",
+        "default": "#a68740"
+      },
+      {
+        "type": "header",
+        "content": "Typography"
+      },
+      {
+        "type": "font_picker",
+        "id": "font_body",
+        "label": "Body font",
+        "default": "inter_n4"
+      },
+      {
+        "type": "font_picker",
+        "id": "font_heading",
+        "label": "Heading font",
+        "default": "playfair_display_n5"
+      },
+      {
+        "type": "range",
+        "id": "body_scale",
+        "label": "Body scale",
+        "min": 90,
+        "max": 120,
+        "step": 1,
+        "unit": "%",
+        "default": 100
+      },
+      {
+        "type": "range",
+        "id": "heading_scale",
+        "label": "Heading scale",
+        "min": 90,
+        "max": 125,
+        "step": 1,
+        "unit": "%",
+        "default": 100
+      },
+      {
+        "type": "select",
+        "id": "button_text_transform",
+        "label": "Button text case",
+        "default": "none",
+        "options": [
+          {
+            "value": "none",
+            "label": "Default"
+          },
+          {
+            "value": "uppercase",
+            "label": "Uppercase"
+          }
+        ]
+      },
+      {
+        "type": "range",
+        "id": "button_letter_spacing",
+        "label": "Button letter spacing",
+        "min": 0,
+        "max": 12,
+        "step": 1,
+        "unit": "%",
+        "default": 3
+      },
+      {
+        "type": "header",
+        "content": "Layout and shape"
+      },
+      {
+        "type": "range",
+        "id": "container_width",
+        "label": "Container width",
+        "min": 1000,
+        "max": 1600,
+        "step": 20,
+        "unit": "px",
+        "default": 1320
+      },
+      {
+        "type": "range",
+        "id": "section_spacing_desktop",
+        "label": "Desktop section spacing",
+        "min": 48,
+        "max": 140,
+        "step": 4,
+        "unit": "px",
+        "default": 90
+      },
+      {
+        "type": "range",
+        "id": "section_spacing_mobile",
+        "label": "Mobile section spacing",
+        "min": 36,
+        "max": 96,
+        "step": 2,
+        "unit": "px",
+        "default": 62
+      },
+      {
+        "type": "range",
+        "id": "button_radius",
+        "label": "Button radius",
+        "min": 0,
+        "max": 32,
+        "step": 1,
+        "unit": "px",
+        "default": 4
+      },
+      {
+        "type": "range",
+        "id": "card_radius",
+        "label": "Card radius",
+        "min": 0,
+        "max": 32,
+        "step": 1,
+        "unit": "px",
+        "default": 6
+      },
+      {
+        "type": "range",
+        "id": "input_radius",
+        "label": "Input radius",
+        "min": 0,
+        "max": 24,
+        "step": 1,
+        "unit": "px",
+        "default": 0
+      },
+      {
+        "type": "range",
+        "id": "card_shadow_strength",
+        "label": "Card shadow strength",
+        "min": 0,
+        "max": 40,
+        "step": 1,
+        "unit": "%",
+        "default": 8
+      }
+    ]
+  }
+]
