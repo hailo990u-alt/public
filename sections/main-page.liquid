@@ -1,23 +1,58 @@
-{% if page.handle == 'contact' %}
-  <section class="section contact-page">
-    <div class="contact-page__intro"><span class="eyebrow">KROZO CARE</span><h1>How can we help?</h1><p>Questions about a product, delivery or an existing order? Send us a message and our support team will get back to you.</p>
-      <div class="contact-promises"><span>✓ Clear, helpful answers</span><span>✓ Support before and after ordering</span><span>✓ Your information stays private</span></div>
+{% assign page_title_downcase = page.title | downcase %}
+{% if page.handle == 'contact' or page_title_downcase contains 'contact' %}
+  <section class="section contact-page" style="--contact-bg:{{ section.settings.background_color }};--contact-card:{{ section.settings.card_color }};--contact-accent:{{ section.settings.accent_color }};">
+    <div class="contact-page__intro">
+      <span class="eyebrow">{{ section.settings.eyebrow }}</span>
+      <h1>{{ section.settings.heading }}</h1>
+      <p>{{ section.settings.intro }}</p>
+      <div class="contact-support-list">
+        <article><span aria-hidden="true">01</span><div><strong>{{ section.settings.support_one_heading }}</strong><p>{{ section.settings.support_one_text }}</p></div></article>
+        <article><span aria-hidden="true">02</span><div><strong>{{ section.settings.support_two_heading }}</strong><p>{{ section.settings.support_two_text }}</p></div></article>
+        <article><span aria-hidden="true">03</span><div><strong>{{ section.settings.support_three_heading }}</strong><p>{{ section.settings.support_three_text }}</p></div></article>
+      </div>
     </div>
     <div class="contact-card">
+      <div class="contact-card__head"><span class="eyebrow">{{ section.settings.form_eyebrow }}</span><h2>{{ section.settings.form_heading }}</h2><p>{{ section.settings.response_note }}</p></div>
       {% form 'contact', id: 'ContactForm', class: 'contact-form' %}
-        {% if form.posted_successfully? %}<p class="form-success">Thank you — your message has been sent.</p>{% endif %}
+        {% if form.posted_successfully? %}<p class="form-success" role="status">{{ section.settings.success_message }}</p>{% endif %}
         {{ form.errors | default_errors }}
-        <label>Name<input type="text" name="contact[name]" required></label>
-        <label>Email<input type="email" name="contact[email]" required></label>
-        <label>How can we help?<select name="contact[Reason]"><option>Product question</option><option>Order support</option><option>Shipping or returns</option><option>Partnership enquiry</option><option>Other</option></select></label>
-        <label>Order number <small>Optional</small><input type="text" name="contact[Order number]"></label>
-        <label class="contact-form__wide">Message<textarea name="contact[body]" rows="7" required placeholder="Tell us how we can help..."></textarea></label>
-        <button class="button contact-form__wide" type="submit">Send message</button>
+        <input type="hidden" name="contact[Subject]" value="KROZO support enquiry">
+        <label>Full name<input type="text" name="contact[name]" autocomplete="name" value="{% if form.name %}{{ form.name }}{% elsif customer %}{{ customer.name }}{% endif %}" required></label>
+        <label>Email address<input type="email" name="contact[email]" autocomplete="email" value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}" required></label>
+        <label>Phone <small>Optional</small><input type="tel" name="contact[Phone]" autocomplete="tel"></label>
+        <label>How can we help?<select name="contact[Reason]" required><option value="">Choose a topic</option><option>Product question</option><option>Order support</option><option>Shipping question</option><option>Return or damaged item</option><option>Partnership enquiry</option><option>Other</option></select></label>
+        <label class="contact-form__wide">Order number <small>Optional</small><input type="text" name="contact[Order number]" autocomplete="off" placeholder="#1001"></label>
+        <label class="contact-form__wide">Message<textarea name="contact[body]" rows="7" required placeholder="{{ section.settings.message_placeholder }}">{{ form.body }}</textarea></label>
+        <button class="button contact-form__wide" type="submit">{{ section.settings.button_label }}</button>
       {% endform %}
-      <p class="contact-card__note">For order support, include the email used at checkout and your order number if available.</p>
+      <p class="contact-card__note">{{ section.settings.form_note }}</p>
     </div>
   </section>
 {% else %}
   <section class="section content-page"><div class="section-title"><span class="eyebrow">KROZO</span><h1>{{ page.title }}</h1></div><div class="rte">{{ page.content }}</div></section>
 {% endif %}
-{% schema %}{"name":"Main page","settings":[]}{% endschema %}
+{% schema %}
+{"name":"Main page","settings":[
+  {"type":"header","content":"Contact page content"},
+  {"type":"text","id":"eyebrow","label":"Eyebrow","default":"KROZO CARE"},
+  {"type":"text","id":"heading","label":"Heading","default":"We’re here to help."},
+  {"type":"textarea","id":"intro","label":"Introduction","default":"Questions about a product, delivery or an existing order? Send us a message and our support team will help you find a clear next step."},
+  {"type":"text","id":"support_one_heading","label":"Support item 1 heading","default":"Product guidance"},
+  {"type":"textarea","id":"support_one_text","label":"Support item 1 text","default":"Not sure which product fits your pet or routine? Tell us what you need."},
+  {"type":"text","id":"support_two_heading","label":"Support item 2 heading","default":"Order support"},
+  {"type":"textarea","id":"support_two_text","label":"Support item 2 text","default":"Include your order number so we can help with delivery, changes or an issue."},
+  {"type":"text","id":"support_three_heading","label":"Support item 3 heading","default":"Damaged or incorrect item"},
+  {"type":"textarea","id":"support_three_text","label":"Support item 3 text","default":"Send your order number and clear photos. We’ll review the issue and offer an appropriate resolution."},
+  {"type":"header","content":"Contact form"},
+  {"type":"text","id":"form_eyebrow","label":"Form eyebrow","default":"SEND A MESSAGE"},
+  {"type":"text","id":"form_heading","label":"Form heading","default":"Tell us what you need."},
+  {"type":"text","id":"response_note","label":"Response note","default":"We reply by email as soon as possible."},
+  {"type":"text","id":"message_placeholder","label":"Message placeholder","default":"Tell us how we can help..."},
+  {"type":"text","id":"button_label","label":"Button label","default":"Send message"},
+  {"type":"text","id":"success_message","label":"Success message","default":"Thank you — your message has been sent to KROZO support."},
+  {"type":"textarea","id":"form_note","label":"Form note","default":"For order support, use the email from checkout and include your order number. Your information is used only to respond to your request."},
+  {"type":"header","content":"Contact page colors"},
+  {"type":"color","id":"background_color","label":"Background","default":"#f2eee4"},
+  {"type":"color","id":"card_color","label":"Form card","default":"#fffefa"},
+  {"type":"color","id":"accent_color","label":"Accent","default":"#314631"}
+]}{% endschema %}
