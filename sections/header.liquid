@@ -1,7 +1,17 @@
 {% assign dog_url = routes.all_products_collection_url %}
 {% assign cat_url = routes.all_products_collection_url %}
+{% assign best_sellers_url = routes.root_url | append: '#best-sellers' %}
+{% assign why_krozo_url = routes.root_url | append: '#our-standard' %}
+{% assign journal_url = '/blogs/news' %}
+{% assign contact_url = '/pages/contact' %}
 {% if collections['dog'] != blank %}{% assign dog_url = collections['dog'].url %}{% endif %}
+{% if collections['dogs'] != blank %}{% assign dog_url = collections['dogs'].url %}{% endif %}
 {% if collections['cat'] != blank %}{% assign cat_url = collections['cat'].url %}{% endif %}
+{% if collections['cats'] != blank %}{% assign cat_url = collections['cats'].url %}{% endif %}
+{% if collections['best-sellers'] != blank %}{% assign best_sellers_url = collections['best-sellers'].url %}{% endif %}
+{% if pages['why-krozo'] != blank %}{% assign why_krozo_url = pages['why-krozo'].url %}{% endif %}
+{% if blogs['pet-care-journal'] != blank %}{% assign journal_url = blogs['pet-care-journal'].url %}{% elsif blogs['news'] != blank %}{% assign journal_url = blogs['news'].url %}{% endif %}
+{% if pages['contact'] != blank %}{% assign contact_url = pages['contact'].url %}{% endif %}
 <div class="announcement">{{ section.settings.announcement }}</div>
 <header class="site-header">
   <button class="mobile-menu icon-button" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="MobileNavigation" data-menu-toggle>
@@ -23,9 +33,9 @@
       <a href="{{ cat_url }}">Cats</a>
       <a href="{{ routes.root_url }}#best-sellers">Best Sellers</a>
       <a href="{{ routes.root_url }}#our-standard">Our Standard</a>
-      <a href="/blogs/news">Journal</a>
+      <a href="{{ journal_url }}">Journal</a>
       <a href="#faq-help" data-faq-open>FAQs</a>
-      <a href="/pages/contact">Help</a>
+      <a href="{{ contact_url }}">Help</a>
     {% endif %}
   </nav>
   <div class="header-actions">
@@ -51,17 +61,20 @@
     </div>
     <div class="mobile-nav__links">
       {% if section.settings.use_custom_menu and section.settings.menu != blank %}
-        {% for link in section.settings.menu.links %}<a href="{{ link.url }}"><span>{{ link.title }}</span><span aria-hidden="true">→</span></a>{% endfor %}
+        {% for link in section.settings.menu.links limit: 5 %}<a href="{{ link.url }}"><span>{{ link.title }}</span><span aria-hidden="true">→</span></a>{% endfor %}
       {% else %}
         <a href="{{ routes.all_products_collection_url }}"><span>Shop All</span><span aria-hidden="true">→</span></a>
         <a href="{{ dog_url }}"><span>For Dogs</span><span aria-hidden="true">→</span></a>
         <a href="{{ cat_url }}"><span>For Cats</span><span aria-hidden="true">→</span></a>
-        <a href="{{ routes.root_url }}#best-sellers"><span>Best Sellers</span><span aria-hidden="true">→</span></a>
-        <a href="{{ routes.root_url }}#our-standard"><span>Why KROZO</span><span aria-hidden="true">→</span></a>
-        <a href="#faq-help" data-faq-open><span>FAQs</span><span aria-hidden="true">→</span></a>
-        <a href="/blogs/news"><span>Pet Care Journal</span><span aria-hidden="true">→</span></a>
-        <a href="/pages/contact"><span>Help & Contact</span><span aria-hidden="true">→</span></a>
+        <a href="{{ best_sellers_url }}"><span>Best Sellers</span><span aria-hidden="true">→</span></a>
+        <a href="{{ why_krozo_url }}"><span>Why KROZO</span><span aria-hidden="true">→</span></a>
       {% endif %}
+    </div>
+    <div class="mobile-nav__help" aria-labelledby="MobileHelpTitle">
+      <p id="MobileHelpTitle" class="mobile-nav__help-title">Need help?</p>
+      <a href="#faq-help" data-faq-open>FAQs</a>
+      <a href="{{ journal_url }}">Pet Care Journal</a>
+      <a href="{{ contact_url }}">Help & Contact</a>
     </div>
     <div class="mobile-nav__footer"><strong>Complimentary shipping</strong><small>On every KROZO order</small></div>
   </nav>
