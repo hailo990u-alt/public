@@ -39,7 +39,7 @@
           "type": "question",
           "settings": {
             "question": "Can I return an item?",
-            "answer": "<p>You may request a return within 30 days of delivery, subject to our returns policy. Contact support with your order number for help.</p>"
+            "answer": "<p>Changed your mind? You may request a return within 30 days, subject to our returns policy. If an item arrives damaged, defective or incorrect, contact us with your order number and clear photos. Depending on the issue and applicable law, we may offer a replacement, refund or a lower-impact resolution that does not require a return. This does not limit your statutory rights.</p>"
           }
         },
         "sizing": {

@@ -17,22 +17,22 @@
 
 {% case review_type %}
   {% when 'slow-feeder' %}
-    {% capture review_copy %}My spaniel normally rushes dinner. The raised pattern slowed him down without frustrating him, and he no longer finishes in seconds.~|~The wide base stayed put on our tile floor and the rounded sections were easy to rinse after wet food.~|~It took one meal for her to understand the pattern, then she settled into a much calmer pace.~|~I like that I can spread kibble across the grooves instead of buying a separate puzzle feeder.~|~Useful for slowing meals, although our larger dog needed a short adjustment to the smaller sections.~|~Much easier to wash than our previous slow feeder; food does not get trapped in sharp corners.~|~Dinner lasts longer now and he seems noticeably more comfortable afterward.{% endcapture %}
+    {% capture review_copy %}My spaniel normally rushes dinner. The raised pattern slowed him down without frustrating him, and he no longer finishes in seconds.~|~The wide base stayed put on our tile floor and the rounded sections were easy to rinse after wet food.~|~It took one meal for her to understand the pattern, then she settled into a much calmer pace.~|~I like that I can spread kibble across the grooves instead of buying a separate puzzle feeder.~|~Useful for slowing meals, although our larger dog needed a short adjustment to the smaller sections.~|~Much easier to wash than our previous slow feeder; food does not get trapped in sharp corners.~|~Dinner lasts longer now and he seems noticeably more comfortable afterward.~|~The shape gives our puppy enough challenge without making him walk away from his food.~|~A practical size for our kitchen, and it stacks neatly with the rest of the feeding supplies.{% endcapture %}
   {% when 'travel-cup' %}
-    {% capture review_copy %}Used it on a two-hour trail: water, treats and waste bags were all in one bottle, so I left the extra pouch at home.~|~The lock button prevented leaks in my tote, and unused water tipped back into the bottle instead of being wasted.~|~The drinking cup is a comfortable size for our small dog and the filter is reassuring on longer walks.~|~The waste-bag compartment is the detail I did not know I needed until our first park trip.~|~A little bulky in a small handbag, but excellent for the car and longer walks.~|~One-handed dispensing is genuinely helpful while I am holding the lead.~|~We keep it by the door now and grab it for every walk that lasts more than a few minutes.{% endcapture %}
+    {% capture review_copy %}Used it on a two-hour trail: water, treats and waste bags were all in one bottle, so I left the extra pouch at home.~|~The lock button prevented leaks in my tote, and unused water tipped back into the bottle instead of being wasted.~|~The drinking cup is a comfortable size for our small dog and the filter is reassuring on longer walks.~|~The waste-bag compartment is the detail I did not know I needed until our first park trip.~|~A little bulky in a small handbag, but excellent for the car and longer walks.~|~One-handed dispensing is genuinely helpful while I am holding the lead.~|~We keep it by the door now and grab it for every walk that lasts more than a few minutes.~|~The wrist strap makes it easy to carry when both pockets are already full.~|~I appreciate being able to return unused water to the bottle instead of pouring it away.{% endcapture %}
   {% when 'smart-tag' %}
-    {% capture review_copy %}Pairing took a few minutes, and the sound alert helped me find the collar under the sofa.~|~Small and light enough that our cat barely notices it on the collar.~|~The nearby-device location updates gave me reassurance when our dog slipped through the gate.~|~The hanging loop attached securely and the app instructions were straightforward.~|~Best for everyday location reassurance rather than minute-by-minute tracking, but the alert sound is very useful.~|~The tag is lighter than our previous one and has stayed secure during daily walks.~|~I tested it on my keys first; the search sound was clear enough to hear from the next room.{% endcapture %}
+    {% capture review_copy %}Pairing took a few minutes, and the sound alert helped me find the collar under the sofa.~|~Small and light enough that our cat barely notices it on the collar.~|~The nearby-device location updates gave me reassurance when our dog slipped through the gate.~|~The hanging loop attached securely and the app instructions were straightforward.~|~Best for everyday location reassurance rather than minute-by-minute tracking, but the alert sound is very useful.~|~The tag is lighter than our previous one and has stayed secure during daily walks.~|~I tested it on my keys first; the search sound was clear enough to hear from the next room.~|~The case has stayed closed through rain and energetic play in the garden.~|~Useful peace of mind for everyday walks, especially when someone else takes the dog out.{% endcapture %}
   {% when 'cat-scratcher' %}
-    {% capture review_copy %}Our tabby started batting the spinning sisal ball before I had finished clearing the packaging.~|~The triangular wooden frame feels stable and looks far better in the living room than carpeted scratchers.~|~She alternates between scratching the sisal and chasing the ball, so it keeps her interested longer.~|~Compact enough beside the sofa, and it has redirected most of her scratching away from the armrest.~|~Our older cat needed catnip and a couple of days, but now uses it every evening.~|~The ball rotates smoothly and the scratching surface is accessible from both sides.~|~Easy to set up, steady on our wood floor, and it actually looks like part of the room.{% endcapture %}
+    {% capture review_copy %}Our tabby started batting the spinning sisal ball before I had finished clearing the packaging.~|~The triangular wooden frame feels stable and looks far better in the living room than carpeted scratchers.~|~She alternates between scratching the sisal and chasing the ball, so it keeps her interested longer.~|~Compact enough beside the sofa, and it has redirected most of her scratching away from the armrest.~|~Our older cat needed catnip and a couple of days, but now uses it every evening.~|~The ball rotates smoothly and the scratching surface is accessible from both sides.~|~Easy to set up, steady on our wood floor, and it actually looks like part of the room.~|~Both cats use it differently: one scratches the sisal while the younger one mainly chases the ball.~|~It fits beside our bookcase without dominating the room, which was important in a small flat.{% endcapture %}
   {% else %}
-    {% capture review_copy %}The size matched the description and it fitted naturally into our pet-care routine.~|~It feels well made, arrived neatly packed and was straightforward to start using.~|~Our pet needed a little time to adjust, but now uses it comfortably every day.~|~The simple design is easy to keep clean and does not add clutter to the room.~|~Useful overall, although I would check the measurements carefully before ordering.~|~The finish feels considered and the instructions were clear enough to follow quickly.~|~A practical everyday product that does exactly what the description promised.{% endcapture %}
+    {% capture review_copy %}The size matched the description and it fitted naturally into our pet-care routine.~|~It feels well made, arrived neatly packed and was straightforward to start using.~|~Our pet needed a little time to adjust, but now uses it comfortably every day.~|~The simple design is easy to keep clean and does not add clutter to the room.~|~Useful overall, although I would check the measurements carefully before ordering.~|~The finish feels considered and the instructions were clear enough to follow quickly.~|~A practical everyday product that does exactly what the description promised.~|~It solved the small daily problem we bought it for without adding extra fuss.~|~The neutral look works well in our home and the product is easy to store between uses.{% endcapture %}
 {% endcase %}
 
 {% assign review_quotes = review_copy | strip | split: '~|~' %}
-{% assign review_names = 'Emma R.~|~Olivia P.~|~James T.~|~Amelia S.~|~Noah B.~|~Claire M.~|~Daniel K.' | split: '~|~' %}
-{% assign review_countries = 'United States~|~Australia~|~United Kingdom~|~Canada~|~New Zealand~|~Canada~|~United States' | split: '~|~' %}
-{% assign review_stars = '★★★★★~|~★★★★★~|~★★★★☆~|~★★★★★~|~★★★☆☆~|~★★★★☆~|~★★★★★' | split: '~|~' %}
-{% assign review_scores = '5~|~5~|~4~|~5~|~3~|~4~|~5' | split: '~|~' %}
+{% assign review_names = 'Emma R.~|~Olivia P.~|~James T.~|~Amelia S.~|~Noah B.~|~Claire M.~|~Daniel K.~|~Sophie L.~|~Marcus A.' | split: '~|~' %}
+{% assign review_countries = 'United States~|~Australia~|~United Kingdom~|~Canada~|~New Zealand~|~Canada~|~United States~|~United Kingdom~|~Australia' | split: '~|~' %}
+{% assign review_stars = '★★★★★~|~★★★★★~|~★★★★☆~|~★★★★★~|~★★★☆☆~|~★★★★☆~|~★★★★★~|~★★★★★~|~★★★★☆' | split: '~|~' %}
+{% assign review_scores = '5~|~5~|~4~|~5~|~3~|~4~|~5~|~5~|~4' | split: '~|~' %}
 
 {% for review_quote in review_quotes %}
   {% assign review_index = forloop.index %}
@@ -57,7 +57,7 @@
       <span class="stars" aria-label="{{ review_score }} out of 5 stars">{{ review_star_line }}</span>
       <p>“{{ review_quote }}”</p>
       <strong>{{ review_name }}</strong>
-      <small>Verified Purchase · {{ review_country }}</small>
+      <small>Layout preview · {{ review_country }}</small>
     </article>
   {% else %}
     <article class="review-card">
@@ -69,7 +69,7 @@
       <div class="stars" aria-label="{{ review_score }} out of 5 stars">{{ review_star_line }}</div>
       <p>“{{ review_quote }}”</p>
       <strong>{{ review_name }}</strong>
-      <small>Verified Purchase · {{ review_country }}</small>
+      <small>Layout preview · {{ review_country }}</small>
     </article>
   {% endif %}
 {% endfor %}

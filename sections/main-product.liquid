@@ -5,6 +5,8 @@
   {% assign real_rating = product.metafields.reviews.rating.value %}
   {% assign real_review_count = product.metafields.reviews.rating_count.value | default: product.metafields.reviews.rating_count %}
   {% assign real_purchase_count = product.metafields.custom.purchases_count.value | default: product.metafields.custom.purchases_count %}
+  {% assign show_design_preview = false %}
+  {% if request.design_mode and section.settings.show_mock_social_proof %}{% assign show_design_preview = true %}{% endif %}
   {% assign mock_seed = product.id | modulo: 5 %}
   {% assign mock_review_count = product.id | modulo: 137 | plus: 43 %}
   {% assign mock_purchase_count = product.id | modulo: 389 | plus: 126 %}
@@ -52,12 +54,12 @@
   <div class="product-details">
     {% if section.settings.show_ratings_summary and real_rating != blank %}
       <a class="product-page__rating" href="#reviews"><span aria-hidden="true">★★★★★</span><strong>{{ real_rating.rating | round: 1 }}</strong><span>{{ real_review_count }} reviews</span></a>
-    {% elsif section.settings.show_ratings_summary and section.settings.show_mock_social_proof %}
+    {% elsif section.settings.show_ratings_summary and show_design_preview %}
       <a class="product-page__rating" href="#reviews"><span aria-hidden="true">★★★★★</span><strong>{{ mock_rating }}</strong><span>{{ mock_review_count }} reviews</span></a>
     {% endif %}
     {% if section.settings.show_purchase_count and real_purchase_count != blank %}
       <p class="purchase-count">{{ real_purchase_count }} purchased</p>
-    {% elsif section.settings.show_purchase_count and section.settings.show_mock_social_proof %}
+    {% elsif section.settings.show_purchase_count and show_design_preview %}
       <p class="purchase-count">{{ mock_purchase_count }}+ purchased</p>
     {% endif %}
     <h1>{{ marketing_title | strip }}</h1>
@@ -108,13 +110,13 @@
     {% if shop.enabled_payment_types.size > 0 %}<div class="payment-trust"><strong>Secure payment options</strong><div>{% for type in shop.enabled_payment_types %}{{ type | payment_type_svg_tag }}{% endfor %}</div><small>Payments are encrypted and processed securely by Shopify.</small></div>{% endif %}
     {% for block in section.blocks %}{% if block.type == '@app' %}<div class="product-app-block" {{ block.shopify_attributes }}>{% render block %}</div>{% endif %}{% endfor %}
     {% if section.settings.show_ratings_summary %}
-    {% if real_rating != blank or section.settings.show_mock_social_proof %}
+    {% if real_rating != blank or show_design_preview %}
     <div class="product-review-preview" aria-label="Customer review preview">
       <div class="product-review-preview__head">
         <div><span class="eyebrow">PET PARENT REVIEWS</span><h2>{% if real_rating != blank %}{{ real_rating.rating | round: 1 }}{% else %}{{ mock_rating }}{% endif %} out of 5</h2></div>
         <a href="#reviews">{% if real_rating != blank %}{{ real_review_count }}{% else %}{{ mock_review_count }}{% endif %} reviews</a>
       </div>
-      {% if section.settings.show_mock_social_proof and real_rating == blank %}
+      {% if show_design_preview and real_rating == blank %}
       <div class="rating-breakdown" aria-label="Rating distribution">
         <div><span>5 stars</span><i><b style="width:{{ mock_five_percent }}%"></b></i><strong>{{ mock_five_count }}</strong></div>
         <div><span>4 stars</span><i><b style="width:{{ mock_four_percent }}%"></b></i><strong>{{ mock_four_count }}</strong></div>
@@ -134,8 +136,8 @@
         <div>Shipping is free on every KROZO order. Delivery estimates are shown during checkout for your destination.{% if shop.shipping_policy != blank %} <a href="{{ shop.shipping_policy.url }}">Read our shipping policy</a>.{% endif %}</div>
       </details>
       <details>
-        <summary><span>30-day returns</span><span aria-hidden="true">+</span></summary>
-        <div>You may request a return within 30 days, subject to our returns policy.{% if shop.refund_policy != blank %} <a href="{{ shop.refund_policy.url }}">Read our returns policy</a>.{% endif %}</div>
+        <summary><span>Returns & damaged items</span><span aria-hidden="true">+</span></summary>
+        <div>Changed your mind? You may request a return within 30 days, subject to our returns policy. If an item arrives damaged, defective or incorrect, contact us with your order number and clear photos. Depending on the issue and applicable law, we may offer a replacement, refund or a lower-impact resolution that does not require a return. This does not limit your statutory rights.{% if shop.refund_policy != blank %} <a href="{{ shop.refund_policy.url }}">Read our returns policy</a>.{% endif %}</div>
       </details>
       <details>
         <summary><span>Secure payment & support</span><span aria-hidden="true">+</span></summary>
@@ -176,5 +178,5 @@
 }
 </script>
 {% schema %}
-{"name":"Main product","settings":[{"type":"header","content":"Product content"},{"type":"checkbox","id":"show_ratings_summary","label":"Show ratings summary","default":true},{"type":"checkbox","id":"show_mock_social_proof","label":"Show transparent sample ratings until real review data exists","default":true},{"type":"checkbox","id":"show_purchase_count","label":"Show purchase count","default":true},{"type":"checkbox","id":"show_benefits","label":"Show benefit blocks","default":true},{"type":"checkbox","id":"show_trust_badges","label":"Show trust badges","default":true},{"type":"checkbox","id":"show_dynamic_checkout","label":"Show dynamic checkout/payment button","default":true},{"type":"checkbox","id":"show_sticky_atc","label":"Show mobile sticky add to cart","default":true},{"type":"header","content":"Editorial copy"},{"type":"text","id":"description_eyebrow","label":"Description eyebrow","default":"WHY IT BELONGS IN YOUR ROUTINE"},{"type":"text","id":"description_heading","label":"Description heading","default":"Designed around the moments that matter."}],"blocks":[{"type":"@app"},{"type":"benefit","name":"Benefit","limit":4,"settings":[{"type":"text","id":"text","label":"Benefit text","default":"Thoughtfully chosen for easier everyday routines"}]}]}
+{"name":"Main product","settings":[{"type":"header","content":"Product content"},{"type":"checkbox","id":"show_ratings_summary","label":"Show ratings summary","default":true},{"type":"checkbox","id":"show_mock_social_proof","label":"Show layout preview in the theme editor only","default":true},{"type":"checkbox","id":"show_purchase_count","label":"Show purchase count from product metafield","default":true},{"type":"checkbox","id":"show_benefits","label":"Show benefit blocks","default":true},{"type":"checkbox","id":"show_trust_badges","label":"Show trust badges","default":true},{"type":"checkbox","id":"show_dynamic_checkout","label":"Show dynamic checkout/payment button","default":true},{"type":"checkbox","id":"show_sticky_atc","label":"Show mobile sticky add to cart","default":true},{"type":"header","content":"Editorial copy"},{"type":"text","id":"description_eyebrow","label":"Description eyebrow","default":"WHY IT BELONGS IN YOUR ROUTINE"},{"type":"text","id":"description_heading","label":"Description heading","default":"Designed around the moments that matter."}],"blocks":[{"type":"@app"},{"type":"benefit","name":"Benefit","limit":4,"settings":[{"type":"text","id":"text","label":"Benefit text","default":"Thoughtfully chosen for easier everyday routines"}]}]}
 {% endschema %}

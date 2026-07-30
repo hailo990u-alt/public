@@ -10,7 +10,7 @@
 {% if collections['cats'] != blank %}{% assign cat_url = collections['cats'].url %}{% endif %}
 {% if collections['best-sellers'] != blank %}{% assign best_sellers_url = collections['best-sellers'].url %}{% endif %}
 {% if pages['why-krozo'] != blank %}{% assign why_krozo_url = pages['why-krozo'].url %}{% endif %}
-{% if blogs['pet-care-journal'] != blank %}{% assign journal_url = blogs['pet-care-journal'].url %}{% elsif blogs['news'] != blank %}{% assign journal_url = blogs['news'].url %}{% endif %}
+{% if blogs['journal'] != blank %}{% assign journal_url = blogs['journal'].url %}{% elsif blogs['pet-care-journal'] != blank %}{% assign journal_url = blogs['pet-care-journal'].url %}{% elsif blogs['news'] != blank %}{% assign journal_url = blogs['news'].url %}{% endif %}
 {% if pages['contact'] != blank %}{% assign contact_url = pages['contact'].url %}{% endif %}
 {% if section.settings.show_announcement %}<div class="announcement">{% if section.settings.announcement_link != blank %}<a href="{{ section.settings.announcement_link }}">{{ section.settings.announcement }}</a>{% else %}{{ section.settings.announcement }}{% endif %}</div>{% endif %}
 <header class="site-header" style="--header-logo-desktop:{{ section.settings.logo_width_desktop }}px;--header-logo-mobile:{{ section.settings.logo_width_mobile }}px;">

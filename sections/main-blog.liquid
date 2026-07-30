@@ -1,5 +1,5 @@
 <section class="journal-hero">
-  <div><span class="eyebrow">THE KROZO JOURNAL</span><h1>Thoughtful guidance for life with pets.</h1><p>Practical, calm and carefully considered advice for feeding, enrichment, travel and everyday care.</p></div>
+  <div><span class="eyebrow">{{ section.settings.hero_eyebrow }}</span><h1>{{ section.settings.hero_heading }}</h1><p>{{ section.settings.hero_text }}</p></div>
 </section>
 <nav class="journal-topics" aria-label="Journal topics">
   <a href="{{ blog.url }}">All guides</a>
@@ -40,4 +40,39 @@
     {% endif %}
   {% endpaginate %}
 </section>
-{% schema %}{"name":"Editorial blog","settings":[]}{% endschema %}
+<section class="journal-signup">
+  <div>
+    <span class="eyebrow">{{ section.settings.signup_eyebrow }}</span>
+    <h2>{{ section.settings.signup_heading }}</h2>
+    <p>{{ section.settings.signup_text }}</p>
+  </div>
+  {% form 'customer', class: 'journal-signup__form' %}
+    <input type="hidden" name="contact[tags]" value="newsletter,journal">
+    {% if form.posted_successfully? %}<p class="form-success">You’re on the list — welcome to the KROZO Journal.</p>{% endif %}
+    {{ form.errors | default_errors }}
+    <label class="visually-hidden" for="JournalEmail">Email address</label>
+    <input id="JournalEmail" type="email" name="contact[email]" autocomplete="email" placeholder="Your email address" required>
+    <button type="submit">{{ section.settings.signup_button }}</button>
+  {% endform %}
+</section>
+<section class="section journal-shop">
+  <div><span class="eyebrow">{{ section.settings.shop_eyebrow }}</span><h2>{{ section.settings.shop_heading }}</h2><p>{{ section.settings.shop_text }}</p></div>
+  <a class="button" href="{{ routes.all_products_collection_url }}">{{ section.settings.shop_button }}</a>
+</section>
+{% schema %}
+{"name":"Editorial blog","settings":[
+  {"type":"header","content":"Journal hero"},
+  {"type":"text","id":"hero_eyebrow","label":"Eyebrow","default":"THE KROZO JOURNAL"},
+  {"type":"text","id":"hero_heading","label":"Heading","default":"Thoughtful guidance for life with pets."},
+  {"type":"textarea","id":"hero_text","label":"Text","default":"Practical, calm and carefully considered advice for feeding, enrichment, travel and everyday care."},
+  {"type":"header","content":"Email signup"},
+  {"type":"text","id":"signup_eyebrow","label":"Eyebrow","default":"A CALMER INBOX"},
+  {"type":"text","id":"signup_heading","label":"Heading","default":"Useful pet care, without the noise."},
+  {"type":"textarea","id":"signup_text","label":"Text","default":"Get practical guides, seasonal checklists and thoughtful product advice from KROZO."},
+  {"type":"text","id":"signup_button","label":"Button","default":"Join the Journal →"},
+  {"type":"header","content":"Shop callout"},
+  {"type":"text","id":"shop_eyebrow","label":"Eyebrow","default":"PUT GOOD ADVICE INTO PRACTICE"},
+  {"type":"text","id":"shop_heading","label":"Heading","default":"Essentials chosen for easier everyday care."},
+  {"type":"textarea","id":"shop_text","label":"Text","default":"Explore considered products for feeding, play, travel and life at home with your pet."},
+  {"type":"text","id":"shop_button","label":"Button","default":"Explore the collection"}
+]}{% endschema %}
