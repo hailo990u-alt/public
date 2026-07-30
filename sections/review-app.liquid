@@ -4,6 +4,12 @@
 {% for block in section.blocks %}{% if block.type == 'review' %}{% assign approved_review_count = approved_review_count | plus: 1 %}{% endif %}{% endfor %}
 {% assign show_layout_preview = false %}
 {% if request.design_mode and section.settings.show_mock_reviews %}{% assign show_layout_preview = true %}{% endif %}
+{% assign real_rating = blank %}
+{% assign real_review_count = blank %}
+{% if product != blank %}
+  {% assign real_rating = product.metafields.reviews.rating.value %}
+  {% assign real_review_count = product.metafields.reviews.rating_count.value | default: product.metafields.reviews.rating_count %}
+{% endif %}
 {% assign mock_rating = '4.7' %}
   {% assign mock_review_count = 128 %}
   {% if product != blank %}
@@ -48,6 +54,13 @@
   {% if product != blank or app_block_count > 0 or approved_review_count > 0 or show_layout_preview %}
   <section id="reviews" class="section section--sand review-app">
     <div class="section-title"><span class="eyebrow">FROM PET PARENTS</span><h2>{% if product != blank %}What pet parents say about this product.{% else %}Stories, shared with care.{% endif %}</h2><p>Customer feedback from people who share life with their pets.</p></div>
+    {% if real_rating != blank and real_review_count != blank %}
+      <div class="review-summary review-summary--real">
+        <strong>{{ real_rating.rating | round: 1 }}</strong>
+        <div><span class="stars" aria-label="{{ real_rating.rating | round: 1 }} out of 5 stars">★★★★★</span><p>Based on {{ real_review_count }} customer {% if real_review_count == 1 %}review{% else %}reviews{% endif %}</p></div>
+        <a href="#ProductReviewForm">Share your experience</a>
+      </div>
+    {% endif %}
     {% for block in section.blocks %}{% if block.type == '@app' %}{% render block %}{% endif %}{% endfor %}
     <div class="review-grid review-grid--approved">
       {% for block in section.blocks %}
