@@ -4,6 +4,15 @@
   {% assign product_title_downcase = product.title | downcase %}
   {% assign real_rating = product.metafields.reviews.rating.value %}
   {% assign real_review_count = product.metafields.reviews.rating_count.value | default: product.metafields.reviews.rating_count %}
+  {% assign real_rating_value = real_rating.rating | default: real_rating.value | default: real_rating %}
+  {% assign real_review_count_number = real_review_count | plus: 0 %}
+  {% assign judgeme_data = product.metafields.judgeme.review_widget_data.value %}
+  {% assign judgeme_review_count = judgeme_data.number_of_reviews | plus: 0 %}
+  {% if judgeme_review_count > 0 %}
+    {% assign real_rating_value = judgeme_data.average_rating %}
+    {% assign real_review_count = judgeme_review_count %}
+    {% assign real_review_count_number = judgeme_review_count %}
+  {% endif %}
   {% assign real_purchase_count = product.metafields.custom.purchases_count.value | default: product.metafields.custom.purchases_count %}
   {% assign show_design_preview = false %}
   {% if request.design_mode and section.settings.show_mock_social_proof %}{% assign show_design_preview = true %}{% endif %}
@@ -52,10 +61,12 @@
     {% endfor %}
   </div>
   <div class="product-details">
-    {% if section.settings.show_ratings_summary and real_rating != blank %}
-      <a class="product-page__rating" href="#reviews"><span aria-hidden="true">★★★★★</span><strong>{{ real_rating.rating | round: 1 }}</strong><span>{{ real_review_count }} reviews</span></a>
+    {% if section.settings.show_ratings_summary and real_rating_value != blank and real_review_count_number > 0 %}
+      <a class="product-page__rating" href="#reviews"><span aria-hidden="true">★★★★★</span><strong>{{ real_rating_value | round: 1 }}</strong><span>{{ real_review_count }} {% if real_review_count_number == 1 %}review{% else %}reviews{% endif %}</span></a>
     {% elsif section.settings.show_ratings_summary and show_design_preview %}
       <a class="product-page__rating" href="#reviews"><span aria-hidden="true">★★★★★</span><strong>{{ mock_rating }}</strong><span>{{ mock_review_count }} reviews</span></a>
+    {% elsif section.settings.show_ratings_summary %}
+      <a class="product-page__rating product-page__rating--empty" href="#reviews"><span aria-hidden="true">☆☆☆☆☆</span><span>Write the first review</span></a>
     {% endif %}
     {% if section.settings.show_purchase_count and real_purchase_count != blank %}
       <p class="purchase-count">{{ real_purchase_count }} purchased</p>
@@ -110,13 +121,13 @@
     {% if shop.enabled_payment_types.size > 0 %}<div class="payment-trust"><strong>Secure payment options</strong><div>{% for type in shop.enabled_payment_types %}{{ type | payment_type_svg_tag }}{% endfor %}</div><small>Payments are encrypted and processed securely by Shopify.</small></div>{% endif %}
     {% for block in section.blocks %}{% if block.type == '@app' %}<div class="product-app-block" {{ block.shopify_attributes }}>{% render block %}</div>{% endif %}{% endfor %}
     {% if section.settings.show_ratings_summary %}
-    {% if real_rating != blank or show_design_preview %}
+    {% if real_rating_value != blank or show_design_preview %}
     <div class="product-review-preview" aria-label="Customer review preview">
       <div class="product-review-preview__head">
-        <div><span class="eyebrow">PET PARENT REVIEWS</span><h2>{% if real_rating != blank %}{{ real_rating.rating | round: 1 }}{% else %}{{ mock_rating }}{% endif %} out of 5</h2></div>
-        <a href="#reviews">{% if real_rating != blank %}{{ real_review_count }}{% else %}{{ mock_review_count }}{% endif %} reviews</a>
+        <div><span class="eyebrow">PET PARENT REVIEWS</span><h2>{% if real_rating_value != blank %}{{ real_rating_value | round: 1 }}{% else %}{{ mock_rating }}{% endif %} out of 5</h2></div>
+        <a href="#reviews">{% if real_rating_value != blank %}{{ real_review_count }}{% else %}{{ mock_review_count }}{% endif %} reviews</a>
       </div>
-      {% if show_design_preview and real_rating == blank %}
+      {% if show_design_preview and real_rating_value == blank %}
       <div class="rating-breakdown" aria-label="Rating distribution">
         <div><span>5 stars</span><i><b style="width:{{ mock_five_percent }}%"></b></i><strong>{{ mock_five_count }}</strong></div>
         <div><span>4 stars</span><i><b style="width:{{ mock_four_percent }}%"></b></i><strong>{{ mock_four_count }}</strong></div>
@@ -161,10 +172,10 @@
     "@type": "Brand",
     "name": "KROZO"
   },
-  {% if real_rating != blank and real_review_count != blank %}
+  {% if real_rating_value != blank and real_review_count_number > 0 %}
   "aggregateRating": {
     "@type": "AggregateRating",
-    "ratingValue": {{ real_rating.rating | json }},
+    "ratingValue": {{ real_rating_value | json }},
     "reviewCount": {{ real_review_count | json }}
   },
   {% endif %}

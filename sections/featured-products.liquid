@@ -11,6 +11,11 @@
       {% capture marketing_title %}{% render 'krozo-product-title', product: product %}{% endcapture %}
       {% assign real_rating = product.metafields.reviews.rating.value %}
       {% assign real_review_count = product.metafields.reviews.rating_count.value | default: product.metafields.reviews.rating_count %}
+      {% assign real_rating_value = real_rating.rating | default: real_rating.value | default: real_rating %}
+      {% assign real_review_count_number = real_review_count | plus: 0 %}
+      {% assign judgeme_data = product.metafields.judgeme.review_widget_data.value %}
+      {% assign judgeme_review_count = judgeme_data.number_of_reviews | plus: 0 %}
+      {% if judgeme_review_count > 0 %}{% assign real_rating_value = judgeme_data.average_rating %}{% assign real_review_count = judgeme_review_count %}{% assign real_review_count_number = judgeme_review_count %}{% endif %}
       {% assign real_purchase_count = product.metafields.custom.purchases_count.value | default: product.metafields.custom.purchases_count %}
       {% assign sample_seed = product.id | modulo: 5 %}
       {% assign sample_reviews = product.id | modulo: 137 | plus: 43 %}
@@ -53,17 +58,19 @@
           {% if section.settings.show_badges and product.compare_at_price > product.price %}<span class="badge">SAVE {{ product.compare_at_price | minus: product.price | money }}</span>{% endif %}
         </a>
         <div class="product-info">
-          {% if section.settings.show_ratings and real_rating != blank %}
-          <div class="product-card__rating"><span aria-hidden="true">★★★★★</span><strong>{{ real_rating.rating | round: 1 }}</strong><a href="{{ product.url }}#reviews">{{ real_review_count }} reviews</a></div>
+          {% if section.settings.show_ratings and real_rating_value != blank and real_review_count_number > 0 %}
+          <div class="product-card__rating"><span aria-hidden="true">★★★★★</span><strong>{{ real_rating_value | round: 1 }}</strong><a href="{{ product.url }}#reviews">{{ real_review_count }} {% if real_review_count_number == 1 %}review{% else %}reviews{% endif %}</a></div>
           {% elsif section.settings.show_ratings and show_layout_preview %}
           <div class="product-card__rating"><span aria-hidden="true">★★★★★</span><strong>{{ sample_rating }}</strong><a href="{{ product.url }}#reviews">{{ sample_reviews }} reviews</a></div>
+          {% elsif section.settings.show_ratings %}
+          <div class="product-card__rating product-card__rating--empty"><span aria-hidden="true">☆☆☆☆☆</span><a href="{{ product.url }}#reviews">Write the first review</a></div>
           {% endif %}
           {% if section.settings.show_purchase_count and real_purchase_count != blank %}
           <div class="purchase-count">{{ real_purchase_count }} purchased</div>
           {% elsif section.settings.show_purchase_count and show_layout_preview %}
           <div class="purchase-count">{{ sample_purchases }}+ purchased</div>
           {% endif %}
-          {% if show_layout_preview and real_rating == blank %}
+          {% if show_layout_preview and real_rating_value == blank %}
           <div class="product-card__proof">
             <span class="stars">★★★★★</span>
             <p>“{{ sample_quote }}”</p>
