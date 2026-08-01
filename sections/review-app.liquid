@@ -9,6 +9,12 @@
 {% if product != blank %}
   {% assign real_rating = product.metafields.reviews.rating.value %}
   {% assign real_review_count = product.metafields.reviews.rating_count.value | default: product.metafields.reviews.rating_count %}
+  {% assign real_rating_value = real_rating.rating | default: real_rating.value | default: real_rating %}
+  {% assign real_review_count_number = real_review_count | plus: 0 %}
+  {% assign judgeme_data = product.metafields.judgeme.review_widget_data.value %}
+  {% assign judgeme_review_count = judgeme_data.number_of_reviews | plus: 0 %}
+  {% if judgeme_review_count > 0 %}{% assign real_rating_value = judgeme_data.average_rating %}{% assign real_review_count = judgeme_review_count %}{% assign real_review_count_number = judgeme_review_count %}{% endif %}
+  {% assign judgeme_widget = product.metafields.judgeme.widget.value %}
 {% endif %}
 {% assign mock_rating = '4.7' %}
   {% assign mock_review_count = 128 %}
@@ -54,14 +60,17 @@
   {% if product != blank or app_block_count > 0 or approved_review_count > 0 or show_layout_preview %}
   <section id="reviews" class="section section--sand review-app">
     <div class="section-title"><span class="eyebrow">FROM PET PARENTS</span><h2>{% if product != blank %}What pet parents say about this product.{% else %}Stories, shared with care.{% endif %}</h2><p>Customer feedback from people who share life with their pets.</p></div>
-    {% if real_rating != blank and real_review_count != blank %}
+    {% if real_rating_value != blank and real_review_count_number > 0 %}
       <div class="review-summary review-summary--real">
-        <strong>{{ real_rating.rating | round: 1 }}</strong>
-        <div><span class="stars" aria-label="{{ real_rating.rating | round: 1 }} out of 5 stars">★★★★★</span><p>Based on {{ real_review_count }} customer {% if real_review_count == 1 %}review{% else %}reviews{% endif %}</p></div>
+        <strong>{{ real_rating_value | round: 1 }}</strong>
+        <div><span class="stars" aria-label="{{ real_rating_value | round: 1 }} out of 5 stars">★★★★★</span><p>Based on {{ real_review_count }} customer {% if real_review_count_number == 1 %}review{% else %}reviews{% endif %}</p></div>
         <a href="#ProductReviewForm">Share your experience</a>
       </div>
+    {% elsif product != blank %}
+      <div class="review-summary review-summary--empty"><strong>New</strong><div><span class="stars" aria-label="No ratings yet">☆☆☆☆☆</span><p>Be the first pet parent to review this product.</p></div><a href="#ProductReviewForm">Write a review</a></div>
     {% endif %}
     {% for block in section.blocks %}{% if block.type == '@app' %}{% render block %}{% endif %}{% endfor %}
+    {% if judgeme_widget != blank %}<div class="review-app__judgeme">{{ judgeme_widget }}</div>{% endif %}
     <div class="review-grid review-grid--approved">
       {% for block in section.blocks %}
       {% if block.type == 'review' %}
