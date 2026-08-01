@@ -15,7 +15,7 @@
   {% endif %}
   {% assign real_purchase_count = product.metafields.custom.purchases_count.value | default: product.metafields.custom.purchases_count %}
   {% assign show_design_preview = false %}
-  {% if request.design_mode and section.settings.show_mock_social_proof %}{% assign show_design_preview = true %}{% endif %}
+  {% if section.settings.show_mock_social_proof %}{% assign show_design_preview = true %}{% endif %}
   {% assign mock_seed = product.id | modulo: 5 %}
   {% assign mock_review_count = product.id | modulo: 137 | plus: 43 %}
   {% assign mock_purchase_count = product.id | modulo: 389 | plus: 126 %}
@@ -61,17 +61,17 @@
     {% endfor %}
   </div>
   <div class="product-details">
-    {% if section.settings.show_ratings_summary and real_rating_value != blank and real_review_count_number > 0 %}
-      <a class="product-page__rating" href="#reviews"><span aria-hidden="true">★★★★★</span><strong>{{ real_rating_value | round: 1 }}</strong><span>{{ real_review_count }} {% if real_review_count_number == 1 %}review{% else %}reviews{% endif %}</span></a>
-    {% elsif section.settings.show_ratings_summary and show_design_preview %}
+    {% if section.settings.show_ratings_summary and show_design_preview %}
       <a class="product-page__rating" href="#reviews"><span aria-hidden="true">★★★★★</span><strong>{{ mock_rating }}</strong><span>{{ mock_review_count }} reviews</span></a>
+    {% elsif section.settings.show_ratings_summary and real_rating_value != blank and real_review_count_number > 0 %}
+      <a class="product-page__rating" href="#reviews"><span aria-hidden="true">★★★★★</span><strong>{{ real_rating_value | round: 1 }}</strong><span>{{ real_review_count }} {% if real_review_count_number == 1 %}review{% else %}reviews{% endif %}</span></a>
     {% elsif section.settings.show_ratings_summary %}
       <a class="product-page__rating product-page__rating--empty" href="#reviews"><span aria-hidden="true">☆☆☆☆☆</span><span>Write the first review</span></a>
     {% endif %}
-    {% if section.settings.show_purchase_count and real_purchase_count != blank %}
-      <p class="purchase-count">{{ real_purchase_count }} purchased</p>
-    {% elsif section.settings.show_purchase_count and show_design_preview %}
+    {% if section.settings.show_purchase_count and show_design_preview %}
       <p class="purchase-count">{{ mock_purchase_count }}+ purchased</p>
+    {% elsif section.settings.show_purchase_count and real_purchase_count != blank %}
+      <p class="purchase-count">{{ real_purchase_count }} purchased</p>
     {% endif %}
     <h1>{{ marketing_title | strip }}</h1>
     <p class="price">{{ product.selected_or_first_available_variant.price | money }}</p>
@@ -124,10 +124,10 @@
     {% if real_rating_value != blank or show_design_preview %}
     <div class="product-review-preview" aria-label="Customer review preview">
       <div class="product-review-preview__head">
-        <div><span class="eyebrow">PET PARENT REVIEWS</span><h2>{% if real_rating_value != blank %}{{ real_rating_value | round: 1 }}{% else %}{{ mock_rating }}{% endif %} out of 5</h2></div>
-        <a href="#reviews">{% if real_rating_value != blank %}{{ real_review_count }}{% else %}{{ mock_review_count }}{% endif %} reviews</a>
+        <div><span class="eyebrow">PET PARENT REVIEWS</span><h2>{% if show_design_preview %}{{ mock_rating }}{% else %}{{ real_rating_value | round: 1 }}{% endif %} out of 5</h2></div>
+        <a href="#reviews">{% if show_design_preview %}{{ mock_review_count }}{% else %}{{ real_review_count }}{% endif %} reviews</a>
       </div>
-      {% if show_design_preview and real_rating_value == blank %}
+      {% if show_design_preview %}
       <div class="rating-breakdown" aria-label="Rating distribution">
         <div><span>5 stars</span><i><b style="width:{{ mock_five_percent }}%"></b></i><strong>{{ mock_five_count }}</strong></div>
         <div><span>4 stars</span><i><b style="width:{{ mock_four_percent }}%"></b></i><strong>{{ mock_four_count }}</strong></div>
