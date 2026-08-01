@@ -1,6 +1,6 @@
 {% unless section.settings.hide_section %}<section id="best-sellers" class="section" style="background:{{ section.settings.background_color | default: settings.color_page_background }};text-align:{{ section.settings.text_alignment }};--product-card-ratio:{{ section.settings.image_ratio }};">
   {% assign show_layout_preview = false %}
-  {% if request.design_mode and section.settings.show_mock_social_proof %}{% assign show_layout_preview = true %}{% endif %}
+  {% if section.settings.show_mock_social_proof %}{% assign show_layout_preview = true %}{% endif %}
   <div class="section-title"><span class="eyebrow">{{ section.settings.eyebrow }}</span><h2>{{ section.settings.heading }}</h2>{% if section.settings.text != blank %}<p>{{ section.settings.text }}</p>{% endif %}</div>
   <div class="product-grid">
     {% assign featured_collection = section.settings.collection %}
@@ -58,19 +58,19 @@
           {% if section.settings.show_badges and product.compare_at_price > product.price %}<span class="badge">SAVE {{ product.compare_at_price | minus: product.price | money }}</span>{% endif %}
         </a>
         <div class="product-info">
-          {% if section.settings.show_ratings and real_rating_value != blank and real_review_count_number > 0 %}
-          <div class="product-card__rating"><span aria-hidden="true">★★★★★</span><strong>{{ real_rating_value | round: 1 }}</strong><a href="{{ product.url }}#reviews">{{ real_review_count }} {% if real_review_count_number == 1 %}review{% else %}reviews{% endif %}</a></div>
-          {% elsif section.settings.show_ratings and show_layout_preview %}
+          {% if section.settings.show_ratings and show_layout_preview %}
           <div class="product-card__rating"><span aria-hidden="true">★★★★★</span><strong>{{ sample_rating }}</strong><a href="{{ product.url }}#reviews">{{ sample_reviews }} reviews</a></div>
+          {% elsif section.settings.show_ratings and real_rating_value != blank and real_review_count_number > 0 %}
+          <div class="product-card__rating"><span aria-hidden="true">★★★★★</span><strong>{{ real_rating_value | round: 1 }}</strong><a href="{{ product.url }}#reviews">{{ real_review_count }} {% if real_review_count_number == 1 %}review{% else %}reviews{% endif %}</a></div>
           {% elsif section.settings.show_ratings %}
           <div class="product-card__rating product-card__rating--empty"><span aria-hidden="true">☆☆☆☆☆</span><a href="{{ product.url }}#reviews">Write the first review</a></div>
           {% endif %}
-          {% if section.settings.show_purchase_count and real_purchase_count != blank %}
-          <div class="purchase-count">{{ real_purchase_count }} purchased</div>
-          {% elsif section.settings.show_purchase_count and show_layout_preview %}
+          {% if section.settings.show_purchase_count and show_layout_preview %}
           <div class="purchase-count">{{ sample_purchases }}+ purchased</div>
+          {% elsif section.settings.show_purchase_count and real_purchase_count != blank %}
+          <div class="purchase-count">{{ real_purchase_count }} purchased</div>
           {% endif %}
-          {% if show_layout_preview and real_rating_value == blank %}
+          {% if show_layout_preview %}
           <div class="product-card__proof">
             <span class="stars">★★★★★</span>
             <p>“{{ sample_quote }}”</p>
