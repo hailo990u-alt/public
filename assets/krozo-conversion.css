@@ -40,6 +40,10 @@ img,video,iframe{max-width:100%}
 .product-card__rating>span{color:var(--gold);font-size:14px;letter-spacing:.08em}
 .product-card__rating strong{color:var(--ink);font-size:12px}
 .product-card__rating a{color:var(--muted);text-decoration:underline;text-underline-offset:3px}
+.product-card__rating--empty>span,.catalogue-card__rating--empty>span,.product-page__rating--empty>span{color:var(--muted)}
+.review-app__judgeme{margin-top:24px}
+.review-app__judgeme .jdgm-rev-widg{display:block!important;background:var(--cream);border:1px solid var(--line);border-radius:18px;padding:clamp(18px,3vw,36px)}
+.review-app__judgeme .jdgm-temp-hiding-style{display:none!important}
 .product-info>.purchase-count{display:inline-flex;align-items:center;min-height:25px;margin:0 0 2px;padding:5px 9px;border-radius:99px;background:#e8eee3;color:var(--olive);font-size:10px;font-weight:650}
 .product-card__proof .stars{font-size:13px;letter-spacing:.08em}
 .product-card__proof p{margin:7px 0 6px!important;font:500 14px/1.4 'Playfair Display',Georgia,serif!important;color:#3d493e}
