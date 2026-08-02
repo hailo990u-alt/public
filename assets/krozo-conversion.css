@@ -166,9 +166,9 @@ img,video,iframe{max-width:100%}
   .sticky-atc>span{min-width:0;overflow:hidden}
   .sticky-atc strong{font-size:12px;line-height:1.25}
   .sticky-atc .button{flex:0 0 auto;min-width:122px;min-height:48px;padding:12px 18px;font-size:14px}
-  .buckscc-currency-wrapper{bottom:calc(40px + env(safe-area-inset-bottom))!important;left:0!important;transform:translateX(-110%)!important;transition:transform .25s ease!important}
-  body.krozo-currency-open .buckscc-currency-wrapper{transform:translateX(0)!important}
-  .krozo-currency-toggle{position:fixed;z-index:1000000000;left:0;bottom:calc(40px + env(safe-area-inset-bottom));display:grid;place-items:center;width:34px;height:42px;padding:0;border:1px solid #d8d3c8;border-left:0;border-radius:0 10px 10px 0;background:#fffefa;color:var(--olive);box-shadow:0 8px 22px rgba(31,45,32,.14);font:700 20px/1 Inter,Arial,sans-serif;transition:left .25s ease;cursor:pointer}
+  body .buckscc-currency-wrapper.bucksDesktop.bottom_left{bottom:calc(78px + env(safe-area-inset-bottom))!important;left:0!important;transform:translateX(-110%)!important;transition:transform .25s ease!important}
+  body.krozo-currency-open .buckscc-currency-wrapper.bucksDesktop.bottom_left{transform:translateX(0)!important}
+  .krozo-currency-toggle{position:fixed;z-index:1000000000;left:0;bottom:calc(78px + env(safe-area-inset-bottom));display:grid;place-items:center;width:34px;height:42px;padding:0;border:1px solid #d8d3c8;border-left:0;border-radius:0 10px 10px 0;background:#fffefa;color:var(--olive);box-shadow:0 8px 22px rgba(31,45,32,.14);font:700 20px/1 Inter,Arial,sans-serif;transition:left .25s ease;cursor:pointer}
   body.krozo-currency-open .krozo-currency-toggle{left:112px}
   shopify-chat::part(activator){width:54px!important;min-width:54px!important;height:54px!important;margin-bottom:84px!important;padding:0!important;border-radius:50%!important;justify-content:center!important;font-size:0!important}
   body{padding-bottom:calc(76px + env(safe-area-inset-bottom))}
