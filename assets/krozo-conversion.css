@@ -171,7 +171,7 @@ img,video,iframe{max-width:100%}
   .buckscc-currency-wrapper .buckscc-select-styled{position:relative!important;padding-right:34px!important}
   .buckscc-currency-wrapper .bucks__folder-collapse_btn{display:none!important}
   .buckscc-currency-wrapper .krozo-currency-toggle{position:absolute;z-index:2;top:0;right:0;bottom:0;display:grid;place-items:center;width:34px;height:100%;padding:0;border:0;border-left:1px solid #d8d3c8;border-radius:0 10px 10px 0;background:#fffefa;color:var(--olive);font:700 20px/1 Inter,Arial,sans-serif;cursor:pointer}
-  shopify-chat::part(activator){width:54px!important;min-width:54px!important;height:54px!important;margin-bottom:84px!important;padding:0!important;border-radius:50%!important;justify-content:center!important;font-size:0!important}
+  shopify-chat::part(activator){width:54px!important;min-width:54px!important;height:54px!important;margin-right:136px!important;margin-bottom:0!important;padding:0!important;border-radius:50%!important;justify-content:center!important;font-size:0!important}
   body{padding-bottom:calc(76px + env(safe-area-inset-bottom))}
   .global-trust-bar{display:grid!important;grid-template-columns:1fr 1fr;overflow:visible}
   .global-trust-bar span{min-width:0!important;min-height:42px;padding:7px 5px;text-align:center;font-size:9px}
