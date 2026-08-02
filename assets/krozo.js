@@ -47,24 +47,37 @@ document.addEventListener('DOMContentLoaded',()=>{
     const variantSelect=form.querySelector('[data-variant-select]');
     const variantInput=variantSelect||form.querySelector('[name="id"]');
     const quantity=form.querySelector('[data-product-quantity]');
-    const unitPrice=productPage?.querySelector('[data-unit-price]');
-    const totalPrice=form.querySelector('[data-product-total]');
+    let unitPrice=productPage?.querySelector('[data-unit-price]');
+    let totalPrice=form.querySelector('[data-product-total]');
     const availability=productPage?.querySelector('[data-product-availability]');
     const addButton=form.querySelector('.product-atc');
-    const stickyPrice=document.querySelector('[data-sticky-price]');
+    let stickyPrice=document.querySelector('[data-sticky-price]');
     const stickyButton=document.querySelector('[data-sticky-submit]');
     const gallery=productPage?.querySelector('[data-product-gallery]');
     const currency=form.dataset.currency||'USD';
     const formatMoney=cents=>new Intl.NumberFormat(document.documentElement.lang||'en',{style:'currency',currency}).format((Number(cents)||0)/100);
+    const renderConvertibleMoney=(node,cents)=>{
+      if(!node)return node;
+      const replacement=node.cloneNode(false);
+      [...replacement.attributes].forEach(attribute=>{
+        if(attribute.name.startsWith('bucks-'))replacement.removeAttribute(attribute.name);
+      });
+      replacement.classList.remove('buckscc-converted','buckscc-money');
+      replacement.classList.add('money');
+      replacement.textContent=formatMoney(cents);
+      replacement.dataset.priceCents=String(cents);
+      node.replaceWith(replacement);
+      return replacement;
+    };
     const selectedData=()=>variantSelect?variantSelect.options[variantSelect.selectedIndex]?.dataset:variantInput?.dataset;
     const update=()=>{
       const data=selectedData()||{};
       const cents=Number(data.price||unitPrice?.dataset.priceCents||0);
       const count=Math.max(1,Number.parseInt(quantity?.value||'1',10)||1);
       const isAvailable=data.available!=='false';
-      if(unitPrice){unitPrice.textContent=formatMoney(cents);unitPrice.dataset.priceCents=String(cents)}
-      if(totalPrice)totalPrice.textContent=formatMoney(cents*count);
-      if(stickyPrice)stickyPrice.textContent=formatMoney(cents*count);
+      unitPrice=renderConvertibleMoney(unitPrice,cents);
+      totalPrice=renderConvertibleMoney(totalPrice,cents*count);
+      stickyPrice=renderConvertibleMoney(stickyPrice,cents*count);
       if(availability)availability.lastChild.textContent=isAvailable?'In stock and ready to order':'Currently unavailable';
       if(addButton){addButton.disabled=!isAvailable;addButton.textContent=isAvailable?'Add to cart':'Sold out'}
       if(stickyButton){stickyButton.disabled=!isAvailable;stickyButton.textContent=isAvailable?'Add to cart':'Sold out'}
