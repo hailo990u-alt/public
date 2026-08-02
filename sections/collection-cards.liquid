@@ -44,7 +44,11 @@
       {% assign card_blurb = block.settings.blurb | default: card_blurb %}
       {% assign card_url = item.url | default: routes.all_products_collection_url %}
       <a class="collection-card" href="{{ card_url }}" {{ block.shopify_attributes }}>
-        {% if block.settings.image != blank %}{{ block.settings.image | image_url: width: 900 | image_tag: loading: 'lazy', alt: card_label }}{% else %}<img src="{{ fallback_image | asset_url }}" loading="lazy" alt="{{ card_label }} collection" width="900" height="900">{% endif %}
+        {% if block.settings.image != blank %}
+          {{ block.settings.image | image_url: width: 900 | image_tag: loading: 'lazy', decoding: 'async', widths: '240,360,480,640,900', sizes: '(max-width: 750px) calc(50vw - 25px), 30vw', alt: card_label }}
+        {% else %}
+          <img src="{{ fallback_image | asset_img_url: '640x' }}" srcset="{{ fallback_image | asset_img_url: '240x' }} 240w, {{ fallback_image | asset_img_url: '360x' }} 360w, {{ fallback_image | asset_img_url: '480x' }} 480w, {{ fallback_image | asset_img_url: '640x' }} 640w, {{ fallback_image | asset_img_url: '900x' }} 900w" sizes="(max-width: 750px) calc(50vw - 25px), 30vw" loading="lazy" decoding="async" alt="{{ card_label }} collection" width="900" height="900">
+        {% endif %}
         <span class="collection-card__content">
           <strong>{{ card_label }}</strong>
           <em>{{ card_blurb }}</em>
@@ -55,7 +59,7 @@
   </div>
   <div id="our-standard" class="brand-standard brand-standard--embedded">
     <div class="brand-standard__media">
-      <img src="{{ 'krozo-category-wellness.webp' | asset_url }}" loading="lazy" alt="Thoughtful everyday pet care" width="1200" height="1200">
+      <img src="{{ 'krozo-category-wellness.webp' | asset_img_url: '900x' }}" srcset="{{ 'krozo-category-wellness.webp' | asset_img_url: '480x' }} 480w, {{ 'krozo-category-wellness.webp' | asset_img_url: '720x' }} 720w, {{ 'krozo-category-wellness.webp' | asset_img_url: '900x' }} 900w, {{ 'krozo-category-wellness.webp' | asset_img_url: '1200x' }} 1200w" sizes="(max-width: 750px) calc(100vw - 40px), 45vw" loading="lazy" decoding="async" alt="Thoughtful everyday pet care" width="1200" height="1200">
     </div>
     <div class="brand-standard__content">
       <span class="eyebrow">THE KROZO STANDARD</span>
