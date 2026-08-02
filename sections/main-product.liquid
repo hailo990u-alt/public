@@ -78,67 +78,72 @@
     <p class="price"><span data-unit-price data-price-cents="{{ initial_variant.price }}">{{ initial_variant.price | money }}</span> <small class="price__unit">per item</small></p>
     <p class="product-summary">{{ marketing_summary | strip }}</p>
     {% if section.settings.show_benefits %}<div class="product-benefit-list" aria-label="Product benefits">
-      {% if product_title_downcase contains 'choke' or product_title_downcase contains 'slow feeder' %}
-        <div class="product-benefit"><span>✓</span><p>Helps slow down fast eaters at every meal</p></div>
-        <div class="product-benefit"><span>✓</span><p>Raised maze turns feeding into gentle enrichment</p></div>
-        <div class="product-benefit"><span>✓</span><p>Rounded channels make rinsing quick and simple</p></div>
-      {% elsif product_title_downcase contains 'water cup' or product_title_downcase contains 'water bottle' %}
-        <div class="product-benefit"><span>✓</span><p>Stores water, treats and waste bags in one bottle</p></div>
-        <div class="product-benefit"><span>✓</span><p>One-hand dispensing makes walk breaks easier</p></div>
-        <div class="product-benefit"><span>✓</span><p>Lockable flow helps protect bags and car seats from leaks</p></div>
-      {% elsif product_title_downcase contains 'gps' or product_title_downcase contains 'tracker' or product_title_downcase contains 'smart tag' %}
-        <div class="product-benefit"><span>✓</span><p>Light enough for everyday collars and harnesses</p></div>
-        <div class="product-benefit"><span>✓</span><p>Sound alert helps locate nearby pets and belongings</p></div>
-        <div class="product-benefit"><span>✓</span><p>App connection adds reassurance during daily routines</p></div>
-      {% elsif product_title_downcase contains 'scratch' %}
-        <div class="product-benefit"><span>✓</span><p>Sisal surface gives claws a satisfying place to scratch</p></div>
-        <div class="product-benefit"><span>✓</span><p>Spinning ball keeps curious cats engaged</p></div>
-        <div class="product-benefit"><span>✓</span><p>Stable frame helps redirect scratching away from furniture</p></div>
-      {% elsif product_title_downcase contains 'lick mat' or product_title_downcase contains 'licking mat' %}
-        <div class="product-benefit"><span>✓</span><p>Textured surface makes treats last longer</p></div>
-        <div class="product-benefit"><span>✓</span><p>Repetitive licking supports calmer enrichment time</p></div>
-        <div class="product-benefit"><span>✓</span><p>Useful during grooming, baths and quiet-time routines</p></div>
-      {% elsif product_title_downcase contains 'fountain' %}
-        <div class="product-benefit"><span>✓</span><p>Circulating flow encourages pets to drink more often</p></div>
-        <div class="product-benefit"><span>✓</span><p>Fresh moving water feels cleaner and more inviting</p></div>
-        <div class="product-benefit"><span>✓</span><p>Easy-access drinking area suits cats and small dogs</p></div>
-      {% elsif product_title_downcase contains 'litter scoop' or product_title_downcase contains 'shovel' %}
-        <div class="product-benefit"><span>✓</span><p>Built-in waste bin keeps disposal bags within reach</p></div>
-        <div class="product-benefit"><span>✓</span><p>Scoop and contain litter mess in one simple motion</p></div>
-        <div class="product-benefit"><span>✓</span><p>Compact design keeps daily clean-up tools organised</p></div>
-      {% elsif product_title_downcase contains 'groom' or product_title_downcase contains 'brush' %}
-        <div class="product-benefit"><span>✓</span><p>Rounded bristles lift loose fur gently</p></div>
-        <div class="product-benefit"><span>✓</span><p>One-click release removes collected hair quickly</p></div>
-        <div class="product-benefit"><span>✓</span><p>Helps keep coats and furniture cleaner between baths</p></div>
-      {% elsif product_title_downcase contains 'treat' or product_title_downcase contains 'food leaker' or product_title_downcase contains 'feeder toy' %}
-        <div class="product-benefit"><span>✓</span><p>Turns treats into a rewarding problem-solving game</p></div>
-        <div class="product-benefit"><span>✓</span><p>Random dispensing keeps pets focused and curious</p></div>
-        <div class="product-benefit"><span>✓</span><p>Encourages slower snacking and independent play</p></div>
-      {% elsif product_title_downcase contains 'seat cover' or product_title_downcase contains 'car cover' %}
-        <div class="product-benefit"><span>✓</span><p>Shields seats from fur, mud and wet paws</p></div>
-        <div class="product-benefit"><span>✓</span><p>Creates a more comfortable travel space for your pet</p></div>
-        <div class="product-benefit"><span>✓</span><p>Quick to fit, remove and clean between journeys</p></div>
-      {% elsif product_title_downcase contains 'leash' or product_title_downcase contains 'lead' %}
-        <div class="product-benefit"><span>✓</span><p>Comfortable grip supports easier everyday walks</p></div>
-        <div class="product-benefit"><span>✓</span><p>Secure connection helps maintain confident control</p></div>
-        <div class="product-benefit"><span>✓</span><p>Designed for daily outings and active routines</p></div>
-      {% elsif product_title_downcase contains 'harness' %}
-        <div class="product-benefit"><span>✓</span><p>Distributes walking pressure more comfortably</p></div>
-        <div class="product-benefit"><span>✓</span><p>Adjustable fit supports secure everyday movement</p></div>
-        <div class="product-benefit"><span>✓</span><p>Helps provide better control without pulling at the neck</p></div>
-      {% elsif product_title_downcase contains 'toy' and product_title_downcase contains 'cat' %}
-        <div class="product-benefit"><span>✓</span><p>Stimulates stalking, batting and chasing instincts</p></div>
-        <div class="product-benefit"><span>✓</span><p>Encourages active indoor play and daily movement</p></div>
-        <div class="product-benefit"><span>✓</span><p>Helps reduce boredom when cats play independently</p></div>
-      {% elsif product_title_downcase contains 'toy' %}
-        <div class="product-benefit"><span>✓</span><p>Encourages active play and healthy daily movement</p></div>
-        <div class="product-benefit"><span>✓</span><p>Interactive design keeps curious pets engaged</p></div>
-        <div class="product-benefit"><span>✓</span><p>Great for bonding, training and independent play</p></div>
-      {% else %}
-        <div class="product-benefit"><span>✓</span><p>Designed around the way pets use {{ product.title | escape }}</p></div>
-        <div class="product-benefit"><span>✓</span><p>Practical details make everyday use simpler</p></div>
-        <div class="product-benefit"><span>✓</span><p>Easy to introduce into your pet-care routine</p></div>
-      {% endif %}
+      {% case product.handle %}
+        {% when 'anti-choke-bowl-plastic-dog-bowl-healthy-feeder' %}
+          <div class="product-benefit"><span>✓</span><p>Maze pattern helps fast eaters slow down naturally</p></div>
+          <div class="product-benefit"><span>✓</span><p>Turns every meal into gentle mental enrichment</p></div>
+          <div class="product-benefit"><span>✓</span><p>Rounded food channels are quick to rinse clean</p></div>
+        {% when 'dog-water-cup-drinking-food-garbage-bag-three-in-one-portable-small-multi-functional-pet-cups-pets-supplies' %}
+          <div class="product-benefit"><span>✓</span><p>Carries water, treats and waste bags in one bottle</p></div>
+          <div class="product-benefit"><span>✓</span><p>One-hand dispensing keeps walk breaks effortless</p></div>
+          <div class="product-benefit"><span>✓</span><p>Unused water flows back to reduce waste</p></div>
+        {% when 'gps-tracker-for-dogs-cat-pet-child-smart-tag-gadgets-keychain-for-keys-search-key-finder-mini-anti-lost-alarm-gps-locator-pets-products' %}
+          <div class="product-benefit"><span>✓</span><p>Compact tag stays light on collars and keychains</p></div>
+          <div class="product-benefit"><span>✓</span><p>Audible alert helps find nearby pets or belongings</p></div>
+          <div class="product-benefit"><span>✓</span><p>App connection adds everyday location reassurance</p></div>
+        {% when 'interactive-cat-scratching-post' %}
+          <div class="product-benefit"><span>✓</span><p>Natural sisal gives claws a satisfying scratch surface</p></div>
+          <div class="product-benefit"><span>✓</span><p>Hanging ball encourages batting and active play</p></div>
+          <div class="product-benefit"><span>✓</span><p>Helps redirect scratching away from your furniture</p></div>
+        {% when 'interactive-cat-toy-ball-super-drive-cat-rolling-ball' %}
+          <div class="product-benefit"><span>✓</span><p>Self-moving ball sparks chasing and hunting instincts</p></div>
+          <div class="product-benefit"><span>✓</span><p>Travels across common floors to keep play unpredictable</p></div>
+          <div class="product-benefit"><span>✓</span><p>Helps indoor cats stay active when playing alone</p></div>
+        {% when 'krozo™-automatic-pet-water-fountain' %}
+          <div class="product-benefit"><span>✓</span><p>Circulating water encourages pets to drink more often</p></div>
+          <div class="product-benefit"><span>✓</span><p>Quiet flow keeps hydration calm and inviting</p></div>
+          <div class="product-benefit"><span>✓</span><p>Replaceable filtration helps keep every sip fresher</p></div>
+        {% when 'krozo™-litter-scoop-with-waste-bin' %}
+          <div class="product-benefit"><span>✓</span><p>Built-in waste bin keeps disposal bags within reach</p></div>
+          <div class="product-benefit"><span>✓</span><p>Scoop and contain litter mess in one simple motion</p></div>
+          <div class="product-benefit"><span>✓</span><p>Compact design keeps clean-up tools neatly organised</p></div>
+        {% when 'krozo™-one-click-pet-brush' %}
+          <div class="product-benefit"><span>✓</span><p>Rounded bristles remove loose fur without harsh pulling</p></div>
+          <div class="product-benefit"><span>✓</span><p>One-click release clears collected hair in seconds</p></div>
+          <div class="product-benefit"><span>✓</span><p>Comfortable grip makes regular grooming easier</p></div>
+        {% when 'krozo™-smart-treat-puzzle-feeder' %}
+          <div class="product-benefit"><span>✓</span><p>Turns treats into a rewarding problem-solving game</p></div>
+          <div class="product-benefit"><span>✓</span><p>Random dispensing keeps curious pets engaged longer</p></div>
+          <div class="product-benefit"><span>✓</span><p>Encourages slower snacking and independent play</p></div>
+        {% when 'new-portable-pet-dog-water-bottle-soft-silicone-leaf-design-for-dog-pets-outdoor-travel-drinking-bowls-water-dispenser' %}
+          <div class="product-benefit"><span>✓</span><p>Built-in silicone bowl unfolds for easy outdoor drinking</p></div>
+          <div class="product-benefit"><span>✓</span><p>Leak-resistant seal protects bags during travel</p></div>
+          <div class="product-benefit"><span>✓</span><p>Lightweight shape slips easily into walk essentials</p></div>
+        {% when 'pet-stairs-steps-cat-and-dog-climb-stairs-3-stairs-pet-bed-stairs' %}
+          <div class="product-benefit"><span>✓</span><p>Three gentle steps make sofas and beds easier to reach</p></div>
+          <div class="product-benefit"><span>✓</span><p>Supportive foam cushions paws and joints while climbing</p></div>
+          <div class="product-benefit"><span>✓</span><p>Removable cover simplifies everyday cleaning</p></div>
+        {% when 'pet-water-dispenser-automatic-loop-water-fountain' %}
+          <div class="product-benefit"><span>✓</span><p>Continuous circulation keeps the water moving</p></div>
+          <div class="product-benefit"><span>✓</span><p>Wide drinking surface gives pets comfortable access</p></div>
+          <div class="product-benefit"><span>✓</span><p>Generous reservoir reduces frequent bowl refills</p></div>
+        {% when 'portable-lightweight-dog-pooper-scooper-with-built-in-poop-bag-dispenser-eight-claw-shovel-for-pet-toilet-picker-pet-products' %}
+          <div class="product-benefit"><span>✓</span><p>Claw pickup keeps hands farther from outdoor waste</p></div>
+          <div class="product-benefit"><span>✓</span><p>Built-in bag dispenser keeps clean-up supplies ready</p></div>
+          <div class="product-benefit"><span>✓</span><p>Portable shape clips easily onto walking gear</p></div>
+        {% when 'roller-brush-pet-gluer-hair-cleaner-hair-remover-brush' %}
+          <div class="product-benefit"><span>✓</span><p>Lifts embedded pet hair from sofas and clothing</p></div>
+          <div class="product-benefit"><span>✓</span><p>Reusable roller reduces reliance on disposable sheets</p></div>
+          <div class="product-benefit"><span>✓</span><p>Compact cleaner is ready for quick daily touch-ups</p></div>
+        {% when 'cat-house-cat-house-villa-cat-bed-small-dog-kennel' %}
+          <div class="product-benefit"><span>✓</span><p>Enclosed cave creates a warm, private place to rest</p></div>
+          <div class="product-benefit"><span>✓</span><p>Soft cushioning supports comfortable naps and sleep</p></div>
+          <div class="product-benefit"><span>✓</span><p>Hanging ball adds gentle play beside the bed</p></div>
+        {% else %}
+          {% for block in section.blocks %}
+            {% if block.type == 'benefit' %}<div class="product-benefit" {{ block.shopify_attributes }}><span>✓</span><p>{{ block.settings.text }}</p></div>{% endif %}
+          {% endfor %}
+      {% endcase %}
     </div>{% endif %}
     <p class="availability" data-product-availability><span></span>{% if initial_variant.available %}In stock and ready to order{% else %}Currently unavailable{% endif %}</p>
     {% form 'product', product, data-product-form: '', data-currency: cart.currency.iso_code | default: shop.currency %}
