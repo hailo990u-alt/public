@@ -1,5 +1,5 @@
-{% assign dog_url = routes.all_products_collection_url %}
-{% assign cat_url = routes.all_products_collection_url %}
+{% assign dog_url = routes.search_url | append: '?q=dog&type=product' %}
+{% assign cat_url = routes.search_url | append: '?q=cat&type=product' %}
 {% assign best_sellers_url = routes.root_url | append: '#best-sellers' %}
 {% assign why_krozo_url = routes.root_url | append: '#our-standard' %}
 {% assign journal_url = '/blogs/news' %}

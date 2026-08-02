@@ -49,14 +49,15 @@
   {% assign mock_five_count = mock_review_count | times: mock_five_percent | divided_by: 100 %}
   {% assign mock_four_count = mock_review_count | times: mock_four_percent | divided_by: 100 %}
   {% assign mock_three_count = mock_review_count | minus: mock_five_count | minus: mock_four_count %}
+  {% assign initial_variant = product.selected_or_first_available_variant %}
   <div class="product-media" data-product-gallery>
     {% for media in product.media %}
       {% if media.media_type == 'image' %}
-        <a href="{{ media | image_url: width: 2200 }}" class="product-media__item" aria-label="Zoom product image">
+        <a href="{{ media | image_url: width: 2200 }}" class="product-media__item{% if initial_variant.featured_media.id == media.id %} is-variant-active{% endif %}" data-media-id="{{ media.id }}" aria-label="Zoom product image">
           {{ media | image_url: width: 1300 | image_tag: loading: 'lazy', alt: product.title, widths: '500,800,1100,1300' }}
         </a>
       {% elsif media.media_type == 'video' %}
-        <div class="product-media__item">{{ media | video_tag: controls: true, muted: true, loop: true }}</div>
+        <div class="product-media__item{% if initial_variant.featured_media.id == media.id %} is-variant-active{% endif %}" data-media-id="{{ media.id }}">{{ media | video_tag: controls: true, muted: true, loop: true }}</div>
       {% endif %}
     {% endfor %}
   </div>
@@ -74,7 +75,7 @@
       <p class="purchase-count">{{ real_purchase_count }} purchased</p>
     {% endif %}
     <h1>{{ marketing_title | strip }}</h1>
-    <p class="price">{{ product.selected_or_first_available_variant.price | money }}</p>
+    <p class="price"><span data-unit-price data-price-cents="{{ initial_variant.price }}">{{ initial_variant.price | money }}</span> <small class="price__unit">per item</small></p>
     <p class="product-summary">{{ marketing_summary | strip }}</p>
     {% if section.settings.show_benefits %}<div class="product-benefit-list" aria-label="Product benefits">
       {% if product_title_downcase contains 'choke' or product_title_downcase contains 'slow feeder' %}
@@ -99,17 +100,18 @@
         {% endfor %}
       {% endif %}
     </div>{% endif %}
-    <p class="availability"><span></span>{% if product.selected_or_first_available_variant.available %}In stock and ready to order{% else %}Currently unavailable{% endif %}</p>
-    {% form 'product', product %}
+    <p class="availability" data-product-availability><span></span>{% if initial_variant.available %}In stock and ready to order{% else %}Currently unavailable{% endif %}</p>
+    {% form 'product', product, data-product-form: '', data-currency: cart.currency.iso_code | default: shop.currency %}
       {% unless product.has_only_default_variant %}
         <label>Choose an option
-          <select name="id">{% for variant in product.variants %}<option value="{{ variant.id }}" {% unless variant.available %}disabled{% endunless %}>{{ variant.title }} — {{ variant.price | money }}</option>{% endfor %}</select>
+          <select name="id" data-variant-select>{% for variant in product.variants %}<option value="{{ variant.id }}" data-price="{{ variant.price }}" data-available="{{ variant.available }}" data-media-id="{{ variant.featured_media.id }}" {% if variant.id == initial_variant.id %}selected{% endif %} {% unless variant.available %}disabled{% endunless %}>{{ variant.title }} — {{ variant.price | money }}</option>{% endfor %}</select>
         </label>
       {% else %}
-        <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+        <input type="hidden" name="id" value="{{ initial_variant.id }}" data-price="{{ initial_variant.price }}" data-available="{{ initial_variant.available }}" data-media-id="{{ initial_variant.featured_media.id }}">
       {% endunless %}
-      <label>Quantity <input type="number" name="quantity" min="1" value="1"></label>
-      <button class="button product-atc" type="submit" {% unless product.selected_or_first_available_variant.available %}disabled{% endunless %}>{% if product.selected_or_first_available_variant.available %}Add to cart{% else %}Sold out{% endif %}</button>
+      <label>Quantity <input type="number" name="quantity" min="1" value="1" inputmode="numeric" data-product-quantity></label>
+      <div class="product-total"><span>Order total</span><strong data-product-total>{{ initial_variant.price | money }}</strong></div>
+      <button class="button product-atc" type="submit" {% unless initial_variant.available %}disabled{% endunless %}>{% if initial_variant.available %}Add to cart{% else %}Sold out{% endif %}</button>
       {% if section.settings.show_dynamic_checkout %}{{ form | payment_button }}{% endif %}
     {% endform %}
     {% if section.settings.show_trust_badges %}<div class="essential-trust-badges" aria-label="Essential trust badges">
@@ -155,10 +157,10 @@
         <div>Checkout is encrypted and payments are processed securely by Shopify. Need help? <a href="/pages/contact">Contact KROZO support</a>.</div>
       </details>
     </div>
-    <div class="product-description"><span class="eyebrow">{{ section.settings.description_eyebrow }}</span><h2>{{ section.settings.description_heading }}</h2><p>{{ marketing_summary | strip }}</p><p>Every KROZO product is selected to solve a clear everyday need without adding unnecessary complication or visual clutter to your home.</p></div>
+    <div class="product-description"><span class="eyebrow">{{ section.settings.description_eyebrow }}</span><h2>{{ section.settings.description_heading }}</h2>{% if product.description != blank %}<div class="rte">{{ product.description }}</div>{% else %}<p>{{ marketing_summary | strip }}</p>{% endif %}</div>
   </div>
 </section>
-{% if section.settings.show_sticky_atc %}<div class="sticky-atc" data-sticky-atc><span><strong>{{ marketing_title | strip }}</strong><small>{{ product.selected_or_first_available_variant.price | money }}</small></span><button class="button" type="button" data-sticky-submit>Add to cart</button></div>{% endif %}
+{% if section.settings.show_sticky_atc %}<div class="sticky-atc" data-sticky-atc><span><strong>{{ marketing_title | strip }}</strong><small data-sticky-price>{{ initial_variant.price | money }}</small></span><button class="button" type="button" data-sticky-submit>Add to cart</button></div>{% endif %}
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",

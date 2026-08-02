@@ -41,4 +41,42 @@ document.addEventListener('DOMContentLoaded',()=>{
     if(event.target.closest('[data-sticky-submit]'))document.querySelector('.product-atc')?.click();
   });
   document.addEventListener('keydown',event=>{if(event.key==='Escape'){closeMenu();closeFaq()}});
+
+  document.querySelectorAll('[data-product-form]').forEach(form=>{
+    const productPage=form.closest('.product-page');
+    const variantSelect=form.querySelector('[data-variant-select]');
+    const variantInput=variantSelect||form.querySelector('[name="id"]');
+    const quantity=form.querySelector('[data-product-quantity]');
+    const unitPrice=productPage?.querySelector('[data-unit-price]');
+    const totalPrice=form.querySelector('[data-product-total]');
+    const availability=productPage?.querySelector('[data-product-availability]');
+    const addButton=form.querySelector('.product-atc');
+    const stickyPrice=document.querySelector('[data-sticky-price]');
+    const stickyButton=document.querySelector('[data-sticky-submit]');
+    const gallery=productPage?.querySelector('[data-product-gallery]');
+    const currency=form.dataset.currency||'USD';
+    const formatMoney=cents=>new Intl.NumberFormat(document.documentElement.lang||'en',{style:'currency',currency}).format((Number(cents)||0)/100);
+    const selectedData=()=>variantSelect?variantSelect.options[variantSelect.selectedIndex]?.dataset:variantInput?.dataset;
+    const update=()=>{
+      const data=selectedData()||{};
+      const cents=Number(data.price||unitPrice?.dataset.priceCents||0);
+      const count=Math.max(1,Number.parseInt(quantity?.value||'1',10)||1);
+      const isAvailable=data.available!=='false';
+      if(unitPrice){unitPrice.textContent=formatMoney(cents);unitPrice.dataset.priceCents=String(cents)}
+      if(totalPrice)totalPrice.textContent=formatMoney(cents*count);
+      if(stickyPrice)stickyPrice.textContent=formatMoney(cents*count);
+      if(availability)availability.lastChild.textContent=isAvailable?'In stock and ready to order':'Currently unavailable';
+      if(addButton){addButton.disabled=!isAvailable;addButton.textContent=isAvailable?'Add to cart':'Sold out'}
+      if(stickyButton){stickyButton.disabled=!isAvailable;stickyButton.textContent=isAvailable?'Add to cart':'Sold out'}
+      if(gallery&&data.mediaId){
+        const target=gallery.querySelector(`[data-media-id="${data.mediaId}"]`);
+        gallery.querySelectorAll('[data-media-id]').forEach(item=>item.classList.toggle('is-variant-active',item===target));
+        if(target&&window.matchMedia('(max-width:750px)').matches)gallery.scrollTo({left:target.offsetLeft,behavior:'smooth'});
+      }
+    };
+    variantSelect?.addEventListener('change',update);
+    quantity?.addEventListener('input',update);
+    quantity?.addEventListener('change',update);
+    update();
+  });
 });

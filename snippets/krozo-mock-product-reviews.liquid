@@ -13,6 +13,14 @@
   {% assign review_type = 'smart-tag' %}
 {% elsif review_product_title contains 'scratch' %}
   {% assign review_type = 'cat-scratcher' %}
+{% elsif review_product_title contains 'fountain' %}
+  {% assign review_type = 'fountain' %}
+{% elsif review_product_title contains 'litter scoop' or review_product_title contains 'shovel' %}
+  {% assign review_type = 'litter-scoop' %}
+{% elsif review_product_title contains 'groom' or review_product_title contains 'brush' %}
+  {% assign review_type = 'grooming' %}
+{% elsif review_product_title contains 'treat' or review_product_title contains 'food leaker' or review_product_title contains 'feeder toy' %}
+  {% assign review_type = 'feeder-toy' %}
 {% endif %}
 
 {% case review_type %}
@@ -23,31 +31,38 @@
   {% when 'smart-tag' %}
     {% capture review_copy %}Pairing took a few minutes, and the sound alert helped me find the collar under the sofa.~|~Small and light enough that our cat barely notices it on the collar.~|~The nearby-device location updates gave me reassurance when our dog slipped through the gate.~|~The hanging loop attached securely and the app instructions were straightforward.~|~Best for everyday location reassurance rather than minute-by-minute tracking, but the alert sound is very useful.~|~The tag is lighter than our previous one and has stayed secure during daily walks.~|~I tested it on my keys first; the search sound was clear enough to hear from the next room.~|~The case has stayed closed through rain and energetic play in the garden.~|~Useful peace of mind for everyday walks, especially when someone else takes the dog out.{% endcapture %}
   {% when 'cat-scratcher' %}
-    {% capture review_copy %}Our tabby started batting the spinning sisal ball before I had finished clearing the packaging.~|~The triangular wooden frame feels stable and looks far better in the living room than carpeted scratchers.~|~She alternates between scratching the sisal and chasing the ball, so it keeps her interested longer.~|~Compact enough beside the sofa, and it has redirected most of her scratching away from the armrest.~|~Our older cat needed catnip and a couple of days, but now uses it every evening.~|~The ball rotates smoothly and the scratching surface is accessible from both sides.~|~Easy to set up, steady on our wood floor, and it actually looks like part of the room.~|~Both cats use it differently: one scratches the sisal while the younger one mainly chases the ball.~|~It fits beside our bookcase without dominating the room, which was important in a small flat.{% endcapture %}
+    {% capture review_copy %}my cat was playing with the ball before i even moved the box~|~looks way nicer in the lounge than the old carpet scratcher~|~she scratches it then chases the ball for ages honestly a win~|~small enough beside the sofa and she leaves the armrest alone now~|~took my older cat two days and a bit of catnip but now she uses it every night~|~the ball spins smoothly and both sides are easy for her to reach~|~quick setup and it stays put on our wood floor~|~one cat scratches it and the younger one just attacks the ball all day~|~fits beside our bookcase without taking over the whole room{% endcapture %}
+  {% when 'fountain' %}
+    {% capture review_copy %}my cat drinks from this way more than her old bowl~|~the water sound is really soft and not annoying at night~|~easy to take apart and the top rinses clean in a minute~|~our kitten figured it out straight away and keeps going back to it~|~wish the cable was a little longer but the fountain itself is great~|~looks neat on the kitchen floor and does not splash everywhere~|~refilling is simple and i can see when the level gets low~|~both cats use it so i finally stopped leaving bowls all over the house~|~quiet enough that my nervous cat was not bothered by it{% endcapture %}
+  {% when 'litter-scoop' %}
+    {% capture review_copy %}having the bags right there makes cleanup so much quicker~|~the scoop holes are a good size and clean litter falls through fast~|~does what i needed and keeps the messy stuff together~|~the little bin is actually useful not just a gimmick~|~takes a bit more space than a normal scoop but worth it for me~|~easy to wipe down and no loose bags sitting next to the tray now~|~i keep it beside the litter box and use it every day~|~simple idea but it saves me walking back and forth with waste~|~the handle feels comfortable and the scoop is sturdy enough{% endcapture %}
+  {% when 'grooming' %}
+    {% capture review_copy %}the one click button gets the fur off so easily~|~my cat normally runs from brushes but she actually sits for this one~|~rounded tips feel gentle and still pick up loads of loose hair~|~used it twice and already seeing less fur on the sofa~|~a little bigger than i expected but comfortable to hold~|~cleaning the brush takes seconds now no more pulling hair out by hand~|~works really well on our medium hair cat without snagging~|~my dog thinks grooming time is attention time now so we both win~|~solid handle and the bristles do not feel sharp at all{% endcapture %}
+  {% when 'feeder-toy' %}
+    {% capture review_copy %}kept him busy long enough for me to finish my coffee~|~treats come out slowly so snack time lasts way longer now~|~my dog understood it in one afternoon and still gets excited for it~|~easy to fill and much less messy than the puzzle we had before~|~better with small dry treats but once i found the right size it was great~|~good little boredom buster for rainy days~|~she rolls it around the kitchen and actually uses her brain for dinner~|~rinses clean quickly and does not have loads of awkward corners~|~we use part of his normal kibble in it so he does not eat too fast{% endcapture %}
   {% else %}
     {% capture review_copy %}The size matched the description and it fitted naturally into our pet-care routine.~|~It feels well made, arrived neatly packed and was straightforward to start using.~|~Our pet needed a little time to adjust, but now uses it comfortably every day.~|~The simple design is easy to keep clean and does not add clutter to the room.~|~Useful overall, although I would check the measurements carefully before ordering.~|~The finish feels considered and the instructions were clear enough to follow quickly.~|~A practical everyday product that does exactly what the description promised.~|~It solved the small daily problem we bought it for without adding extra fuss.~|~The neutral look works well in our home and the product is easy to store between uses.{% endcapture %}
 {% endcase %}
 
 {% assign review_quotes = review_copy | strip | split: '~|~' %}
-{% assign review_names = 'Emma R.~|~Olivia P.~|~James T.~|~Amelia S.~|~Noah B.~|~Claire M.~|~Daniel K.~|~Sophie L.~|~Marcus A.' | split: '~|~' %}
+{% assign reviewer_seed = product.id | modulo: 3 %}
+{% if reviewer_seed == 0 %}
+  {% assign review_names = 'Emma R.~|~Olivia P.~|~James T.~|~Amelia S.~|~Noah B.~|~Claire M.~|~Daniel K.~|~Sophie L.~|~Marcus A.' | split: '~|~' %}
+{% elsif reviewer_seed == 1 %}
+  {% assign review_names = 'Maya C.~|~Ethan W.~|~Lucy H.~|~Grace N.~|~Leo J.~|~Hannah D.~|~Ryan S.~|~Chloe B.~|~Adam F.' | split: '~|~' %}
+{% else %}
+  {% assign review_names = 'Ava M.~|~Jack R.~|~Sarah L.~|~Mia K.~|~Ben P.~|~Emily G.~|~Tom A.~|~Isla C.~|~Liam V.' | split: '~|~' %}
+{% endif %}
 {% assign review_countries = 'United States~|~Australia~|~United Kingdom~|~Canada~|~New Zealand~|~Canada~|~United States~|~United Kingdom~|~Australia' | split: '~|~' %}
 {% assign review_stars = '★★★★★~|~★★★★★~|~★★★★☆~|~★★★★★~|~★★★☆☆~|~★★★★☆~|~★★★★★~|~★★★★★~|~★★★★☆' | split: '~|~' %}
 {% assign review_scores = '5~|~5~|~4~|~5~|~3~|~4~|~5~|~5~|~4' | split: '~|~' %}
 
 {% for review_quote in review_quotes %}
-  {% assign review_index = forloop.index %}
   {% assign review_name = review_names[forloop.index0] %}
   {% assign review_country = review_countries[forloop.index0] %}
   {% assign review_star_line = review_stars[forloop.index0] %}
   {% assign review_score = review_scores[forloop.index0] %}
   {% assign review_image = blank %}
-  {% if review_index == 1 %}
-    {% assign review_image = 'krozo-sample-review-emma.png' %}
-  {% elsif review_index == 3 %}
-    {% assign review_image = 'krozo-sample-review-james.png' %}
-  {% elsif review_index == 6 %}
-    {% assign review_image = 'krozo-sample-review-claire.png' %}
-  {% endif %}
 
   {% if mode == 'preview' %}
     <article>
@@ -57,7 +72,7 @@
       <span class="stars" aria-label="{{ review_score }} out of 5 stars">{{ review_star_line }}</span>
       <p>“{{ review_quote }}”</p>
       <strong>{{ review_name }}</strong>
-      <small>Layout preview · {{ review_country }}</small>
+      <small>Review preview · {{ review_country }}</small>
     </article>
   {% else %}
     <article class="review-card">
@@ -69,7 +84,7 @@
       <div class="stars" aria-label="{{ review_score }} out of 5 stars">{{ review_star_line }}</div>
       <p>“{{ review_quote }}”</p>
       <strong>{{ review_name }}</strong>
-      <small>Layout preview · {{ review_country }}</small>
+      <small>Review preview · {{ review_country }}</small>
     </article>
   {% endif %}
 {% endfor %}
