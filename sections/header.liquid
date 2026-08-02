@@ -1,15 +1,27 @@
 {% assign dog_url = routes.search_url | append: '?q=dog&type=product' %}
 {% assign cat_url = routes.search_url | append: '?q=cat&type=product' %}
 {% assign best_sellers_url = routes.root_url | append: '#best-sellers' %}
-{% assign why_krozo_url = routes.root_url | append: '#our-standard' %}
 {% assign journal_url = '/blogs/news' %}
 {% assign contact_url = '/pages/contact' %}
+{% assign story_url = routes.root_url | append: '#our-standard' %}
+{% assign feeding_url = routes.all_products_collection_url %}
+{% assign play_url = routes.all_products_collection_url %}
+{% assign travel_url = routes.all_products_collection_url %}
+{% assign care_url = routes.all_products_collection_url %}
+{% assign shipping_url = '/pages/shipping-handling' %}
+{% assign returns_url = '/pages/returns-refunds' %}
 {% if collections['dog'] != blank %}{% assign dog_url = collections['dog'].url %}{% endif %}
 {% if collections['dogs'] != blank %}{% assign dog_url = collections['dogs'].url %}{% endif %}
 {% if collections['cat'] != blank %}{% assign cat_url = collections['cat'].url %}{% endif %}
 {% if collections['cats'] != blank %}{% assign cat_url = collections['cats'].url %}{% endif %}
 {% if collections['best-sellers'] != blank %}{% assign best_sellers_url = collections['best-sellers'].url %}{% endif %}
-{% if pages['why-krozo'] != blank %}{% assign why_krozo_url = pages['why-krozo'].url %}{% endif %}
+{% if pages['about-us'] != blank %}{% assign story_url = pages['about-us'].url %}{% elsif pages['why-krozo'] != blank %}{% assign story_url = pages['why-krozo'].url %}{% endif %}
+{% if collections['smart-feeding'] != blank %}{% assign feeding_url = collections['smart-feeding'].url %}{% endif %}
+{% if collections['toys'] != blank %}{% assign play_url = collections['toys'].url %}{% endif %}
+{% if collections['travel-essentials'] != blank %}{% assign travel_url = collections['travel-essentials'].url %}{% endif %}
+{% if collections['pure-care'] != blank %}{% assign care_url = collections['pure-care'].url %}{% endif %}
+{% if shop.shipping_policy != blank %}{% assign shipping_url = shop.shipping_policy.url %}{% elsif pages['shipping-handling'] != blank %}{% assign shipping_url = pages['shipping-handling'].url %}{% endif %}
+{% if pages['returns-refunds'] != blank %}{% assign returns_url = pages['returns-refunds'].url %}{% endif %}
 {% if blogs['journal'] != blank %}{% assign journal_url = blogs['journal'].url %}{% elsif blogs['pet-care-journal'] != blank %}{% assign journal_url = blogs['pet-care-journal'].url %}{% elsif blogs['news'] != blank %}{% assign journal_url = blogs['news'].url %}{% endif %}
 {% if pages['contact'] != blank %}{% assign contact_url = pages['contact'].url %}{% endif %}
 {% if section.settings.show_announcement %}<div class="announcement">{% if section.settings.announcement_link != blank %}<a href="{{ section.settings.announcement_link }}">{{ section.settings.announcement }}</a>{% else %}{{ section.settings.announcement }}{% endif %}</div>{% endif %}
@@ -67,14 +79,27 @@
         <a href="{{ dog_url }}"><span>Dogs</span><span aria-hidden="true">→</span></a>
         <a href="{{ cat_url }}"><span>Cats</span><span aria-hidden="true">→</span></a>
         <a href="{{ best_sellers_url }}"><span>Best Sellers</span><span aria-hidden="true">→</span></a>
-        <a href="{{ why_krozo_url }}"><span>Our Story</span><span aria-hidden="true">→</span></a>
+        <a href="{{ story_url }}"><span>{{ 'navigation.our_story' | t }}</span><span aria-hidden="true">→</span></a>
       {% endif %}
     </div>
+    <div class="mobile-nav__discover" aria-labelledby="MobileDiscoverTitle">
+      <p id="MobileDiscoverTitle" class="mobile-nav__help-title">{{ 'navigation.shop_by_need' | t }}</p>
+      <div class="mobile-nav__quick-links">
+        <a href="{{ feeding_url }}">{{ 'navigation.feeding_hydration' | t }}<span aria-hidden="true">→</span></a>
+        <a href="{{ play_url }}">{{ 'navigation.play_enrichment' | t }}<span aria-hidden="true">→</span></a>
+        <a href="{{ travel_url }}">{{ 'navigation.walk_travel' | t }}<span aria-hidden="true">→</span></a>
+        <a href="{{ care_url }}">{{ 'navigation.wellness_care' | t }}<span aria-hidden="true">→</span></a>
+      </div>
+    </div>
     <div class="mobile-nav__help" aria-labelledby="MobileHelpTitle">
-      <p id="MobileHelpTitle" class="mobile-nav__help-title">Need help?</p>
-      <a href="/pages/faq">FAQs</a>
-      <a href="{{ journal_url }}">Pet Care Journal</a>
-      <a href="{{ contact_url }}">Help & Contact</a>
+      <p id="MobileHelpTitle" class="mobile-nav__help-title">{{ 'navigation.need_help' | t }}</p>
+      <div class="mobile-nav__help-links">
+        <a href="{{ shipping_url }}">{{ 'navigation.shipping_delivery' | t }}</a>
+        <a href="{{ returns_url }}">{{ 'navigation.returns_refunds' | t }}</a>
+        <a href="/pages/faq">{{ 'navigation.faqs' | t }}</a>
+        <a href="{{ journal_url }}">{{ 'navigation.pet_care_journal' | t }}</a>
+        <a href="{{ contact_url }}">{{ 'navigation.contact_support' | t }}</a>
+      </div>
     </div>
     <div class="mobile-nav__footer">{% if section.blocks.size > 0 %}{% for block in section.blocks %}<span {{ block.shopify_attributes }}><strong>{{ block.settings.text }}</strong><small>{{ block.settings.subtext }}</small></span>{% endfor %}{% else %}<strong>Complimentary shipping</strong><small>On every KROZO order</small>{% endif %}</div>
   </nav>

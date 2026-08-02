@@ -122,20 +122,29 @@
 .mobile-nav__links a{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:14px 0;border-bottom:1px solid #e5e1d8;font:500 22px/1.12 'Playfair Display',Georgia,serif;overflow-wrap:anywhere}
 .mobile-nav__links a span:first-child{min-width:0}
 .mobile-nav__links a span:last-child{flex:0 0 auto;font:400 15px Inter,Arial,sans-serif}
+.mobile-nav__discover{margin:8px 20px 0;padding:14px 0 6px;border-bottom:1px solid #ddd8ce}
+.mobile-nav__quick-links{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.mobile-nav__quick-links a{display:flex;min-width:0;align-items:center;justify-content:space-between;gap:8px;padding:11px 12px;border:1px solid #dfdbd1;border-radius:8px;background:#fffefa;color:var(--olive);font-size:10px;font-weight:650;line-height:1.35}
+.mobile-nav__quick-links a span{flex:0 0 auto}
 .mobile-nav__help{margin:8px 20px 16px;padding:16px 0;border-top:1px solid #ddd8ce;border-bottom:1px solid #ddd8ce}
 .mobile-nav__help-title{margin:0 0 8px;color:var(--olive);font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
-.mobile-nav__help a{display:block;padding:7px 0;color:var(--muted);font-size:12px;line-height:1.35}
+.mobile-nav__help-links{display:grid;grid-template-columns:1fr 1fr;column-gap:18px}
+.mobile-nav__help a{display:block;padding:7px 0;border-bottom:1px solid rgba(221,216,206,.58);color:var(--muted);font-size:11px;line-height:1.35}
+.mobile-nav__help a:last-child{grid-column:1/-1;border-bottom:0;color:var(--olive);font-weight:650}
 .mobile-nav__footer{margin-top:auto;flex:0 0 auto;padding:20px;background:#eef0e8}
 .mobile-nav__footer strong,.mobile-nav__footer small{display:block}
 .mobile-nav__footer strong{font:500 19px 'Playfair Display',Georgia,serif}
 .mobile-nav__footer small{margin-top:5px;color:var(--muted);font-size:10px}
 body.menu-open{overflow:hidden}
+body.menu-open .sticky-atc,body.menu-open .buckscc-currency-wrapper{display:none!important}
+body.menu-open shopify-chat::part(activator){visibility:hidden!important;opacity:0!important;pointer-events:none!important}
 
 @media(max-width:380px){
   .mobile-nav{width:100vw}
   .mobile-nav__head{height:68px;padding:0 16px}
   .mobile-nav__links{padding:10px 16px 4px}
   .mobile-nav__links a{font-size:20px;padding:12px 0}
+  .mobile-nav__discover{margin:6px 16px 0}
   .mobile-nav__help{margin:6px 16px 12px;padding:13px 0}
   .mobile-nav__footer{padding:16px}
 }

@@ -8,5 +8,40 @@
       "clear": "Clear",
       "apply": "Apply filters"
     }
+  },
+  "navigation": {
+    "our_story": "Our Story",
+    "shop_by_need": "Shop by need",
+    "feeding_hydration": "Feeding & Hydration",
+    "play_enrichment": "Play & Enrichment",
+    "walk_travel": "Walk & Travel",
+    "wellness_care": "Wellness & Care",
+    "need_help": "Need help?",
+    "shipping_delivery": "Shipping & Delivery",
+    "returns_refunds": "Returns & Refunds",
+    "faqs": "FAQs",
+    "pet_care_journal": "Pet Care Journal",
+    "contact_support": "Contact Support"
+  },
+  "footer": {
+    "shop": "Shop",
+    "all_products": "All products",
+    "for_dogs": "For dogs",
+    "for_cats": "For cats",
+    "feeding_hydration": "Feeding & hydration",
+    "play_enrichment": "Play & enrichment",
+    "walk_travel": "Walk & travel",
+    "wellness_care": "Wellness & care",
+    "help": "Help",
+    "contact_support": "Contact support",
+    "shipping_delivery": "Shipping & delivery",
+    "returns_refunds": "Returns & refunds",
+    "faqs": "FAQs",
+    "pet_care_journal": "Pet Care Journal",
+    "about_legal": "About & legal",
+    "our_story": "Our story",
+    "privacy": "Privacy",
+    "terms": "Terms",
+    "contact_information": "Contact information"
   }
 }
