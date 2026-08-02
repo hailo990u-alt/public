@@ -68,6 +68,13 @@
     {% sections 'header-group' %}
     <main id="MainContent">{{ content_for_layout }}</main>
     {% sections 'footer-group' %}
+    <script>
+      window.KROZO_LOCALIZATION = {
+        country: {{ localization.country.iso_code | json }},
+        countryName: {{ localization.country.name | json }},
+        currency: {{ localization.country.currency.iso_code | json }}
+      };
+    </script>
     <script src="{{ 'krozo.js' | asset_url }}&benefits=3" defer></script>
     <script src="{{ 'krozo-currency-drawer-v2.js' | asset_url }}" defer></script>
     <script src="{{ 'krozo-currency-country-sync.js' | asset_url }}" defer></script>
