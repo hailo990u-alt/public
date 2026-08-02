@@ -8,13 +8,13 @@
       assign body_font = settings.font_body
       assign heading_font = settings.font_heading
     %}
-    {% if body_font != blank %}{{ body_font | font_face: font_display: 'swap' }}{% endif %}
-    {% if heading_font != blank %}{{ heading_font | font_face: font_display: 'swap' }}{% endif %}
     {{ content_for_header }}
     {{ 'krozo.css' | asset_url | stylesheet_tag }}
     {{ 'krozo-enhancements.css' | asset_url | stylesheet_tag }}
     {{ 'krozo-conversion.css' | asset_url | stylesheet_tag }}
     <style>
+      {% if body_font != blank %}{{ body_font | font_face: font_display: 'swap' }}{% endif %}
+      {% if heading_font != blank %}{{ heading_font | font_face: font_display: 'swap' }}{% endif %}
 
       :root{
         --cream:{{ settings.color_page_background | default: '#f9f7f1' }};
