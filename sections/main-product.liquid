@@ -155,7 +155,7 @@
         <input type="hidden" name="id" value="{{ initial_variant.id }}" data-price="{{ initial_variant.price }}" data-available="{{ initial_variant.available }}" data-media-id="{{ initial_variant.featured_media.id }}">
       {% endunless %}
       <label>Quantity <input type="number" name="quantity" min="1" value="1" inputmode="numeric" data-product-quantity></label>
-      <div class="product-total"><span>Order total</span><strong class="money" data-product-total>{{ initial_variant.price | money }}</strong></div>
+      <div class="product-total"><span>Order total</span><strong><span class="money" data-product-total>{{ initial_variant.price | money }}</span></strong></div>
       <button class="button product-atc" type="submit" {% unless initial_variant.available %}disabled{% endunless %}>{% if initial_variant.available %}Add to cart{% else %}Sold out{% endif %}</button>
       {% if section.settings.show_dynamic_checkout %}{{ form | payment_button }}{% endif %}
     {% endform %}
@@ -236,7 +236,7 @@
     <div class="product-description"><span class="eyebrow">{{ section.settings.description_eyebrow }}</span><h2>{{ section.settings.description_heading }}</h2>{% if product.description != blank %}<div class="rte">{{ product.description }}</div>{% else %}<p>{{ marketing_summary | strip }}</p>{% endif %}</div>
   </div>
 </section>
-{% if section.settings.show_sticky_atc %}<div class="sticky-atc" data-sticky-atc><span><strong>{{ marketing_title | strip }}</strong><small class="money" data-sticky-price>{{ initial_variant.price | money }}</small></span><button class="button" type="button" data-sticky-submit>Add to cart</button></div>{% endif %}
+{% if section.settings.show_sticky_atc %}<div class="sticky-atc" data-sticky-atc><span><strong>{{ marketing_title | strip }}</strong><small><span class="money" data-sticky-price>{{ initial_variant.price | money }}</span></small></span><button class="button" type="button" data-sticky-submit>Add to cart</button></div>{% endif %}
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
