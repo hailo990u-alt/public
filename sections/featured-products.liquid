@@ -79,7 +79,7 @@
           {% endif %}
           <a href="{{ product.url }}"><h3>{{ marketing_title | strip }}</h3></a>
           <p class="product-card__benefit">{% render 'krozo-product-summary', product: product %}</p>
-          <p>{{ product.price | money }} {% if product.compare_at_price > product.price %}<s>{{ product.compare_at_price | money }}</s>{% endif %}</p>
+          <p><span class="money">{{ product.price | money }}</span> {% if product.compare_at_price > product.price %}<s class="money">{{ product.compare_at_price | money }}</s>{% endif %}</p>
           {% if section.settings.show_quick_add %}<a class="quick-add" href="{{ product.url }}">View product</a>{% endif %}
         </div>
       </article>

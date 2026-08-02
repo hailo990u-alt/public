@@ -74,12 +74,40 @@
 <section class="section catalogue-page" style="--product-card-ratio:{{ section.settings.image_ratio }};">
   <div class="catalogue-toolbar">
     <div><span class="eyebrow">{{ section.settings.toolbar_eyebrow }}</span><h2>{{ collection.products_count }} thoughtful {% if collection.products_count == 1 %}essential{% else %}essentials{% endif %}</h2></div>
-    <label>Sort by
-      <select data-collection-sort>
-        {% assign sort_by = collection.sort_by | default: collection.default_sort_by %}
-        {% for option in collection.sort_options %}<option value="{{ option.value }}" {% if option.value == sort_by %}selected{% endif %}>{{ option.name }}</option>{% endfor %}
-      </select>
-    </label>
+    <div class="catalogue-toolbar__actions">
+      {% if collection.filters.size > 0 %}
+        <details class="catalogue-filter">
+          <summary>{{ 'collections.filter.heading' | t }}</summary>
+          <form action="{{ collection.url }}" method="get" class="catalogue-filter__form">
+            {% assign sort_by = collection.sort_by | default: collection.default_sort_by %}
+            <input type="hidden" name="sort_by" value="{{ sort_by }}">
+            {% for filter in collection.filters %}
+              <fieldset>
+                <legend>{{ filter.label }}</legend>
+                {% case filter.type %}
+                  {% when 'boolean', 'list' %}
+                    {% for value in filter.values %}
+                      <label><input type="checkbox" name="{{ value.param_name }}" value="{{ value.value }}" {% if value.active %}checked{% endif %} {% if value.count == 0 and value.active == false %}disabled{% endif %}><span>{{ value.label }} <small>({{ value.count }})</small></span></label>
+                    {% endfor %}
+                  {% when 'price_range' %}
+                    <div class="catalogue-filter__price">
+                      <label><span>{{ 'collections.filter.minimum' | t }}</span><input name="{{ filter.min_value.param_name }}" type="number" min="0" max="{{ filter.range_max | money_without_currency | replace: ',', '' }}" value="{{ filter.min_value.value | money_without_currency | replace: ',', '' }}" placeholder="0"></label>
+                      <label><span>{{ 'collections.filter.maximum' | t }}</span><input name="{{ filter.max_value.param_name }}" type="number" min="0" max="{{ filter.range_max | money_without_currency | replace: ',', '' }}" value="{{ filter.max_value.value | money_without_currency | replace: ',', '' }}" placeholder="{{ filter.range_max | money_without_currency }}"></label>
+                    </div>
+                {% endcase %}
+              </fieldset>
+            {% endfor %}
+            <div class="catalogue-filter__buttons"><a href="{{ collection.url }}">{{ 'collections.filter.clear' | t }}</a><button type="submit">{{ 'collections.filter.apply' | t }}</button></div>
+          </form>
+        </details>
+      {% endif %}
+      <label>{{ 'collections.filter.sort' | t }}
+        <select data-collection-sort>
+          {% assign sort_by = collection.sort_by | default: collection.default_sort_by %}
+          {% for option in collection.sort_options %}<option value="{{ option.value }}" {% if option.value == sort_by %}selected{% endif %}>{{ option.name }}</option>{% endfor %}
+        </select>
+      </label>
+    </div>
   </div>
   {% paginate collection.products by 24 %}
     <div class="catalogue-grid">
@@ -125,7 +153,7 @@
             <a href="{{ product.url }}"><h3>{{ marketing_title | strip }}</h3></a>
             <p class="catalogue-card__benefit">{% render 'krozo-product-summary', product: product %}</p>
             <div class="catalogue-card__buy">
-              <p>{{ product.price | money }} {% if product.compare_at_price > product.price %}<s>{{ product.compare_at_price | money }}</s>{% endif %}</p>
+              <p><span class="money">{{ product.price | money }}</span> {% if product.compare_at_price > product.price %}<s class="money">{{ product.compare_at_price | money }}</s>{% endif %}</p>
               {% if section.settings.show_quick_add and product.available and product.has_only_default_variant %}
                 {% form 'product', product, class: 'card-atc-form' %}
                   <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">

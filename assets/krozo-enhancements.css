@@ -158,6 +158,24 @@ body.menu-open{overflow:hidden}
 .catalogue-toolbar h2{margin:7px 0 0;font:500 34px/1.1 'Playfair Display',Georgia,serif}
 .catalogue-toolbar label{display:grid;gap:7px;font-size:9px;font-weight:650;letter-spacing:.07em;text-transform:uppercase}
 .catalogue-toolbar select{min-width:190px;padding:11px 34px 11px 12px;border:1px solid #d8d3c8;background:#fffefa;color:var(--ink);font:11px Inter,Arial,sans-serif}
+.catalogue-toolbar__actions{display:flex;align-items:end;gap:10px}
+.catalogue-filter{position:relative}
+.catalogue-filter>summary{list-style:none;min-width:120px;padding:12px 36px 12px 14px;border:1px solid #d8d3c8;background:#fffefa;cursor:pointer;font:650 9px Inter,Arial,sans-serif;letter-spacing:.07em;text-transform:uppercase}
+.catalogue-filter>summary::-webkit-details-marker{display:none}
+.catalogue-filter>summary:after{content:'+';position:absolute;right:14px;font-size:15px;font-weight:400;line-height:.7}
+.catalogue-filter[open]>summary:after{content:'−'}
+.catalogue-filter__form{position:absolute;z-index:22;right:0;top:calc(100% + 8px);width:min(360px,90vw);padding:20px;border:1px solid #d8d3c8;background:#fffefa;box-shadow:0 16px 40px rgba(31,45,32,.12)}
+.catalogue-filter fieldset{margin:0;padding:0 0 16px;border:0}
+.catalogue-filter fieldset+fieldset{padding-top:16px;border-top:1px solid #e4e0d7}
+.catalogue-filter legend{margin-bottom:10px;font:650 10px Inter,Arial,sans-serif;letter-spacing:.06em;text-transform:uppercase}
+.catalogue-filter fieldset>label{display:flex;grid-template-columns:none;align-items:center;gap:9px;margin:8px 0;font-size:11px;font-weight:500;letter-spacing:0;text-transform:none}
+.catalogue-filter input[type='checkbox']{accent-color:var(--olive)}
+.catalogue-filter__price{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.catalogue-filter__price label{display:grid;gap:5px;font-size:9px}
+.catalogue-filter__price input{min-width:0;width:100%;padding:10px;border:1px solid #d8d3c8;background:#fff}
+.catalogue-filter__buttons{display:flex;align-items:center;justify-content:space-between;padding-top:14px;border-top:1px solid #e4e0d7}
+.catalogue-filter__buttons a{font-size:10px;text-decoration:underline}
+.catalogue-filter__buttons button{border:1px solid var(--olive);background:var(--olive);color:#fff;padding:10px 16px;font:650 10px Inter,Arial,sans-serif;cursor:pointer}
 .catalogue-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:46px 18px}
 .catalogue-card{min-width:0}
 .catalogue-card__media{position:relative;display:block;aspect-ratio:1/1.08;overflow:hidden;border-radius:9px;background:#ece9e1}
@@ -306,6 +324,11 @@ body.faq-open{overflow:hidden}
   .catalogue-hero__content h1{font-size:42px}
   .catalogue-hero__content p{font-size:13px}
   .collection-tabs{justify-content:flex-start;gap:23px;padding:13px 18px}
+  .catalogue-toolbar{align-items:stretch;display:grid}
+  .catalogue-toolbar__actions{align-items:stretch}
+  .catalogue-filter,.catalogue-toolbar__actions>label{flex:1}
+  .catalogue-filter>summary,.catalogue-toolbar select{width:100%;min-width:0}
+  .catalogue-filter__form{position:fixed;left:16px;right:16px;top:auto;bottom:90px;width:auto;max-height:62vh;overflow:auto}
   .catalogue-page{padding:44px 16px}
   .catalogue-toolbar{align-items:start;margin-bottom:26px}
   .catalogue-toolbar h2{font-size:27px}

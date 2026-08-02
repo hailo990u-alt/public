@@ -1,1 +1,12 @@
-{}
+{
+  "collections": {
+    "filter": {
+      "heading": "Filter",
+      "sort": "Sort by",
+      "minimum": "Minimum price",
+      "maximum": "Maximum price",
+      "clear": "Clear",
+      "apply": "Apply filters"
+    }
+  }
+}
