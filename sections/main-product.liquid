@@ -78,7 +78,11 @@
     <p class="price"><span data-unit-price data-price-cents="{{ initial_variant.price }}">{{ initial_variant.price | money }}</span> <small class="price__unit">per item</small></p>
     <p class="product-summary">{{ marketing_summary | strip }}</p>
     {% if section.settings.show_benefits %}<div class="product-benefit-list" aria-label="Product benefits">
-      {% if product_title_downcase contains 'choke' or product_title_downcase contains 'slow feeder' %}
+      {% if product.id == 8307370459225 %}
+        <div class="product-benefit"><span>✓</span><p>Circulating water encourages pets to drink more often</p></div>
+        <div class="product-benefit"><span>✓</span><p>Quiet flow keeps hydration calm and inviting</p></div>
+        <div class="product-benefit"><span>✓</span><p>Replaceable filtration helps keep every sip fresher</p></div>
+      {% elsif product_title_downcase contains 'choke' or product_title_downcase contains 'slow feeder' %}
         <div class="product-benefit"><span>✓</span><p>Encourages a calmer, slower eating pace</p></div>
         <div class="product-benefit"><span>✓</span><p>Rounded grooves rinse clean with less effort</p></div>
         <div class="product-benefit"><span>✓</span><p>Wide shape helps the bowl stay steady during meals</p></div>
