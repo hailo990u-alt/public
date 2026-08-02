@@ -278,3 +278,30 @@ img,video,iframe{max-width:100%}
 .product-total strong{font:600 17px/1.2 Inter,Arial,sans-serif;color:var(--olive)}
 .product-description .rte{color:var(--muted);font-size:12px;line-height:1.7}
 .product-description .rte img{max-width:100%;height:auto}
+
+/* Keep complete product photography visible on laptop and desktop screens. */
+@media (min-width:751px){
+  .product-media{align-content:start}
+  .product-media__item,
+  .product-media__item:first-child{
+    aspect-ratio:1 / 1;
+    min-height:0;
+    background:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+  }
+  .product-media__item:first-child{grid-column:1 / -1}
+  .product-media img,
+  .product-media video{
+    display:block;
+    width:100%!important;
+    height:100%!important;
+    max-width:100%;
+    max-height:100%;
+    object-fit:contain!important;
+    object-position:center center!important;
+    background:#fff;
+  }
+}
