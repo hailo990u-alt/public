@@ -1,6 +1,6 @@
 {% assign collection_handle = collection.handle | downcase %}
 {% assign show_layout_preview = false %}
-{% if request.design_mode and section.settings.show_sample_social_proof %}{% assign show_layout_preview = true %}{% endif %}
+{% if section.settings.show_sample_social_proof %}{% assign show_layout_preview = true %}{% endif %}
 {% assign hero_eyebrow = 'THE KROZO COLLECTION' %}
 {% assign hero_title = collection.title %}
 {% assign hero_text = 'Thoughtfully selected essentials for calmer routines, happier pets and homes that still feel beautifully yours.' %}

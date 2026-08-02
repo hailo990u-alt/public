@@ -15,7 +15,7 @@
   {% endif %}
   {% assign real_purchase_count = product.metafields.custom.purchases_count.value | default: product.metafields.custom.purchases_count %}
   {% assign show_design_preview = false %}
-  {% if request.design_mode and section.settings.show_mock_social_proof %}{% assign show_design_preview = true %}{% endif %}
+  {% if section.settings.show_mock_social_proof %}{% assign show_design_preview = true %}{% endif %}
   {% assign mock_seed = product.id | modulo: 5 %}
   {% assign mock_review_count = product.id | modulo: 137 | plus: 43 %}
   {% assign mock_purchase_count = product.id | modulo: 389 | plus: 126 %}

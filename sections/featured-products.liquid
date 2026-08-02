@@ -1,6 +1,6 @@
 {% unless section.settings.hide_section %}<section id="best-sellers" class="section" style="background:{{ section.settings.background_color | default: settings.color_page_background }};text-align:{{ section.settings.text_alignment }};--product-card-ratio:{{ section.settings.image_ratio }};">
   {% assign show_layout_preview = false %}
-  {% if request.design_mode and section.settings.show_mock_social_proof %}{% assign show_layout_preview = true %}{% endif %}
+  {% if section.settings.show_mock_social_proof %}{% assign show_layout_preview = true %}{% endif %}
   <div class="section-title"><span class="eyebrow">{{ section.settings.eyebrow }}</span><h2>{{ section.settings.heading }}</h2>{% if section.settings.text != blank %}<p>{{ section.settings.text }}</p>{% endif %}</div>
   <div class="product-grid">
     {% assign featured_collection = section.settings.collection %}
@@ -23,35 +23,15 @@
       {% case sample_seed %}
         {% when 0 %}
           {% assign sample_rating = '4.8' %}
-          {% assign sample_quote = 'It made our daily routine noticeably easier.' %}
-          {% assign sample_reviewer = 'Emma R.' %}
         {% when 1 %}
           {% assign sample_rating = '4.9' %}
-          {% assign sample_quote = 'Thoughtful details and genuinely simple to use.' %}
-          {% assign sample_reviewer = 'James T.' %}
         {% when 2 %}
           {% assign sample_rating = '4.7' %}
-          {% assign sample_quote = 'A practical choice that feels beautifully considered.' %}
-          {% assign sample_reviewer = 'Claire M.' %}
         {% when 3 %}
           {% assign sample_rating = '4.8' %}
-          {% assign sample_quote = 'Our cat took to it quickly and uses it every day.' %}
-          {% assign sample_reviewer = 'Sophie L.' %}
         {% else %}
           {% assign sample_rating = '4.6' %}
-          {% assign sample_quote = 'Simple, useful and easy to keep clean.' %}
-          {% assign sample_reviewer = 'Daniel K.' %}
       {% endcase %}
-      {% assign product_title_downcase = product.title | downcase %}
-      {% if product_title_downcase contains 'choke' or product_title_downcase contains 'slow feeder' %}
-        {% assign sample_quote = 'Dinner lasts longer now, and the rounded grooves rinse clean without trapping food.' %}
-      {% elsif product_title_downcase contains 'water cup' or product_title_downcase contains 'water bottle' %}
-        {% assign sample_quote = 'The lock prevented leaks, and having water, treats and waste bags together made walks easier.' %}
-      {% elsif product_title_downcase contains 'gps' or product_title_downcase contains 'tracker' or product_title_downcase contains 'smart tag' %}
-        {% assign sample_quote = 'The tag is light on the collar, and the sound alert helped us find it quickly at home.' %}
-      {% elsif product_title_downcase contains 'scratch' %}
-        {% assign sample_quote = 'The frame stays steady while our cat switches between scratching the sisal and chasing the ball.' %}
-      {% endif %}
       <article class="product-card">
         <a href="{{ product.url }}" class="product-image">
           {% if product.featured_image %}{{ product.featured_image | image_url: width: 800 | image_tag: loading: 'lazy' }}{% endif %}
@@ -69,13 +49,6 @@
           <div class="purchase-count">{{ sample_purchases }}+ purchased</div>
           {% elsif section.settings.show_purchase_count and real_purchase_count != blank %}
           <div class="purchase-count">{{ real_purchase_count }} purchased</div>
-          {% endif %}
-          {% if show_layout_preview %}
-          <div class="product-card__proof">
-            <span class="stars">★★★★★</span>
-            <p>“{{ sample_quote }}”</p>
-            <small>{{ sample_reviewer }} · Sample review</small>
-          </div>
           {% endif %}
           <a href="{{ product.url }}"><h3>{{ marketing_title | strip }}</h3></a>
           <p class="product-card__benefit">{% render 'krozo-product-summary', product: product %}</p>

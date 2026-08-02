@@ -105,9 +105,9 @@
         "image_ratio": "auto",
         "show_badges": true,
         "show_ratings": true,
-        "show_purchase_count": false,
+        "show_purchase_count": true,
         "show_quick_add": true,
-        "show_mock_social_proof": false,
+        "show_mock_social_proof": true,
         "text_alignment": "left",
         "background_color": ""
       }

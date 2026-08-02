@@ -38,8 +38,8 @@
       ],
       "settings": {
         "show_ratings_summary": true,
-        "show_mock_social_proof": false,
-        "show_purchase_count": false,
+        "show_mock_social_proof": true,
+        "show_purchase_count": true,
         "show_benefits": true,
         "show_trust_badges": true,
         "show_dynamic_checkout": true,
