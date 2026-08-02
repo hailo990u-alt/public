@@ -42,7 +42,11 @@
   {% if collection_handle == 'all' and section.settings.shop_all_hero_image != blank %}
     {% assign hero_image = section.settings.shop_all_hero_image %}
   {% endif %}
-  {% if hero_image != blank %}
+  {% if collection_handle == 'dogs' %}
+    <div class="catalogue-hero__media"><img src="{{ 'krozo-category-wellness.webp' | asset_url }}" alt="Dog enjoying a calm KROZO care routine" width="1000" height="1000" loading="eager"></div>
+  {% elsif collection_handle == 'cats' %}
+    <div class="catalogue-hero__media"><img src="{{ 'krozo-category-play.webp' | asset_url }}" alt="Cat playing with a thoughtfully designed scratcher" width="1000" height="1000" loading="eager"></div>
+  {% elsif hero_image != blank %}
     <div class="catalogue-hero__media">{{ hero_image | image_url: width: 1800 | image_tag: loading: 'eager', alt: hero_title }}</div>
   {% elsif collection_handle == 'all' %}
     <div class="catalogue-hero__media"><img src="https://cdn.shopify.com/s/files/1/0743/6143/8297/files/krozo-shop-all-hero.png?v=1785433578" alt="{{ hero_title | escape }}" width="1664" height="936" loading="eager"></div>
@@ -61,10 +65,10 @@
   <a href="{{ routes.all_products_collection_url }}" {% if collection_handle == 'all' %}aria-current="page"{% endif %}>Shop All</a>
   <a href="{% if collections['dogs'] != blank %}{{ collections['dogs'].url }}{% elsif collections['dog'] != blank %}{{ collections['dog'].url }}{% else %}{{ routes.search_url }}?q=dog&type=product{% endif %}" {% if collection_handle contains 'dog' %}aria-current="page"{% endif %}>Dogs</a>
   <a href="{% if collections['cats'] != blank %}{{ collections['cats'].url }}{% elsif collections['cat'] != blank %}{{ collections['cat'].url }}{% else %}{{ routes.search_url }}?q=cat&type=product{% endif %}" {% if collection_handle contains 'cat' %}aria-current="page"{% endif %}>Cats</a>
-  <a href="{% if collections['feeding'] != blank %}{{ collections['feeding'].url }}{% else %}{{ routes.all_products_collection_url }}{% endif %}" {% if collection_handle contains 'feed' %}aria-current="page"{% endif %}>Feeding</a>
-  <a href="{% if collections['play'] != blank %}{{ collections['play'].url }}{% else %}{{ routes.all_products_collection_url }}{% endif %}" {% if collection_handle contains 'play' %}aria-current="page"{% endif %}>Play</a>
-  <a href="{% if collections['travel'] != blank %}{{ collections['travel'].url }}{% else %}{{ routes.all_products_collection_url }}{% endif %}" {% if collection_handle contains 'travel' %}aria-current="page"{% endif %}>Travel</a>
-  <a href="{% if collections['health'] != blank %}{{ collections['health'].url }}{% else %}{{ routes.all_products_collection_url }}{% endif %}" {% if collection_handle contains 'health' %}aria-current="page"{% endif %}>Care</a>
+  <a href="{% if collections['smart-feeding'] != blank %}{{ collections['smart-feeding'].url }}{% else %}{{ routes.all_products_collection_url }}{% endif %}" {% if collection_handle == 'smart-feeding' %}aria-current="page"{% endif %}>Feeding</a>
+  <a href="{% if collections['toys'] != blank %}{{ collections['toys'].url }}{% else %}{{ routes.all_products_collection_url }}{% endif %}" {% if collection_handle == 'toys' %}aria-current="page"{% endif %}>Play</a>
+  <a href="{% if collections['travel-essentials'] != blank %}{{ collections['travel-essentials'].url }}{% else %}{{ routes.all_products_collection_url }}{% endif %}" {% if collection_handle == 'travel-essentials' %}aria-current="page"{% endif %}>Travel</a>
+  <a href="{% if collections['pure-care'] != blank %}{{ collections['pure-care'].url }}{% else %}{{ routes.all_products_collection_url }}{% endif %}" {% if collection_handle == 'pure-care' %}aria-current="page"{% endif %}>Care</a>
 </nav>
 
 <section class="section catalogue-page" style="--product-card-ratio:{{ section.settings.image_ratio }};">
