@@ -162,10 +162,15 @@ img,video,iframe{max-width:100%}
   .product-review-preview__track{width:100%;max-width:100%}
   .product-review-preview__track article{flex:0 0 88%;min-width:0!important;width:88%;max-width:88%;overflow:hidden}
   .product-review-preview__track p{font-size:14px!important;line-height:1.5;overflow-wrap:anywhere}
-  .sticky-atc{display:flex!important;visibility:visible!important;opacity:1!important;left:14px;right:14px;bottom:calc(112px + env(safe-area-inset-bottom));border:1px solid #ddd8cc;border-radius:12px;padding:10px 14px;min-height:72px}
+  .sticky-atc{display:flex!important;visibility:visible!important;opacity:1!important;left:0;right:0;bottom:0;border-radius:0;padding:10px 14px calc(10px + env(safe-area-inset-bottom));min-height:72px}
   .sticky-atc>span{min-width:0;overflow:hidden}
   .sticky-atc strong{font-size:12px;line-height:1.25}
   .sticky-atc .button{flex:0 0 auto;min-width:122px;min-height:48px;padding:12px 18px;font-size:14px}
+  .buckscc-currency-wrapper{bottom:calc(92px + env(safe-area-inset-bottom))!important;left:0!important;transform:translateX(-110%)!important;transition:transform .25s ease!important}
+  body.krozo-currency-open .buckscc-currency-wrapper{transform:translateX(0)!important}
+  .krozo-currency-toggle{position:fixed;z-index:1000000000;left:0;bottom:calc(96px + env(safe-area-inset-bottom));display:grid;place-items:center;width:34px;height:42px;padding:0;border:1px solid #d8d3c8;border-left:0;border-radius:0 10px 10px 0;background:#fffefa;color:var(--olive);box-shadow:0 8px 22px rgba(31,45,32,.14);font:700 20px/1 Inter,Arial,sans-serif;transition:left .25s ease;cursor:pointer}
+  body.krozo-currency-open .krozo-currency-toggle{left:112px}
+  shopify-chat::part(activator){width:54px!important;min-width:54px!important;height:54px!important;margin-bottom:84px!important;padding:0!important;border-radius:50%!important;justify-content:center!important;font-size:0!important}
   body{padding-bottom:calc(76px + env(safe-area-inset-bottom))}
   .global-trust-bar{display:grid!important;grid-template-columns:1fr 1fr;overflow:visible}
   .global-trust-bar span{min-width:0!important;min-height:42px;padding:7px 5px;text-align:center;font-size:9px}
@@ -246,10 +251,6 @@ img,video,iframe{max-width:100%}
   .confidence-center__cards h3{font-size:22px}
   .review-summary{grid-template-columns:auto 1fr}
   .review-summary>span:last-child{grid-column:1/-1;padding-top:12px;border-top:1px solid #e3ded3}
-}
-
-@media(max-width:750px) and (max-height:650px){
-  .sticky-atc{display:none!important}
 }
 
 @media(max-width:390px){

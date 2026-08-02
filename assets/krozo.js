@@ -42,6 +42,28 @@ document.addEventListener('DOMContentLoaded',()=>{
   });
   document.addEventListener('keydown',event=>{if(event.key==='Escape'){closeMenu();closeFaq()}});
 
+  const setupMobileUtilities=()=>{
+    if(!window.matchMedia('(max-width:750px)').matches)return;
+    let currencyToggle=document.querySelector('[data-currency-toggle]');
+    if(!currencyToggle){
+      currencyToggle=document.createElement('button');
+      currencyToggle.type='button';
+      currencyToggle.className='krozo-currency-toggle';
+      currencyToggle.dataset.currencyToggle='';
+      currencyToggle.setAttribute('aria-label','Show currency selector');
+      currencyToggle.setAttribute('aria-expanded','false');
+      currencyToggle.textContent='›';
+      currencyToggle.addEventListener('click',()=>{
+        const isOpen=document.body.classList.toggle('krozo-currency-open');
+        currencyToggle.setAttribute('aria-expanded',String(isOpen));
+        currencyToggle.setAttribute('aria-label',isOpen?'Hide currency selector':'Show currency selector');
+        currencyToggle.textContent=isOpen?'‹':'›';
+      });
+      document.body.appendChild(currencyToggle);
+    }
+  };
+  setupMobileUtilities();
+
   document.querySelectorAll('[data-product-form]').forEach(form=>{
     const productPage=form.closest('.product-page');
     const variantSelect=form.querySelector('[data-variant-select]');
