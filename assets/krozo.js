@@ -63,7 +63,8 @@ document.addEventListener('DOMContentLoaded',()=>{
       });
     }
     const currencyWrapper=document.querySelector('.buckscc-currency-wrapper');
-    if(currencyWrapper&&!currencyWrapper.contains(currencyToggle))currencyWrapper.appendChild(currencyToggle);
+    const currencyFace=currencyWrapper?.querySelector('.buckscc-select-styled');
+    if(currencyFace&&!currencyFace.contains(currencyToggle))currencyFace.appendChild(currencyToggle);
   };
   setupMobileUtilities();
   const currencyObserver=new MutationObserver(()=>setupMobileUtilities());
