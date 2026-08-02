@@ -149,7 +149,7 @@
     {% form 'product', product, data-product-form: '', data-currency: product_form_currency %}
       {% unless product.has_only_default_variant %}
         <label>Choose an option
-          <select name="id" data-variant-select>{% for variant in product.variants %}<option value="{{ variant.id }}" data-price="{{ variant.price }}" data-available="{{ variant.available }}" data-media-id="{{ variant.featured_media.id }}" {% if variant.id == initial_variant.id %}selected{% endif %} {% unless variant.available %}disabled{% endunless %}>{{ variant.title }} — {{ variant.price | money }}</option>{% endfor %}</select>
+          <select name="id" data-variant-select>{% for variant in product.variants %}<option value="{{ variant.id }}" data-variant-title="{{ variant.title | escape }}" data-price="{{ variant.price }}" data-available="{{ variant.available }}" data-media-id="{{ variant.featured_media.id }}" {% if variant.id == initial_variant.id %}selected{% endif %} {% unless variant.available %}disabled{% endunless %}>{{ variant.title }} — {{ variant.price | money }}</option>{% endfor %}</select>
         </label>
       {% else %}
         <input type="hidden" name="id" value="{{ initial_variant.id }}" data-price="{{ initial_variant.price }}" data-available="{{ initial_variant.available }}" data-media-id="{{ initial_variant.featured_media.id }}">
