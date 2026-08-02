@@ -9,6 +9,7 @@
       assign heading_font = settings.font_heading
     %}
     {{ content_for_header }}
+    {% if request.page_type == 'index' %}{{ 'krozo-hero-lifestyle.png' | asset_url | preload_tag: as: 'image' }}{% endif %}
     {{ 'krozo.css' | asset_url | stylesheet_tag }}
     {{ 'krozo-enhancements.css' | asset_url | stylesheet_tag }}
     {{ 'krozo-conversion.css' | asset_url | stylesheet_tag }}

@@ -1,10 +1,10 @@
-{% assign banner_image = section.settings.image | default: 'krozo-lifestyle-banner.png' %}
+{% assign banner_image = section.settings.image | default: 'krozo-lifestyle-banner.webp' %}
 <section class="lifestyle-banner">
   <div class="lifestyle-banner__media">
     {% if section.settings.image != blank %}
       {{ section.settings.image | image_url: width: 2200 | image_tag: loading: 'lazy', widths: '750,1100,1600,2200' }}
     {% else %}
-      <img src="{{ banner_image | asset_url }}" loading="lazy" alt="A quiet moment shared with a beloved pet" width="1672" height="941">
+      <img src="{{ banner_image | asset_url }}" loading="lazy" decoding="async" alt="A quiet moment shared with a beloved pet" width="1672" height="941">
     {% endif %}
   </div>
   <div class="lifestyle-banner__content">

@@ -138,6 +138,13 @@
 body.menu-open{overflow:hidden}
 body.menu-open .sticky-atc,body.menu-open .buckscc-currency-wrapper{display:none!important}
 body.menu-open shopify-chat::part(activator){visibility:hidden!important;opacity:0!important;pointer-events:none!important}
+@view-transition{navigation:auto}
+@media(prefers-reduced-motion:no-preference){
+  ::view-transition-old(root){animation:120ms ease-out both krozo-page-out}
+  ::view-transition-new(root){animation:180ms ease-out both krozo-page-in}
+  @keyframes krozo-page-out{to{opacity:.72}}
+  @keyframes krozo-page-in{from{opacity:.72}}
+}
 
 @media(max-width:380px){
   .mobile-nav{width:100vw}

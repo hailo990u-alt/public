@@ -9,11 +9,11 @@
         {% if block.settings.image != blank %}
           {{ block.settings.image | image_url: width: 1200 | image_tag: loading: 'lazy', widths: '400,700,1000,1200' }}
         {% elsif forloop.index == 1 %}
-          <img src="{{ 'krozo-gallery-cat.png' | asset_url }}" loading="lazy" alt="A calm cat beside a ceramic feeding bowl" width="1254" height="1254">
+          <img src="{{ 'krozo-gallery-cat.webp' | asset_url }}" loading="lazy" decoding="async" alt="A calm cat beside a ceramic feeding bowl" width="1254" height="1254">
         {% elsif forloop.index == 2 %}
           <img src="{{ 'krozo-hero-lifestyle.png' | asset_url }}" loading="lazy" alt="A happy dog in a warm modern home" width="1672" height="941">
         {% else %}
-          <img src="{{ 'krozo-lifestyle-banner.png' | asset_url }}" loading="lazy" alt="A pet parent sharing a quiet moment with their dog" width="1672" height="941">
+          <img src="{{ 'krozo-lifestyle-banner.webp' | asset_url }}" loading="lazy" decoding="async" alt="A pet parent sharing a quiet moment with their dog" width="1672" height="941">
         {% endif %}
       </figure>
     {% endfor %}

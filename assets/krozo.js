@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded',()=>{
     currencyWrapper.style.setProperty('transition','transform .25s ease','important');
   };
   const setupMobileUtilities=()=>{
-    if(!window.matchMedia('(max-width:750px)').matches)return;
+    if(!window.matchMedia('(max-width:750px)').matches)return true;
     let currencyToggle=document.querySelector('[data-currency-toggle]');
     if(!currencyToggle){
       currencyToggle=document.createElement('button');
@@ -75,12 +75,33 @@ document.addEventListener('DOMContentLoaded',()=>{
     const currencyFace=currencyWrapper?.querySelector('.buckscc-select-styled');
     if(currencyFace&&!currencyFace.contains(currencyToggle))currencyFace.appendChild(currencyToggle);
     setCurrencyDrawerPosition(document.body.classList.contains('krozo-currency-open'));
+    return Boolean(currencyFace&&currencyFace.contains(currencyToggle));
   };
-  setupMobileUtilities();
-  const currencyObserver=new MutationObserver(()=>setupMobileUtilities());
-  currencyObserver.observe(document.body,{childList:true,subtree:true});
-  window.setTimeout(()=>setupMobileUtilities(),500);
-  window.setTimeout(()=>setupMobileUtilities(),1500);
+  if(!setupMobileUtilities()){
+    const currencyObserver=new MutationObserver(()=>{
+      if(setupMobileUtilities())currencyObserver.disconnect();
+    });
+    currencyObserver.observe(document.body,{childList:true,subtree:true});
+    window.setTimeout(()=>currencyObserver.disconnect(),5000);
+  }
+
+  const prefetchedPages=new Set();
+  const prefetchPage=link=>{
+    if(!link||link.target||link.hasAttribute('download'))return;
+    if(navigator.connection?.saveData||navigator.connection?.effectiveType==='2g')return;
+    const url=new URL(link.href,location.href);
+    if(url.origin!==location.origin||url.pathname===location.pathname||url.hash&&url.pathname===location.pathname)return;
+    if(!/^\/(products|collections|pages|blogs)(\/|$)/.test(url.pathname)||prefetchedPages.has(url.href))return;
+    prefetchedPages.add(url.href);
+    const hint=document.createElement('link');
+    hint.rel='prefetch';
+    hint.as='document';
+    hint.href=url.href;
+    document.head.appendChild(hint);
+  };
+  document.addEventListener('pointerover',event=>prefetchPage(event.target.closest('a[href]')),{passive:true});
+  document.addEventListener('touchstart',event=>prefetchPage(event.target.closest('a[href]')),{passive:true});
+  document.addEventListener('focusin',event=>prefetchPage(event.target.closest('a[href]')));
 
   document.querySelectorAll('[data-product-form]').forEach(form=>{
     const productPage=form.closest('.product-page');

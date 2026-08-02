@@ -33,7 +33,7 @@
     {% if section.settings.logo != blank %}
       {{ section.settings.logo | image_url: width: 600 | image_tag: class: 'brand-logo', alt: shop.name }}
     {% else %}
-      <img class="brand-logo" src="{{ 'krozo-logo-transparent.png' | asset_url }}" alt="{{ shop.name }}" width="1024" height="1024">
+      <img class="brand-logo" src="{{ 'krozo-logo-transparent.webp' | asset_url }}" alt="{{ shop.name }}" width="840" height="800" fetchpriority="high">
     {% endif %}
   </a>
   <nav class="desktop-nav" aria-label="Main navigation">
