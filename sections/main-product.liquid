@@ -145,7 +145,7 @@
       {% endif %}
     </div>{% endif %}
     <p class="availability" data-product-availability><span></span>{% if initial_variant.available %}In stock and ready to order{% else %}Currently unavailable{% endif %}</p>
-    {% assign product_form_currency = cart.currency.iso_code | default: shop.currency %}
+    {% assign product_form_currency = shop.currency %}
     {% form 'product', product, data-product-form: '', data-currency: product_form_currency %}
       {% unless product.has_only_default_variant %}
         <label>Choose an option
