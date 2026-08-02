@@ -32,7 +32,7 @@
           "type": "question",
           "settings": {
             "question": "How long will delivery take?",
-            "answer": "<p>Delivery time depends on your destination and product. The relevant estimate is shown during checkout and in your order confirmation.</p>"
+            "answer": "<p>Estimated delivery is 4–14 days, depending on your country and location. Your order confirmation includes the relevant delivery details.</p>"
           }
         },
         "returns": {

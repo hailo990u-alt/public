@@ -48,118 +48,6 @@
         "description_heading": "Designed around the moments that matter."
       }
     },
-    "benefits": {
-      "type": "benefit-grid",
-      "blocks": {
-        "comfort": {
-          "type": "benefit",
-          "settings": {
-            "icon": "♡",
-            "heading": "Made for comfort",
-            "text": "Designed to support calmer, happier everyday moments."
-          }
-        },
-        "design": {
-          "type": "benefit",
-          "settings": {
-            "icon": "◇",
-            "heading": "Thoughtfully chosen",
-            "text": "Useful details and a refined look that belongs in your home."
-          }
-        },
-        "care": {
-          "type": "benefit",
-          "settings": {
-            "icon": "↻",
-            "heading": "Simple to care for",
-            "text": "Made with real routines and easy upkeep in mind."
-          }
-        }
-      },
-      "block_order": [
-        "comfort",
-        "design",
-        "care"
-      ],
-      "settings": {
-        "eyebrow": "DESIGNED AROUND REAL LIFE",
-        "heading": "Why you'll love it."
-      }
-    },
-    "comparison": {
-      "type": "comparison-table",
-      "blocks": {
-        "design": {
-          "type": "row",
-          "settings": {
-            "label": "Design approach",
-            "krozo": "Considered for everyday use",
-            "alternative": "One-size-fits-all"
-          }
-        },
-        "look": {
-          "type": "row",
-          "settings": {
-            "label": "Aesthetic",
-            "krozo": "Designed for modern homes",
-            "alternative": "Function-first styling"
-          }
-        },
-        "support": {
-          "type": "row",
-          "settings": {
-            "label": "Support",
-            "krozo": "Helpful human support",
-            "alternative": "Varies by seller"
-          }
-        }
-      },
-      "block_order": [
-        "design",
-        "look",
-        "support"
-      ],
-      "settings": {
-        "eyebrow": "THE KROZO DIFFERENCE",
-        "heading": "A more considered choice.",
-        "text": ""
-      }
-    },
-    "steps": {
-      "type": "how-it-works",
-      "blocks": {
-        "one": {
-          "type": "step",
-          "settings": {
-            "heading": "Choose the right option",
-            "text": "Select the size or style that suits your pet."
-          }
-        },
-        "two": {
-          "type": "step",
-          "settings": {
-            "heading": "Introduce it naturally",
-            "text": "Let your pet explore it at their own comfortable pace."
-          }
-        },
-        "three": {
-          "type": "step",
-          "settings": {
-            "heading": "Enjoy the routine",
-            "text": "Make it part of the everyday moments you share."
-          }
-        }
-      },
-      "block_order": [
-        "one",
-        "two",
-        "three"
-      ],
-      "settings": {
-        "eyebrow": "SIMPLE BY DESIGN",
-        "heading": "Easy from the very first day."
-      }
-    },
     "faq": {
       "type": "product-faq",
       "blocks": {
@@ -174,7 +62,7 @@
           "type": "question",
           "settings": {
             "question": "How does shipping work?",
-            "answer": "<p>Shipping is complimentary. Delivery timing is shown at checkout and may vary by destination.</p>"
+            "answer": "<p>Shipping is complimentary. Estimated delivery is 4–14 days, depending on your country and location.</p>"
           }
         },
         "three": {
@@ -200,33 +88,11 @@
       "settings": {
         "show_mock_reviews": true
       }
-    },
-    "178545027957e34a57": {
-      "type": "apps",
-      "blocks": {
-        "judge_me_reviews_review_widget_7FTGDe": {
-          "type": "shopify://apps/judge-me-reviews/blocks/review_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
-          "settings": {
-            "review_data": "sample_data",
-            "max_width": 1200,
-            "show_shop_reviews": false,
-            "empty_state": "empty_widget"
-          }
-        }
-      },
-      "block_order": [
-        "judge_me_reviews_review_widget_7FTGDe"
-      ],
-      "settings": {}
     }
   },
   "order": [
     "main",
-    "benefits",
-    "comparison",
-    "steps",
     "faq",
-    "reviews",
-    "178545027957e34a57"
+    "reviews"
   ]
 }

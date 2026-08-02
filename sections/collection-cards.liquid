@@ -8,32 +8,32 @@
     {% for block in section.blocks %}
       {% case forloop.index %}
         {% when 1 %}
-          {% assign curated_handle = 'dog' %}
+          {% assign curated_handle = 'dogs' %}
           {% assign card_label = 'For Dogs' %}
           {% assign card_blurb = 'Comfort, play and everyday care' %}
           {% assign fallback_image = 'krozo-hero-lifestyle.png' %}
         {% when 2 %}
-          {% assign curated_handle = 'cat' %}
+          {% assign curated_handle = 'cats' %}
           {% assign card_label = 'For Cats' %}
           {% assign card_blurb = 'Enrichment for curious companions' %}
           {% assign fallback_image = 'krozo-gallery-cat.png' %}
         {% when 3 %}
-          {% assign curated_handle = 'feeding' %}
+          {% assign curated_handle = 'smart-feeding' %}
           {% assign card_label = 'Feeding & Hydration' %}
           {% assign card_blurb = 'Calmer, easier mealtimes' %}
           {% assign fallback_image = 'krozo-category-feeding.webp' %}
         {% when 4 %}
-          {% assign curated_handle = 'play' %}
+          {% assign curated_handle = 'toys' %}
           {% assign card_label = 'Play & Enrichment' %}
           {% assign card_blurb = 'Made for happier, engaged pets' %}
           {% assign fallback_image = 'krozo-category-play.webp' %}
         {% when 5 %}
-          {% assign curated_handle = 'travel' %}
+          {% assign curated_handle = 'travel-essentials' %}
           {% assign card_label = 'Walk & Travel' %}
           {% assign card_blurb = 'Ready for life on the go' %}
           {% assign fallback_image = 'krozo-lifestyle-banner.png' %}
         {% else %}
-          {% assign curated_handle = 'health' %}
+          {% assign curated_handle = 'pure-care' %}
           {% assign card_label = 'Wellness & Care' %}
           {% assign card_blurb = 'Thoughtful support for daily care' %}
           {% assign fallback_image = 'krozo-category-wellness.webp' %}

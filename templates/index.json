@@ -32,7 +32,7 @@
         "dog": {
           "type": "collection",
           "settings": {
-            "collection": "dog",
+            "collection": "dogs",
             "label": "For Dogs",
             "blurb": "Comfort, play and everyday care"
           }
@@ -40,7 +40,7 @@
         "cat": {
           "type": "collection",
           "settings": {
-            "collection": "cat",
+            "collection": "cats",
             "label": "For Cats",
             "blurb": "Enrichment for curious companions"
           }
@@ -48,7 +48,7 @@
         "feeding": {
           "type": "collection",
           "settings": {
-            "collection": "feeding",
+            "collection": "smart-feeding",
             "label": "Feeding & Hydration",
             "blurb": "Calmer, easier mealtimes"
           }
@@ -56,7 +56,7 @@
         "play": {
           "type": "collection",
           "settings": {
-            "collection": "play",
+            "collection": "toys",
             "label": "Play & Enrichment",
             "blurb": "Made for happier, engaged pets"
           }
@@ -64,7 +64,7 @@
         "travel": {
           "type": "collection",
           "settings": {
-            "collection": "travel",
+            "collection": "travel-essentials",
             "label": "Walk & Travel",
             "blurb": "Ready for life on the go"
           }
@@ -72,7 +72,7 @@
         "health": {
           "type": "collection",
           "settings": {
-            "collection": "health",
+            "collection": "pure-care",
             "label": "Wellness & Care",
             "blurb": "Thoughtful support for daily care"
           }

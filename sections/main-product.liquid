@@ -106,7 +106,7 @@
         <div class="product-benefit"><span>✓</span><p>Built-in waste bin keeps disposal bags within reach</p></div>
         <div class="product-benefit"><span>✓</span><p>Scoop and contain litter mess in one simple motion</p></div>
         <div class="product-benefit"><span>✓</span><p>Compact design keeps clean-up tools organised</p></div>
-      {% elsif product_title_downcase contains 'one - click pet brush' %}
+      {% elsif product_title_downcase contains 'grooming brush' or product_title_downcase contains 'one-click' %}
         <div class="product-benefit"><span>✓</span><p>Rounded bristles remove loose fur without harsh pulling</p></div>
         <div class="product-benefit"><span>✓</span><p>One-click release clears collected hair in seconds</p></div>
         <div class="product-benefit"><span>✓</span><p>Comfortable grip makes regular grooming easier</p></div>
@@ -114,7 +114,7 @@
         <div class="product-benefit"><span>✓</span><p>Lifts embedded pet hair from sofas and clothing</p></div>
         <div class="product-benefit"><span>✓</span><p>Reusable roller reduces disposable cleaning sheets</p></div>
         <div class="product-benefit"><span>✓</span><p>Compact design is ready for quick daily touch-ups</p></div>
-      {% elsif product_title_downcase contains 'treat puzzle' %}
+      {% elsif product_title_downcase contains 'treatquest' or product_title_downcase contains 'treat puzzle' or product_title_downcase contains 'feeder toy' %}
         <div class="product-benefit"><span>✓</span><p>Turns treats into a rewarding problem-solving game</p></div>
         <div class="product-benefit"><span>✓</span><p>Random dispensing keeps curious pets engaged longer</p></div>
         <div class="product-benefit"><span>✓</span><p>Encourages slower snacking and independent play</p></div>
@@ -145,6 +145,7 @@
       {% endif %}
     </div>{% endif %}
     <p class="availability" data-product-availability><span></span>{% if initial_variant.available %}In stock and ready to order{% else %}Currently unavailable{% endif %}</p>
+    <p class="delivery-estimate"><strong>Estimated delivery:</strong> 4–14 days, depending on your country and location.</p>
     {% assign product_form_currency = shop.currency %}
     {% form 'product', product, data-product-form: '', data-currency: product_form_currency %}
       {% unless product.has_only_default_variant %}
@@ -222,7 +223,7 @@
     <div class="purchase-accordions">
       <details>
         <summary><span>Complimentary shipping</span><span aria-hidden="true">+</span></summary>
-        <div>Shipping is free on every KROZO order. Delivery estimates are shown during checkout for your destination.{% if shop.shipping_policy != blank %} <a href="{{ shop.shipping_policy.url }}">Read our shipping policy</a>.{% endif %}</div>
+        <div>Shipping is free on every KROZO order. Estimated delivery is 4–14 days, depending on your country and location.{% if shop.shipping_policy != blank %} <a href="{{ shop.shipping_policy.url }}">Read our shipping policy</a>.{% endif %}</div>
       </details>
       <details>
         <summary><span>Returns & damaged items</span><span aria-hidden="true">+</span></summary>
