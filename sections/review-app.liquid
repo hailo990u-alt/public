@@ -3,7 +3,7 @@
 {% for block in section.blocks %}{% if block.type == '@app' %}{% assign app_block_count = app_block_count | plus: 1 %}{% endif %}{% endfor %}
 {% for block in section.blocks %}{% if block.type == 'review' %}{% assign approved_review_count = approved_review_count | plus: 1 %}{% endif %}{% endfor %}
 {% assign show_layout_preview = false %}
-{% if section.settings.show_mock_reviews %}{% assign show_layout_preview = true %}{% endif %}
+{% if request.design_mode and section.settings.show_mock_reviews %}{% assign show_layout_preview = true %}{% endif %}
 {% assign real_rating = blank %}
 {% assign real_review_count = blank %}
 {% if product != blank %}
@@ -76,7 +76,7 @@
       {% if block.type == 'review' %}
         <article class="review-card review-card--genuine" {{ block.shopify_attributes }}>
           {% if block.settings.image != blank %}{{ block.settings.image | image_url: width: 240 | image_tag: class: 'review-photo', loading: 'lazy', alt: block.settings.name }}{% endif %}
-          <div class="stars">{{ block.settings.rating }}</div><p>“{{ block.settings.text }}”</p><strong>{{ block.settings.name }}</strong><small>Verified Purchase{% if block.settings.country != blank %} · {{ block.settings.country }}{% endif %}</small>
+          <div class="stars">{{ block.settings.rating }}</div><p>“{{ block.settings.text }}”</p><strong>{{ block.settings.name }}</strong><small>Customer review{% if block.settings.country != blank %} · {{ block.settings.country }}{% endif %}</small>
         </article>
       {% endif %}
       {% endfor %}
@@ -95,23 +95,6 @@
       <div class="review-grid">
         {% render 'krozo-mock-product-reviews', product: product, mode: 'full' %}
       </div>
-    {% endif %}
-    {% if product != blank and app_block_count == 0 %}
-    <details class="review-submission">
-      <summary><span><strong>Purchased this product?</strong><small>Share an honest review with the KROZO team. Submissions are moderated before publishing.</small></span><span>Write a review →</span></summary>
-      {% form 'contact', id: 'ProductReviewForm', class: 'review-submit-form' %}
-        {% if form.posted_successfully? %}<p class="form-success">Thank you. Your review was sent for moderation.</p>{% endif %}
-        {{ form.errors | default_errors }}
-        <input type="hidden" name="contact[Subject]" value="Product review submission">
-        <input type="hidden" name="contact[Product]" value="{{ product.title | escape }}">
-        <label>Your name<input type="text" name="contact[Name]" required></label>
-        <label>Email<input type="email" name="contact[email]" required></label>
-        <label>Rating<select name="contact[Rating]" required><option value="">Choose a rating</option><option>5 stars</option><option>4 stars</option><option>3 stars</option><option>2 stars</option><option>1 star</option></select></label>
-        <label class="review-submit-form__wide">Your honest review<textarea name="contact[Review]" rows="5" required placeholder="What did you like? What should another pet parent know?"></textarea></label>
-        <label class="review-submit-form__wide">Photo link <small>Optional — paste a link to your photo.</small><input type="url" name="contact[Photo link]" placeholder="https://"></label>
-        <button class="button review-submit-form__wide" type="submit">Submit review</button>
-      {% endform %}
-    </details>
     {% endif %}
   </section>
   {% endif %}

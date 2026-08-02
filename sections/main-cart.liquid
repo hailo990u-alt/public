@@ -24,7 +24,7 @@
         <span class="eyebrow">ORDER SUMMARY</span>
         <div class="cart-summary__row"><span>Subtotal</span><strong>{{ cart.total_price | money }}</strong></div>
         <div class="cart-summary__row"><span>Standard shipping</span><strong>Complimentary</strong></div>
-        <p>Taxes and final delivery estimates are calculated at checkout.</p>
+        <p>Estimated delivery is 4–14 business days, depending on your destination and local carrier conditions. Taxes are calculated at checkout.</p>
         <button class="button" type="submit" name="checkout">Continue to secure checkout</button>
         {% if additional_checkout_buttons %}<div class="additional-checkout-buttons">{{ content_for_additional_checkout_buttons }}</div>{% endif %}
         <div class="cart-security">

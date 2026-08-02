@@ -82,9 +82,7 @@
         "dog",
         "cat",
         "feeding",
-        "play",
-        "travel",
-        "health"
+        "travel"
       ],
       "settings": {
         "hide_section": false,
@@ -107,9 +105,9 @@
         "image_ratio": "auto",
         "show_badges": true,
         "show_ratings": true,
-        "show_purchase_count": true,
+        "show_purchase_count": false,
         "show_quick_add": true,
-        "show_mock_social_proof": true,
+        "show_mock_social_proof": false,
         "text_alignment": "left",
         "background_color": ""
       }
@@ -127,8 +125,43 @@
     "reviews": {
       "type": "review-app",
       "settings": {
-        "show_mock_reviews": true
+        "show_mock_reviews": false
       }
+    },
+    "faq": {
+      "type": "store-faq",
+      "blocks": {
+        "delivery": {
+          "type": "question",
+          "settings": {
+            "question": "How long will my order take to arrive?",
+            "answer": "<p>Estimated delivery is 4–14 business days, depending on your destination and local carrier conditions.</p>"
+          }
+        },
+        "tracking": {
+          "type": "question",
+          "settings": {
+            "question": "How can I track my order?",
+            "answer": "<p>Once your order is dispatched, tracking details will be emailed to you.</p>"
+          }
+        },
+        "returns": {
+          "type": "question",
+          "settings": {
+            "question": "Can I return an item?",
+            "answer": "<p>You may request a return within 30 days, subject to our Returns &amp; Refunds policy.</p>"
+          }
+        },
+        "support": {
+          "type": "question",
+          "settings": {
+            "question": "How can KROZO help before I order?",
+            "answer": "<p>Contact us with the product, option and any questions about your pet's routine, and our team will help you choose.</p>"
+          }
+        }
+      },
+      "block_order": ["delivery", "tracking", "returns", "support"],
+      "settings": {}
     },
     "gallery": {
       "type": "editorial-gallery",
@@ -163,6 +196,7 @@
     "featured",
     "lifestyle",
     "reviews",
+    "faq",
     "gallery"
   ]
 }

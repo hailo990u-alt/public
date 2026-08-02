@@ -15,40 +15,22 @@
   {% endif %}
   {% assign real_purchase_count = product.metafields.custom.purchases_count.value | default: product.metafields.custom.purchases_count %}
   {% assign show_design_preview = false %}
-  {% if section.settings.show_mock_social_proof %}{% assign show_design_preview = true %}{% endif %}
+  {% if request.design_mode and section.settings.show_mock_social_proof %}{% assign show_design_preview = true %}{% endif %}
   {% assign mock_seed = product.id | modulo: 5 %}
   {% assign mock_review_count = product.id | modulo: 137 | plus: 43 %}
   {% assign mock_purchase_count = product.id | modulo: 389 | plus: 126 %}
   {% case mock_seed %}
     {% when 0 %}
       {% assign mock_rating = '4.8' %}
-      {% assign mock_five_percent = 83 %}
-      {% assign mock_four_percent = 15 %}
-      {% assign mock_three_percent = 2 %}
     {% when 1 %}
       {% assign mock_rating = '4.9' %}
-      {% assign mock_five_percent = 91 %}
-      {% assign mock_four_percent = 8 %}
-      {% assign mock_three_percent = 1 %}
     {% when 2 %}
       {% assign mock_rating = '4.7' %}
-      {% assign mock_five_percent = 74 %}
-      {% assign mock_four_percent = 22 %}
-      {% assign mock_three_percent = 4 %}
     {% when 3 %}
       {% assign mock_rating = '4.8' %}
-      {% assign mock_five_percent = 83 %}
-      {% assign mock_four_percent = 15 %}
-      {% assign mock_three_percent = 2 %}
     {% else %}
       {% assign mock_rating = '4.6' %}
-      {% assign mock_five_percent = 67 %}
-      {% assign mock_four_percent = 26 %}
-      {% assign mock_three_percent = 7 %}
   {% endcase %}
-  {% assign mock_five_count = mock_review_count | times: mock_five_percent | divided_by: 100 %}
-  {% assign mock_four_count = mock_review_count | times: mock_four_percent | divided_by: 100 %}
-  {% assign mock_three_count = mock_review_count | minus: mock_five_count | minus: mock_four_count %}
   {% assign initial_variant = product.selected_or_first_available_variant %}
   <div class="product-media" data-product-gallery>
     {% for media in product.media %}
@@ -145,7 +127,7 @@
       {% endif %}
     </div>{% endif %}
     <p class="availability" data-product-availability><span></span>{% if initial_variant.available %}In stock and ready to order{% else %}Currently unavailable{% endif %}</p>
-    <p class="delivery-estimate"><strong>Estimated delivery:</strong> 4–14 days, depending on your country and location.</p>
+    <p class="delivery-estimate"><strong>Estimated delivery:</strong> 4–14 business days, depending on your destination and local carrier conditions.</p>
     {% assign product_form_currency = shop.currency %}
     {% form 'product', product, data-product-form: '', data-currency: product_form_currency %}
       {% unless product.has_only_default_variant %}
@@ -199,35 +181,14 @@
     </div>{% endif %}
     {% if shop.enabled_payment_types.size > 0 %}<div class="payment-trust"><strong>Secure payment options</strong><div>{% for type in shop.enabled_payment_types %}{{ type | payment_type_svg_tag }}{% endfor %}</div><small>Payments are encrypted and processed securely by Shopify.</small></div>{% endif %}
     {% for block in section.blocks %}{% if block.type == '@app' %}<div class="product-app-block" {{ block.shopify_attributes }}>{% render block %}</div>{% endif %}{% endfor %}
-    {% if section.settings.show_ratings_summary %}
-    {% if real_rating_value != blank or show_design_preview %}
-    <div class="product-review-preview" aria-label="Customer review preview">
-      <div class="product-review-preview__head">
-        <div><span class="eyebrow">PET PARENT REVIEWS</span><h2>{% if show_design_preview %}{{ mock_rating }}{% else %}{{ real_rating_value | round: 1 }}{% endif %} out of 5</h2></div>
-        <a href="#reviews">{% if show_design_preview %}{{ mock_review_count }}{% else %}{{ real_review_count }}{% endif %} reviews</a>
-      </div>
-      {% if show_design_preview %}
-      <div class="rating-breakdown" aria-label="Rating distribution">
-        <div><span>5 stars</span><i><b style="width:{{ mock_five_percent }}%"></b></i><strong>{{ mock_five_count }}</strong></div>
-        <div><span>4 stars</span><i><b style="width:{{ mock_four_percent }}%"></b></i><strong>{{ mock_four_count }}</strong></div>
-        <div><span>3 stars</span><i><b style="width:{{ mock_three_percent }}%"></b></i><strong>{{ mock_three_count }}</strong></div>
-      </div>
-      <div class="product-review-preview__track">
-        {% render 'krozo-mock-product-reviews', product: product, mode: 'preview' %}
-      </div>
-      {% endif %}
-      <a class="product-review-preview__all" href="#reviews">Read all reviews →</a>
-    </div>
-    {% endif %}
-    {% endif %}
     <div class="purchase-accordions">
       <details>
         <summary><span>Complimentary shipping</span><span aria-hidden="true">+</span></summary>
-        <div>Shipping is free on every KROZO order. Estimated delivery is 4–14 days, depending on your country and location.{% if shop.shipping_policy != blank %} <a href="{{ shop.shipping_policy.url }}">Read our shipping policy</a>.{% endif %}</div>
+        <div>Shipping is free on every KROZO order. Estimated delivery is 4–14 business days, depending on your destination and local carrier conditions.{% if shop.shipping_policy != blank %} <a href="{{ shop.shipping_policy.url }}">Read our shipping policy</a>.{% else %} <a href="/pages/shipping-handling">Read our shipping policy</a>.{% endif %}</div>
       </details>
       <details>
         <summary><span>Returns & damaged items</span><span aria-hidden="true">+</span></summary>
-        <div>Changed your mind? You may request a return within 30 days, subject to our returns policy. If an item arrives damaged, defective or incorrect, contact us with your order number and clear photos. Depending on the issue and applicable law, we may offer a replacement, refund or a lower-impact resolution that does not require a return. This does not limit your statutory rights.{% if shop.refund_policy != blank %} <a href="{{ shop.refund_policy.url }}">Read our returns policy</a>.{% endif %}</div>
+        <div>Changed your mind? You may request a return within 30 days, subject to our returns policy. If an item arrives damaged, defective or incorrect, contact us with your order number and clear photos. Depending on the issue and applicable law, we may offer a replacement, refund or another appropriate resolution. This does not limit your statutory rights. <a href="/pages/returns-refunds">Read our returns policy</a>.</div>
       </details>
       <details>
         <summary><span>Secure payment & support</span><span aria-hidden="true">+</span></summary>

@@ -1,5 +1,7 @@
 {% unless section.settings.hide_section %}
 {% assign footer_year = 'now' | date: '%Y' %}
+{% assign shipping_page = pages['shipping-handling'] %}
+{% assign returns_page = pages['returns-refunds'] %}
 <footer class="site-footer">
   <div class="footer-newsletter"><div><span class="eyebrow">{{ section.settings.newsletter_eyebrow }}</span><h3>{{ section.settings.newsletter_heading }}</h3><p>{{ section.settings.newsletter_text }}</p></div>{% form 'customer', class: 'newsletter-form' %}<input type="hidden" name="contact[tags]" value="newsletter"><label class="visually-hidden" for="FooterEmail">Email address</label><input id="FooterEmail" type="email" name="contact[email]" placeholder="Your email address" required><button type="submit">{{ section.settings.newsletter_button }}</button>{% endform %}</div>
   <div class="footer-grid">
@@ -10,7 +12,7 @@
       {% endfor %}
     {% else %}
       <div><h4>SHOP</h4><a href="{{ routes.all_products_collection_url }}">All products</a><a href="{{ collections['dogs'].url | default: routes.all_products_collection_url }}">For dogs</a><a href="{{ collections['cats'].url | default: routes.all_products_collection_url }}">For cats</a><a href="{{ collections['travel-essentials'].url | default: routes.all_products_collection_url }}">Travel essentials</a></div>
-      <div><h4>HELP</h4><a href="/pages/contact">Contact us</a><a href="{% if shop.shipping_policy != blank %}{{ shop.shipping_policy.url }}{% else %}/policies/shipping-policy{% endif %}">Shipping</a><a href="{% if shop.refund_policy != blank %}{{ shop.refund_policy.url }}{% else %}/policies/refund-policy{% endif %}">Returns</a><a href="#faq-help" data-faq-open>FAQs</a></div>
+      <div><h4>HELP</h4><a href="/pages/contact">Contact us</a><a href="{% if shop.shipping_policy != blank %}{{ shop.shipping_policy.url }}{% elsif shipping_page != blank %}{{ shipping_page.url }}{% else %}/pages/shipping-handling{% endif %}">Shipping</a><a href="{% if returns_page != blank %}{{ returns_page.url }}{% else %}/pages/returns-refunds{% endif %}">Returns</a><a href="/pages/faq">FAQs</a></div>
       <div><h4>ABOUT & LEGAL</h4><a href="/pages/about-us">Our story</a><a href="{{ shop.privacy_policy.url | default: '/policies/privacy-policy' }}">Privacy</a><a href="{{ shop.terms_of_service.url | default: '/policies/terms-of-service' }}">Terms</a><a href="/pages/contact">Contact information</a></div>
     {% endif %}
   </div>

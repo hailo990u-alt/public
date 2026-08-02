@@ -1,6 +1,6 @@
 {% unless section.settings.hide_section %}<section id="best-sellers" class="section" style="background:{{ section.settings.background_color | default: settings.color_page_background }};text-align:{{ section.settings.text_alignment }};--product-card-ratio:{{ section.settings.image_ratio }};">
   {% assign show_layout_preview = false %}
-  {% if section.settings.show_mock_social_proof %}{% assign show_layout_preview = true %}{% endif %}
+  {% if request.design_mode and section.settings.show_mock_social_proof %}{% assign show_layout_preview = true %}{% endif %}
   <div class="section-title"><span class="eyebrow">{{ section.settings.eyebrow }}</span><h2>{{ section.settings.heading }}</h2>{% if section.settings.text != blank %}<p>{{ section.settings.text }}</p>{% endif %}</div>
   <div class="product-grid">
     {% assign featured_collection = section.settings.collection %}
@@ -74,7 +74,7 @@
           <div class="product-card__proof">
             <span class="stars">★★★★★</span>
             <p>“{{ sample_quote }}”</p>
-            <small>{{ sample_reviewer }} · Verified Purchase</small>
+            <small>{{ sample_reviewer }} · Sample review</small>
           </div>
           {% endif %}
           <a href="{{ product.url }}"><h3>{{ marketing_title | strip }}</h3></a>

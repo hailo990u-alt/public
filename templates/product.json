@@ -38,8 +38,8 @@
       ],
       "settings": {
         "show_ratings_summary": true,
-        "show_mock_social_proof": true,
-        "show_purchase_count": true,
+        "show_mock_social_proof": false,
+        "show_purchase_count": false,
         "show_benefits": true,
         "show_trust_badges": true,
         "show_dynamic_checkout": true,
@@ -50,34 +50,8 @@
     },
     "faq": {
       "type": "product-faq",
-      "blocks": {
-        "one": {
-          "type": "question",
-          "settings": {
-            "question": "How do I choose the right option?",
-            "answer": "<p>Use the sizing or option guidance above. If you are unsure, contact us before ordering and we will help.</p>"
-          }
-        },
-        "two": {
-          "type": "question",
-          "settings": {
-            "question": "How does shipping work?",
-            "answer": "<p>Shipping is complimentary. Estimated delivery is 4–14 days, depending on your country and location.</p>"
-          }
-        },
-        "three": {
-          "type": "question",
-          "settings": {
-            "question": "What if it is not right for us?",
-            "answer": "<p>You can request a return within 30 days, subject to our returns policy.</p>"
-          }
-        }
-      },
-      "block_order": [
-        "one",
-        "two",
-        "three"
-      ],
+      "blocks": {},
+      "block_order": [],
       "settings": {
         "eyebrow": "GOOD TO KNOW",
         "heading": "Questions, answered."
@@ -85,8 +59,20 @@
     },
     "reviews": {
       "type": "review-app",
+      "blocks": {
+        "judge_me_reviews_review_widget": {
+          "type": "shopify://apps/judge-me-reviews/blocks/review_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {
+            "review_data": "product_data",
+            "max_width": 1200,
+            "show_shop_reviews": false,
+            "empty_state": "empty_widget"
+          }
+        }
+      },
+      "block_order": ["judge_me_reviews_review_widget"],
       "settings": {
-        "show_mock_reviews": true
+        "show_mock_reviews": false
       }
     }
   },

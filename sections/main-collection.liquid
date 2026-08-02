@@ -1,6 +1,6 @@
 {% assign collection_handle = collection.handle | downcase %}
 {% assign show_layout_preview = false %}
-{% if section.settings.show_sample_social_proof %}{% assign show_layout_preview = true %}{% endif %}
+{% if request.design_mode and section.settings.show_sample_social_proof %}{% assign show_layout_preview = true %}{% endif %}
 {% assign hero_eyebrow = 'THE KROZO COLLECTION' %}
 {% assign hero_title = collection.title %}
 {% assign hero_text = 'Thoughtfully selected essentials for calmer routines, happier pets and homes that still feel beautifully yours.' %}
@@ -171,13 +171,6 @@
     </div>
     <div class="catalogue-pagination">{{ paginate | default_pagination }}</div>
   {% endpaginate %}
-</section>
-
-<section class="collection-confidence">
-  <article><strong>Complimentary shipping</strong><span>On every order</span></article>
-  <article><strong>30-day returns</strong><span>Simple return requests</span></article>
-  <article><strong>Secure checkout</strong><span>Shopify-powered payments</span></article>
-  <article><strong>Helpful support</strong><span>Before and after ordering</span></article>
 </section>
 
 <script>

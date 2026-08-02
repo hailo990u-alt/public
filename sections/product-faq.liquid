@@ -1,25 +1,40 @@
+{% assign product_title_downcase = product.title | downcase %}
 <section class="section product-faq">
-  {% assign product_title_downcase = product.title | downcase %}
   <div class="section-title"><span class="eyebrow">{{ section.settings.eyebrow }}</span><h2>{{ section.settings.heading }}</h2></div>
   <div class="faq-list">
-    {% if product_title_downcase contains 'choke' or product_title_downcase contains 'slow feeder' %}
-      <details><summary>How does a slow feeder help?<span>+</span></summary><div>Its raised pattern encourages pets to work around the grooves instead of reaching all their food at once. Introduce it gradually and always supervise meals.</div></details>
-      <details><summary>How do I clean the bowl?<span>+</span></summary><div>Rinse after use and wash with mild soap. Follow the material-specific care instructions supplied with your product and allow it to dry fully before the next meal.</div></details>
-    {% elsif product_title_downcase contains 'water cup' or product_title_downcase contains 'water bottle' %}
-      <details><summary>What does the 3-in-1 design hold?<span>+</span></summary><div>The travel format combines a drinking dispenser with storage for small treats or food and a compartment for waste bags, helping keep walk essentials together.</div></details>
-      <details><summary>How do I help prevent leaks?<span>+</span></summary><div>Close the flow control fully after use, check the seal before placing it in a bag and keep the bottle upright whenever possible.</div></details>
-    {% elsif product_title_downcase contains 'gps' or product_title_downcase contains 'tracker' or product_title_downcase contains 'smart tag' %}
-      <details><summary>Is this a live GPS tracker?<span>+</span></summary><div>This product is a compatible Bluetooth finder, not a subscription cellular GPS tracker. Its range and location features depend on the compatible nearby-device network and app.</div></details>
-      <details><summary>Where can I attach it?<span>+</span></summary><div>Use a secure holder to attach it to a suitable collar, bag or keys. Check the attachment regularly and keep it away from chewing.</div></details>
-    {% elsif product_title_downcase contains 'scratch' %}
-      <details><summary>How can I encourage my cat to use it?<span>+</span></summary><div>Place it near a favourite resting or scratching area, let your cat investigate at their own pace and reward interest without forcing interaction.</div></details>
-      <details><summary>Will it replace every scratching post?<span>+</span></summary><div>Cats have different scratching preferences. This provides an engaging option, but some cats benefit from having both horizontal and vertical scratching surfaces.</div></details>
+    {% if product_title_downcase contains 'cleanscoop' or product_title_downcase contains 'litter scoop' %}
+      <details><summary>What is included in each option?<span>+</span></summary><div>Each variant lists the scoop colour and the included waste-bag quantity. Choose the option that matches the refill supply you want.</div></details>
+      <details><summary>How do I install the waste bag?<span>+</span></summary><div>Open the integrated bin, place the bag roll inside and feed the first bag through the dispenser opening before closing it securely.</div></details>
+      <details><summary>Is the scoop easy to clean?<span>+</span></summary><div>Empty the scoop after use, rinse with mild soapy water and let every part dry completely before storing or loading a fresh bag.</div></details>
+      <details><summary>Can I use standard disposal bags?<span>+</span></summary><div>Use bags that fit the built-in compartment and feed smoothly through its opening. Check the selected option for the bags included with your order.</div></details>
+    {% elsif product_title_downcase contains 'flowpure' or product_title_downcase contains 'fountain' %}
+      <details><summary>How often should I change the water?<span>+</span></summary><div>Refresh the water regularly and clean the reservoir on a routine that suits your pet and local water conditions.</div></details>
+      <details><summary>How often should I replace the filter?<span>+</span></summary><div>Replace the filter when flow reduces or according to the replacement guidance supplied with your fountain. Homes with several pets may need more frequent changes.</div></details>
+      <details><summary>How do I introduce my pet to the fountain?<span>+</span></summary><div>Place it near the usual water area, keep the previous bowl available at first and let your pet investigate the gentle flow without pressure.</div></details>
+      <details><summary>How do I keep the pump quiet?<span>+</span></summary><div>Keep the water above the minimum level and clean hair or debris from the pump and intake so water can circulate freely.</div></details>
+    {% elsif product_title_downcase contains 'softcare' or product_title_downcase contains 'grooming brush' or product_title_downcase contains 'one-click' %}
+      <details><summary>Which coat types is the brush for?<span>+</span></summary><div>It is designed for routine removal of loose fur on many cat and dog coats. Brush gently and stop if your pet shows discomfort.</div></details>
+      <details><summary>How does the one-click release work?<span>+</span></summary><div>After brushing, press the release to push collected fur forward, then lift the hair away and dispose of it.</div></details>
+      <details><summary>How often should I groom my pet?<span>+</span></summary><div>Frequency depends on coat type and shedding. Begin with short, gentle sessions and adjust to your pet's comfort and care needs.</div></details>
+      <details><summary>How do I clean the brush?<span>+</span></summary><div>Remove collected fur after each session and wipe the brush clean. Let it dry completely before the next use.</div></details>
+    {% elsif product_title_downcase contains 'pawspin' or product_title_downcase contains 'scratch' %}
+      <details><summary>How can I encourage my cat to use it?<span>+</span></summary><div>Place it near a favourite resting or scratching area, let your cat investigate at their own pace and reward calm interest.</div></details>
+      <details><summary>Does the activity ball rotate?<span>+</span></summary><div>The sisal ball is designed for batting and rotating play while the frame provides a dedicated scratching surface.</div></details>
+      <details><summary>Will it replace every scratching post?<span>+</span></summary><div>Cats have different preferences. Some benefit from having both horizontal and vertical scratching surfaces in different rooms.</div></details>
+      <details><summary>How should I care for it?<span>+</span></summary><div>Wipe the frame clean and inspect the sisal and fixings regularly. Stop use and replace the item if any part becomes loose or damaged.</div></details>
+    {% elsif product_title_downcase contains 'treatquest' or product_title_downcase contains 'treat puzzle' %}
+      <details><summary>What treats work best?<span>+</span></summary><div>Use dry treats or kibble that move freely through the openings and suit your pet's normal diet.</div></details>
+      <details><summary>How do I introduce the puzzle?<span>+</span></summary><div>Start with a few easy-to-release treats, demonstrate the movement and supervise until your pet understands the game.</div></details>
+      <details><summary>Can it replace a meal bowl?<span>+</span></summary><div>It can make a measured portion more engaging, but it is not a replacement for veterinary feeding advice or unrestricted access to fresh water.</div></details>
+      <details><summary>How do I clean it?<span>+</span></summary><div>Empty remaining food, wash according to the supplied material-care instructions and dry every part fully before refilling.</div></details>
+    {% else %}
+      {% for block in section.blocks %}
+        <details {{ block.shopify_attributes }}><summary>{{ block.settings.question }}<span>+</span></summary><div>{{ block.settings.answer }}</div></details>
+      {% endfor %}
     {% endif %}
-    {% for block in section.blocks %}
-      <details {{ block.shopify_attributes }}><summary>{{ block.settings.question }}<span>+</span></summary><div>{{ block.settings.answer }}</div></details>
-    {% endfor %}
   </div>
+  <a class="text-link" href="/pages/faq">View all FAQs →</a>
 </section>
 {% schema %}
-{"name":"Product FAQ","settings":[{"type":"text","id":"eyebrow","label":"Eyebrow","default":"GOOD TO KNOW"},{"type":"text","id":"heading","label":"Heading","default":"Questions, answered."}],"blocks":[{"type":"question","name":"Question","settings":[{"type":"text","id":"question","label":"Question","default":"How do I choose the right option?"},{"type":"richtext","id":"answer","label":"Answer","default":"<p>Use the sizing or option guidance above. If you are unsure, contact us before ordering and we will help.</p>"}]}],"presets":[{"name":"Product FAQ","blocks":[{"type":"question"},{"type":"question","settings":{"question":"How does shipping work?","answer":"<p>Shipping is complimentary. Estimated delivery is 4–14 days, depending on your country and location.</p>"}},{"type":"question","settings":{"question":"What if it is not right for us?","answer":"<p>You can request a return within 30 days, subject to our returns policy.</p>"}}]}]}
+{"name":"Product FAQ","settings":[{"type":"text","id":"eyebrow","label":"Eyebrow","default":"GOOD TO KNOW"},{"type":"text","id":"heading","label":"Heading","default":"Product questions, answered."}],"blocks":[{"type":"question","name":"Fallback question","settings":[{"type":"text","id":"question","label":"Question","default":"How do I care for this product?"},{"type":"richtext","id":"answer","label":"Answer","default":"<p>Follow the care guidance supplied with your item and contact KROZO if you need product-specific help.</p>"}]}],"presets":[{"name":"Product FAQ"}]}
 {% endschema %}

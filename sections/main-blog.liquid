@@ -17,7 +17,7 @@
       {% assign featured_article = blog.articles.first %}
       <article class="journal-feature">
         <a href="{{ featured_article.url }}" class="journal-feature__image">{% if featured_article.image != blank %}{{ featured_article.image | image_url: width: 1600 | image_tag: loading: 'eager', alt: featured_article.title }}{% endif %}</a>
-        <div><span class="eyebrow">FEATURED GUIDE</span><h2><a href="{{ featured_article.url }}">{{ featured_article.title }}</a></h2><p>{{ featured_article.excerpt_or_content | strip_html | truncate: 220 }}</p><a class="text-link" href="{{ featured_article.url }}">Read the guide →</a></div>
+        <div><span class="eyebrow">FEATURED GUIDE</span><h2><a href="{{ featured_article.url }}">{{ featured_article.title }}</a></h2><p>{{ featured_article.excerpt | default: featured_article.content | strip_html | truncatewords: 25 }}</p><a class="text-link" href="{{ featured_article.url }}">Read the guide →</a></div>
       </article>
       <div class="journal-heading"><span class="eyebrow">LATEST STORIES</span><h2>Learn, care, live better together.</h2></div>
       <div class="article-grid">
@@ -32,7 +32,7 @@
             </a>
             <small>{% if article.tags.first %}{{ article.tags.first }} · {% endif %}{{ article.published_at | date: '%B %d, %Y' }}</small>
             <a href="{{ article.url }}"><h2>{{ article.title }}</h2></a>
-            <p>{{ article.excerpt_or_content | strip_html | truncate: 150 }}</p>
+            <p>{{ article.excerpt | default: article.content | strip_html | truncatewords: 25 }}</p>
             <a class="text-link" href="{{ article.url }}">Read article →</a>
           </article>
         {% endfor %}
