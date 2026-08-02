@@ -46,16 +46,14 @@
     const flag=shell.querySelector('[data-krozo-detected-flag]');
     if(!status||!country||!flag)return false;
 
-    const manuallySelected=sessionStorage.getItem('krozoCurrencyManualSelection')==='1'||/Current selection/i.test(status.textContent||'');
-    if(!manuallySelected)return true;
-
     const currency=getSelectedCurrency();
     const region=CURRENCY_REGION[currency];
     if(!currency||!region)return true;
 
+    const manuallySelected=sessionStorage.getItem('krozoCurrencyManualSelection')==='1'||/Current selection/i.test(status.textContent||'');
     const nextCountry=regionName(region);
     const nextFlag=flagFromRegion(region);
-    const nextStatus=`${currency} · Current selection`;
+    const nextStatus=`${currency} · ${manuallySelected?'Current selection':'Automatically selected for your location'}`;
 
     if(country.textContent!==nextCountry)country.textContent=nextCountry;
     if(flag.textContent!==nextFlag)flag.textContent=nextFlag;
@@ -80,7 +78,7 @@
     const guard=setInterval(()=>{
       sync();
       checks+=1;
-      if(checks>=30)clearInterval(guard);
+      if(checks>=40)clearInterval(guard);
     },400);
   };
 
