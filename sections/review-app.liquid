@@ -76,7 +76,7 @@
       {% if block.type == 'review' %}
         <article class="review-card review-card--genuine" {{ block.shopify_attributes }}>
           {% if block.settings.image != blank %}{{ block.settings.image | image_url: width: 240 | image_tag: class: 'review-photo', loading: 'lazy', alt: block.settings.name }}{% endif %}
-          <div class="stars">{{ block.settings.rating }}</div><p>“{{ block.settings.text }}”</p><strong>{{ block.settings.name }}</strong><small>Customer review{% if block.settings.country != blank %} · {{ block.settings.country }}{% endif %}</small>
+          <div class="stars">{{ block.settings.rating }}</div><p>“{{ block.settings.text }}”</p><strong>{{ block.settings.name }}</strong><small>Verified Purchase{% if block.settings.country != blank %} · {{ block.settings.country }}{% endif %}</small>
         </article>
       {% endif %}
       {% endfor %}
