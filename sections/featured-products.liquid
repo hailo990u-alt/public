@@ -34,7 +34,7 @@
       {% endcase %}
       <article class="product-card">
         <a href="{{ product.url }}" class="product-image">
-          {% if product.featured_image %}{{ product.featured_image | image_url: width: 800 | image_tag: loading: 'lazy' }}{% endif %}
+          {% if product.featured_image %}{{ product.featured_image | image_url: width: 800 | image_tag: loading: 'lazy', decoding: 'async', widths: '240,360,480,640,800', sizes: '(max-width: 750px) 235px, (max-width: 1100px) 25vw, 320px', alt: product.title }}{% endif %}
           {% if section.settings.show_badges and product.compare_at_price > product.price %}<span class="badge">SAVE {{ product.compare_at_price | minus: product.price | money }}</span>{% endif %}
         </a>
         <div class="product-info">
