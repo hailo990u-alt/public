@@ -59,14 +59,14 @@
   {% assign mock_three_count = mock_review_count | minus: mock_five_count | minus: mock_four_count %}
   {% if product != blank or app_block_count > 0 or approved_review_count > 0 or show_layout_preview %}
   <section id="reviews" class="section section--sand review-app">
-    <div class="section-title"><span class="eyebrow">FROM PET PARENTS</span><h2>{% if product != blank %}What pet parents say about this product.{% else %}Stories, shared with care.{% endif %}</h2><p>Customer feedback from people who share life with their pets.</p></div>
-    {% if real_rating_value != blank and real_review_count_number > 0 and show_layout_preview == false %}
+    {% if app_block_count == 0 %}<div class="section-title"><span class="eyebrow">FROM PET PARENTS</span><h2>{% if product != blank %}What pet parents say about this product.{% else %}Stories, shared with care.{% endif %}</h2><p>Customer feedback from people who share life with their pets.</p></div>{% endif %}
+    {% if app_block_count == 0 and real_rating_value != blank and real_review_count_number > 0 and show_layout_preview == false %}
       <div class="review-summary review-summary--real">
         <strong>{{ real_rating_value | round: 1 }}</strong>
         <div><span class="stars" aria-label="{{ real_rating_value | round: 1 }} out of 5 stars">★★★★★</span><p>Based on {{ real_review_count }} customer {% if real_review_count_number == 1 %}review{% else %}reviews{% endif %}</p></div>
         <a href="#ProductReviewForm">Share your experience</a>
       </div>
-    {% elsif product != blank and show_layout_preview == false %}
+    {% elsif app_block_count == 0 and product != blank and show_layout_preview == false %}
       <div class="review-summary review-summary--empty"><strong>New</strong><div><span class="stars" aria-label="No ratings yet">☆☆☆☆☆</span><p>Be the first pet parent to review this product.</p></div><a href="#ProductReviewForm">Write a review</a></div>
     {% endif %}
     {% for block in section.blocks %}{% if block.type == '@app' %}{% render block %}{% endif %}{% endfor %}
