@@ -56,6 +56,48 @@ document.addEventListener('DOMContentLoaded',()=>{
     const gallery=productPage?.querySelector('[data-product-gallery]');
     const currency=form.dataset.currency||'USD';
     const formatMoney=cents=>new Intl.NumberFormat(document.documentElement.lang||'en',{style:'currency',currency}).format((Number(cents)||0)/100);
+    const parseDisplayedAmount=value=>{
+      const clean=String(value||'').replace(/[^\d,.-]/g,'');
+      const comma=clean.lastIndexOf(',');
+      const dot=clean.lastIndexOf('.');
+      const separator=Math.max(comma,dot);
+      if(separator<0)return Number(clean.replace(/[^\d-]/g,''));
+      const decimalDigits=clean.length-separator-1;
+      if(decimalDigits!==2)return Number(clean.replace(/[^\d-]/g,''));
+      const integer=clean.slice(0,separator).replace(/[^\d-]/g,'');
+      const decimal=clean.slice(separator+1).replace(/\D/g,'');
+      return Number(`${integer}.${decimal}`);
+    };
+    const getBucksConversion=()=>{
+      const converted=unitPrice?.getAttribute('bucks-current');
+      const targetCurrency=unitPrice?.getAttribute('bucks-currency');
+      const baseCents=Number(unitPrice?.dataset.priceCents||0);
+      const convertedAmount=parseDisplayedAmount(converted);
+      if(!converted||!targetCurrency||!baseCents||!Number.isFinite(convertedAmount))return null;
+      return {currency:targetCurrency,rate:convertedAmount/(baseCents/100)};
+    };
+    const formatConvertedMoney=(cents,conversion)=>new Intl.NumberFormat(document.documentElement.lang||'en',{
+      style:'currency',
+      currency:conversion.currency,
+      currencyDisplay:'narrowSymbol'
+    }).format((Number(cents)||0)/100*conversion.rate);
+    const syncBucksPrices=()=>{
+      const conversion=getBucksConversion();
+      if(!conversion)return;
+      const count=Math.max(1,Number.parseInt(quantity?.value||'1',10)||1);
+      const selected=selectedData()||{};
+      const selectedCents=Number(selected.price||unitPrice?.dataset.priceCents||0);
+      if(totalPrice)totalPrice.textContent=formatConvertedMoney(selectedCents*count,conversion);
+      if(stickyPrice)stickyPrice.textContent=formatConvertedMoney(selectedCents*count,conversion);
+      variantSelect?.querySelectorAll('option').forEach(option=>{
+        const title=option.dataset.variantTitle||option.textContent.split(' — ')[0];
+        option.textContent=`${title} — ${formatConvertedMoney(option.dataset.price,conversion)}`;
+      });
+    };
+    const resetVariantOptionPrices=()=>variantSelect?.querySelectorAll('option').forEach(option=>{
+      const title=option.dataset.variantTitle||option.textContent.split(' — ')[0];
+      option.textContent=`${title} — ${formatMoney(option.dataset.price)}`;
+    });
     const renderConvertibleMoney=(node,cents)=>{
       if(!node)return node;
       const replacement=node.cloneNode(false);
@@ -78,6 +120,7 @@ document.addEventListener('DOMContentLoaded',()=>{
       unitPrice=renderConvertibleMoney(unitPrice,cents);
       totalPrice=renderConvertibleMoney(totalPrice,cents*count);
       stickyPrice=renderConvertibleMoney(stickyPrice,cents*count);
+      resetVariantOptionPrices();
       if(availability)availability.lastChild.textContent=isAvailable?'In stock and ready to order':'Currently unavailable';
       if(addButton){addButton.disabled=!isAvailable;addButton.textContent=isAvailable?'Add to cart':'Sold out'}
       if(stickyButton){stickyButton.disabled=!isAvailable;stickyButton.textContent=isAvailable?'Add to cart':'Sold out'}
@@ -91,6 +134,13 @@ document.addEventListener('DOMContentLoaded',()=>{
     quantity?.addEventListener('input',update);
     quantity?.addEventListener('change',update);
     update();
+    const mainPriceShell=unitPrice?.closest('.price');
+    if(mainPriceShell){
+      const bucksObserver=new MutationObserver(()=>syncBucksPrices());
+      bucksObserver.observe(mainPriceShell,{subtree:true,childList:true,characterData:true,attributes:true});
+      window.setTimeout(syncBucksPrices,500);
+      window.setTimeout(syncBucksPrices,1500);
+    }
   });
   const productBenefitCopy={
     'anti-choke-bowl-plastic-dog-bowl-healthy-feeder':['Maze pattern helps fast eaters slow down naturally','Turns every meal into gentle mental enrichment','Rounded food channels are quick to rinse clean'],
