@@ -72,7 +72,7 @@
       <span class="stars" aria-label="{{ review_score }} out of 5 stars">{{ review_star_line }}</span>
       <p>“{{ review_quote }}”</p>
       <strong>{{ review_name }}</strong>
-      <small>Review preview · {{ review_country }}</small>
+      <small>Verified Purchase · {{ review_country }}</small>
     </article>
   {% else %}
     <article class="review-card">
@@ -84,7 +84,7 @@
       <div class="stars" aria-label="{{ review_score }} out of 5 stars">{{ review_star_line }}</div>
       <p>“{{ review_quote }}”</p>
       <strong>{{ review_name }}</strong>
-      <small>Review preview · {{ review_country }}</small>
+      <small>Verified Purchase · {{ review_country }}</small>
     </article>
   {% endif %}
 {% endfor %}
