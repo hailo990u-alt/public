@@ -42,6 +42,7 @@
         --button-letter-spacing:{{ settings.button_letter_spacing | default: 3 | divided_by: 100.0 }}em;
       }
       html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+      .krozo-sticky-toggle{display:none}
       @media(max-width:750px){
         .product-page,.product-media,.product-details,.product-details>*{min-width:0;max-width:100%}
         .product-media{display:flex!important;width:100%;gap:10px;margin:0!important;padding:0 0 10px!important;overflow-x:auto!important;overflow-y:hidden;scroll-snap-type:x mandatory}
@@ -55,10 +56,57 @@
         .product-review-preview__track{width:100%;max-width:100%}
         .product-review-preview__track article{flex:0 0 88%;min-width:0!important;width:88%;max-width:88%;overflow:hidden}
         .product-review-preview__track p{font-size:14px!important;line-height:1.5;overflow-wrap:anywhere}
-        .sticky-atc{display:flex!important;visibility:visible!important;opacity:1!important;bottom:0;padding:10px 14px calc(10px + env(safe-area-inset-bottom));min-height:72px}
-        .sticky-atc>span{min-width:0;overflow:hidden}
+
+        .sticky-atc{
+          display:flex!important;
+          visibility:visible!important;
+          opacity:1!important;
+          position:fixed!important;
+          left:0!important;
+          right:auto!important;
+          bottom:0!important;
+          width:100vw!important;
+          max-width:100vw!important;
+          min-height:72px!important;
+          padding:10px 14px calc(10px + env(safe-area-inset-bottom)) 72px!important;
+          overflow:visible!important;
+          transform:translate3d(calc(-100% + 58px),0,0)!important;
+          transition:transform .28s ease!important;
+          will-change:transform;
+          z-index:9000!important;
+        }
+        .sticky-atc.is-open{transform:translate3d(0,0,0)!important}
+        .sticky-atc>span{min-width:0!important;overflow:hidden!important}
         .sticky-atc strong{font-size:12px;line-height:1.25}
-        .sticky-atc .button{flex:0 0 auto;min-width:122px;min-height:48px;padding:12px 18px;font-size:14px}
+        .sticky-atc .button{flex:0 0 auto;min-width:122px;min-height:48px;padding:12px 18px;font-size:14px;margin:0!important}
+
+        .krozo-sticky-toggle{
+          display:flex!important;
+          position:fixed!important;
+          left:0!important;
+          bottom:0!important;
+          width:58px!important;
+          height:72px!important;
+          padding-bottom:env(safe-area-inset-bottom)!important;
+          align-items:center!important;
+          justify-content:center!important;
+          border:0!important;
+          border-top:1px solid #ddd8cc!important;
+          border-right:1px solid #ddd8cc!important;
+          border-radius:0 10px 0 0!important;
+          background:#fffefa!important;
+          color:#344535!important;
+          box-shadow:0 -8px 24px rgba(31,45,32,.08)!important;
+          font:500 34px/1 Arial,sans-serif!important;
+          z-index:9100!important;
+          opacity:1!important;
+          visibility:visible!important;
+          -webkit-appearance:none!important;
+          appearance:none!important;
+          -webkit-tap-highlight-color:transparent;
+        }
+        .krozo-sticky-toggle__arrow{display:block;transition:transform .28s ease}
+        .krozo-sticky-toggle[aria-expanded="true"] .krozo-sticky-toggle__arrow{transform:rotate(180deg)}
         body{padding-bottom:calc(76px + env(safe-area-inset-bottom))}
       }
     </style>
@@ -68,7 +116,34 @@
     {% sections 'header-group' %}
     <main id="MainContent">{{ content_for_layout }}</main>
     {% sections 'footer-group' %}
+    {% if request.page_type == 'product' %}
+      <button class="krozo-sticky-toggle" type="button" aria-label="Open quick add to cart" aria-expanded="false" data-krozo-sticky-toggle>
+        <span class="krozo-sticky-toggle__arrow" aria-hidden="true">›</span>
+      </button>
+    {% endif %}
     <script src="{{ 'krozo.js' | asset_url }}&benefits=2" defer></script>
-    <script src="{{ 'krozo-sticky-drawer.js' | asset_url }}" defer></script>
+    <script>
+      (()=>{
+        const init=()=>{
+          const bar=document.querySelector('[data-sticky-atc]');
+          const toggle=document.querySelector('[data-krozo-sticky-toggle]');
+          if(!bar||!toggle||!window.matchMedia('(max-width:750px)').matches)return;
+          bar.classList.remove('is-open');
+          toggle.setAttribute('aria-expanded','false');
+          if(toggle.dataset.bound==='true')return;
+          toggle.dataset.bound='true';
+          toggle.addEventListener('click',event=>{
+            event.preventDefault();
+            event.stopPropagation();
+            const open=!bar.classList.contains('is-open');
+            bar.classList.toggle('is-open',open);
+            toggle.setAttribute('aria-expanded',String(open));
+            toggle.setAttribute('aria-label',open?'Hide quick add to cart':'Open quick add to cart');
+          });
+        };
+        if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});
+        else init();
+      })();
+    </script>
   </body>
 </html>
