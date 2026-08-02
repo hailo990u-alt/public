@@ -42,6 +42,14 @@ document.addEventListener('DOMContentLoaded',()=>{
   });
   document.addEventListener('keydown',event=>{if(event.key==='Escape'){closeMenu();closeFaq()}});
 
+  const setCurrencyDrawerPosition=isOpen=>{
+    const currencyWrapper=document.querySelector('.buckscc-currency-wrapper');
+    if(!currencyWrapper)return;
+    currencyWrapper.style.setProperty('left','0','important');
+    currencyWrapper.style.setProperty('bottom','calc(78px + env(safe-area-inset-bottom))','important');
+    currencyWrapper.style.setProperty('transform',isOpen?'translateX(0)':'translateX(calc(-100% + 34px))','important');
+    currencyWrapper.style.setProperty('transition','transform .25s ease','important');
+  };
   const setupMobileUtilities=()=>{
     if(!window.matchMedia('(max-width:750px)').matches)return;
     let currencyToggle=document.querySelector('[data-currency-toggle]');
@@ -57,6 +65,7 @@ document.addEventListener('DOMContentLoaded',()=>{
         event.preventDefault();
         event.stopPropagation();
         const isOpen=document.body.classList.toggle('krozo-currency-open');
+        setCurrencyDrawerPosition(isOpen);
         currencyToggle.setAttribute('aria-expanded',String(isOpen));
         currencyToggle.setAttribute('aria-label',isOpen?'Hide currency selector':'Show currency selector');
         currencyToggle.textContent=isOpen?'‹':'›';
@@ -65,10 +74,13 @@ document.addEventListener('DOMContentLoaded',()=>{
     const currencyWrapper=document.querySelector('.buckscc-currency-wrapper');
     const currencyFace=currencyWrapper?.querySelector('.buckscc-select-styled');
     if(currencyFace&&!currencyFace.contains(currencyToggle))currencyFace.appendChild(currencyToggle);
+    setCurrencyDrawerPosition(document.body.classList.contains('krozo-currency-open'));
   };
   setupMobileUtilities();
   const currencyObserver=new MutationObserver(()=>setupMobileUtilities());
   currencyObserver.observe(document.body,{childList:true,subtree:true});
+  window.setTimeout(()=>setupMobileUtilities(),500);
+  window.setTimeout(()=>setupMobileUtilities(),1500);
 
   document.querySelectorAll('[data-product-form]').forEach(form=>{
     const productPage=form.closest('.product-page');
