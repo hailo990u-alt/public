@@ -43,7 +43,7 @@
         "show_benefits": true,
         "show_trust_badges": true,
         "show_dynamic_checkout": true,
-        "show_sticky_atc": true,
+        "show_sticky_atc": false,
         "description_eyebrow": "WHY IT BELONGS IN YOUR ROUTINE",
         "description_heading": "Designed around the moments that matter."
       }
