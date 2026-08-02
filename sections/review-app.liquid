@@ -3,7 +3,7 @@
 {% for block in section.blocks %}{% if block.type == '@app' %}{% assign app_block_count = app_block_count | plus: 1 %}{% endif %}{% endfor %}
 {% for block in section.blocks %}{% if block.type == 'review' %}{% assign approved_review_count = approved_review_count | plus: 1 %}{% endif %}{% endfor %}
 {% assign show_layout_preview = false %}
-{% if request.design_mode and section.settings.show_mock_reviews %}{% assign show_layout_preview = true %}{% endif %}
+{% if section.settings.show_mock_reviews %}{% assign show_layout_preview = true %}{% endif %}
 {% assign real_rating = blank %}
 {% assign real_review_count = blank %}
 {% if product != blank %}

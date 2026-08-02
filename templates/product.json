@@ -56,10 +56,19 @@
         "eyebrow": "GOOD TO KNOW",
         "heading": "Questions, answered."
       }
+    },
+    "reviews": {
+      "type": "review-app",
+      "blocks": {},
+      "block_order": [],
+      "settings": {
+        "show_mock_reviews": true
+      }
     }
   },
   "order": [
     "main",
-    "faq"
+    "faq",
+    "reviews"
   ]
 }
