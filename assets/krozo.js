@@ -53,16 +53,21 @@ document.addEventListener('DOMContentLoaded',()=>{
       currencyToggle.setAttribute('aria-label','Show currency selector');
       currencyToggle.setAttribute('aria-expanded','false');
       currencyToggle.textContent='›';
-      currencyToggle.addEventListener('click',()=>{
+      currencyToggle.addEventListener('click',event=>{
+        event.preventDefault();
+        event.stopPropagation();
         const isOpen=document.body.classList.toggle('krozo-currency-open');
         currencyToggle.setAttribute('aria-expanded',String(isOpen));
         currencyToggle.setAttribute('aria-label',isOpen?'Hide currency selector':'Show currency selector');
         currencyToggle.textContent=isOpen?'‹':'›';
       });
-      document.body.appendChild(currencyToggle);
     }
+    const currencyWrapper=document.querySelector('.buckscc-currency-wrapper');
+    if(currencyWrapper&&!currencyWrapper.contains(currencyToggle))currencyWrapper.appendChild(currencyToggle);
   };
   setupMobileUtilities();
+  const currencyObserver=new MutationObserver(()=>setupMobileUtilities());
+  currencyObserver.observe(document.body,{childList:true,subtree:true});
 
   document.querySelectorAll('[data-product-form]').forEach(form=>{
     const productPage=form.closest('.product-page');
