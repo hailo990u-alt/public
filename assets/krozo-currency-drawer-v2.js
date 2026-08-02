@@ -2,6 +2,7 @@
   const mobile=window.matchMedia('(max-width:750px)');
   if(!mobile.matches)return;
 
+  const TOGGLE_SIZE=42;
   const style=document.createElement('style');
   style.id='KrozoCurrencyDrawerStyles';
   style.textContent=`
@@ -13,7 +14,7 @@
         bottom:calc(78px + env(safe-area-inset-bottom))!important;
         max-width:calc(100vw - 12px)!important;
         overflow:visible!important;
-        transform:translate3d(calc(-100% + 56px),0,0)!important;
+        transform:translate3d(-100%,0,0)!important;
         transition:transform .28s ease!important;
         will-change:transform!important;
         z-index:8900!important;
@@ -22,39 +23,45 @@
         transform:translate3d(0,0,0)!important;
       }
       .krozo-currency-drawer__toggle{
-        position:absolute!important;
-        top:0!important;
-        right:0!important;
-        width:56px!important;
-        height:100%!important;
-        min-height:62px!important;
+        position:fixed!important;
+        left:0;
+        bottom:calc(78px + env(safe-area-inset-bottom))!important;
+        width:${TOGGLE_SIZE}px!important;
+        height:${TOGGLE_SIZE}px!important;
+        min-width:${TOGGLE_SIZE}px!important;
+        min-height:${TOGGLE_SIZE}px!important;
         display:flex!important;
         align-items:center!important;
         justify-content:center!important;
         margin:0!important;
         padding:0!important;
-        border:0!important;
-        border-left:1px solid #ddd8cc!important;
-        border-radius:0!important;
+        border:1px solid #ddd8cc!important;
+        border-left:0!important;
+        border-radius:0 8px 0 0!important;
         background:#fffefa!important;
         color:#344535!important;
-        box-shadow:none!important;
-        font:500 34px/1 Arial,sans-serif!important;
+        box-shadow:0 -5px 16px rgba(31,45,32,.07)!important;
+        font:500 20px/1 Arial,sans-serif!important;
         opacity:1!important;
         visibility:visible!important;
         cursor:pointer!important;
-        z-index:20!important;
+        z-index:9000!important;
+        transition:left .28s ease,transform .18s ease!important;
         -webkit-appearance:none!important;
         appearance:none!important;
         -webkit-tap-highlight-color:transparent;
       }
+      .krozo-currency-drawer__toggle:active{
+        transform:scale(.94)!important;
+      }
       .krozo-currency-drawer__arrow{
         display:block!important;
+        font-size:20px!important;
         line-height:1!important;
         transform:rotate(0deg);
         transition:transform .28s ease;
       }
-      .krozo-currency-drawer.is-open .krozo-currency-drawer__arrow{
+      .krozo-currency-drawer__toggle[aria-expanded="true"] .krozo-currency-drawer__arrow{
         transform:rotate(180deg);
       }
     }
@@ -62,7 +69,7 @@
   document.head.appendChild(style);
 
   const removeOldControls=()=>{
-    document.querySelectorAll('.krozo-currency-toggle,[data-currency-toggle]').forEach(control=>control.remove());
+    document.querySelectorAll('.krozo-currency-toggle,[data-currency-toggle],[data-krozo-currency-drawer-toggle]').forEach(control=>control.remove());
     document.body.classList.remove('krozo-currency-open');
   };
 
@@ -74,22 +81,29 @@
     wrapper.classList.add('krozo-currency-drawer');
     wrapper.classList.remove('is-open');
 
-    let toggle=wrapper.querySelector('[data-krozo-currency-drawer-toggle]');
-    if(!toggle){
-      toggle=document.createElement('button');
-      toggle.type='button';
-      toggle.className='krozo-currency-drawer__toggle';
-      toggle.dataset.krozoCurrencyDrawerToggle='';
-      toggle.setAttribute('aria-label','Show currency selector');
-      toggle.setAttribute('aria-expanded','false');
-      toggle.innerHTML='<span class="krozo-currency-drawer__arrow" aria-hidden="true">›</span>';
-      wrapper.appendChild(toggle);
-    }
+    const toggle=document.createElement('button');
+    toggle.type='button';
+    toggle.className='krozo-currency-drawer__toggle';
+    toggle.dataset.krozoCurrencyDrawerToggle='';
+    toggle.setAttribute('aria-label','Show currency selector');
+    toggle.setAttribute('aria-expanded','false');
+    toggle.innerHTML='<span class="krozo-currency-drawer__arrow" aria-hidden="true">›</span>';
+    document.body.appendChild(toggle);
+
+    const positionToggle=open=>{
+      if(!open){
+        toggle.style.setProperty('left','0px','important');
+        return;
+      }
+      const width=Math.min(wrapper.getBoundingClientRect().width,window.innerWidth-12);
+      toggle.style.setProperty('left',`${Math.max(0,width-TOGGLE_SIZE)}px`,'important');
+    };
 
     const setOpen=open=>{
       wrapper.classList.toggle('is-open',open);
       toggle.setAttribute('aria-expanded',String(open));
       toggle.setAttribute('aria-label',open?'Hide currency selector':'Show currency selector');
+      positionToggle(open);
       if(open){
         const face=wrapper.querySelector('.buckscc-select-styled');
         const options=wrapper.querySelector('.buckscc-select-options');
@@ -102,29 +116,26 @@
       }
     };
 
-    if(toggle.dataset.bound!=='true'){
-      toggle.dataset.bound='true';
-      toggle.addEventListener('click',event=>{
-        event.preventDefault();
-        event.stopPropagation();
-        setOpen(!wrapper.classList.contains('is-open'));
-      });
+    toggle.addEventListener('click',event=>{
+      event.preventDefault();
+      event.stopPropagation();
+      setOpen(!wrapper.classList.contains('is-open'));
+    });
 
-      wrapper.addEventListener('click',event=>{
-        if(event.target.closest('[data-krozo-currency-drawer-toggle]'))return;
-        const option=event.target.closest('.buckscc-select-options li,.buckscc-option,[data-currency],[data-value]');
-        if(option&&wrapper.classList.contains('is-open'))window.setTimeout(()=>setOpen(false),220);
-      });
+    wrapper.addEventListener('click',event=>{
+      const option=event.target.closest('.buckscc-select-options li,.buckscc-option,[data-currency],[data-value]');
+      if(option&&wrapper.classList.contains('is-open'))window.setTimeout(()=>setOpen(false),220);
+    });
 
-      document.addEventListener('click',event=>{
-        if(wrapper.classList.contains('is-open')&&!wrapper.contains(event.target))setOpen(false);
-      });
+    document.addEventListener('click',event=>{
+      if(wrapper.classList.contains('is-open')&&!wrapper.contains(event.target)&&!toggle.contains(event.target))setOpen(false);
+    });
 
-      document.addEventListener('keydown',event=>{
-        if(event.key==='Escape')setOpen(false);
-      });
-    }
+    document.addEventListener('keydown',event=>{
+      if(event.key==='Escape')setOpen(false);
+    });
 
+    window.addEventListener('resize',()=>positionToggle(wrapper.classList.contains('is-open')),{passive:true});
     setOpen(false);
     return true;
   };
