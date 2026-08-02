@@ -112,7 +112,8 @@
 
       wrapper.addEventListener('click',event=>{
         if(event.target.closest('[data-krozo-currency-drawer-toggle]'))return;
-        if(wrapper.classList.contains('is-open'))window.setTimeout(()=>setOpen(false),220);
+        const option=event.target.closest('.buckscc-select-options li,.buckscc-option,[data-currency],[data-value]');
+        if(option&&wrapper.classList.contains('is-open'))window.setTimeout(()=>setOpen(false),220);
       });
 
       document.addEventListener('click',event=>{
