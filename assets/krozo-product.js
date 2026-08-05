@@ -85,7 +85,15 @@ document.addEventListener('DOMContentLoaded',()=>{
       });
     };
 
-    const update=()=>{
+    const scrollToProductMedia=()=>{
+      if(!gallery)return;
+      const header=document.querySelector('.site-header');
+      const offset=(header?.offsetHeight||0)+16;
+      const top=gallery.getBoundingClientRect().top+window.scrollY-offset;
+      window.scrollTo({top:Math.max(0,top),behavior:'smooth'});
+    };
+
+    const update=(shouldScroll=false)=>{
       const data=selectedData()||{};
       const cents=Number(data.price||unitPrice?.dataset.priceCents||0);
       const count=Math.max(1,Number.parseInt(quantity?.value||'1',10)||1);
@@ -100,15 +108,18 @@ document.addEventListener('DOMContentLoaded',()=>{
       if(gallery&&data.mediaId){
         const target=gallery.querySelector(`[data-media-id="${data.mediaId}"]`);
         gallery.querySelectorAll('[data-media-id]').forEach(item=>item.classList.toggle('is-variant-active',item===target));
-        if(target&&window.matchMedia('(max-width:750px)').matches)gallery.scrollTo({left:target.offsetLeft,behavior:'smooth'});
+        if(target&&window.matchMedia('(max-width:750px)').matches){
+          gallery.scrollTo({left:target.offsetLeft,behavior:'smooth'});
+        }
       }
+      if(shouldScroll)requestAnimationFrame(scrollToProductMedia);
       window.setTimeout(syncBucksPrices,80);
     };
 
-    variantSelect?.addEventListener('change',update);
-    quantity?.addEventListener('input',update);
-    quantity?.addEventListener('change',update);
-    update();
+    variantSelect?.addEventListener('change',()=>update(true));
+    quantity?.addEventListener('input',()=>update(false));
+    quantity?.addEventListener('change',()=>update(false));
+    update(false);
 
     const mainPriceShell=unitPrice?.closest('.price');
     if(mainPriceShell){
