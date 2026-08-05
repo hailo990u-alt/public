@@ -1,25 +1,60 @@
-<section class="section editorial-gallery">
-  <div class="section-title">
-    <span class="eyebrow">{{ section.settings.eyebrow }}</span>
-    <h2>{{ section.settings.heading }}</h2>
+<section class="editorial-gallery">
+  <div class="editorial-gallery__heading">
+    <p class="eyebrow">KROZO AT HOME</p>
+    <h2>Calm spaces.<br>Happy companions.</h2>
   </div>
   <div class="editorial-gallery__grid">
     {% for block in section.blocks %}
-      <figure class="editorial-gallery__item editorial-gallery__item--{{ forloop.index }}" {{ block.shopify_attributes }}>
+      <div class="editorial-gallery__item editorial-gallery__item--{{ forloop.index }}" {{ block.shopify_attributes }}>
         {% if block.settings.image != blank %}
-          {{ block.settings.image | image_url: width: 1200 | image_tag: loading: 'lazy', widths: '400,700,1000,1200' }}
-        {% elsif forloop.index == 1 %}
-          <img src="{{ 'krozo-gallery-cat.png' | asset_url }}" loading="lazy" alt="A calm cat beside a ceramic feeding bowl">
-        {% elsif forloop.index == 2 %}
-          <img src="{{ 'krozo-hero-lifestyle.png' | asset_url }}" loading="lazy" alt="A happy dog in a warm modern home">
+          {{ block.settings.image | image_url: width: 1400 | image_tag: loading: 'lazy', widths: '550,800,1100,1400', sizes: '(max-width: 920px) 100vw, 33vw' }}
         {% else %}
-          <img src="{{ 'krozo-lifestyle-banner.png' | asset_url }}" loading="lazy" alt="A pet parent sharing a quiet moment with their dog">
+          {% assign fallback_backup_src = blank %}
+          {% case forloop.index %}
+            {% when 1 %}
+              {% assign fallback_src = 'krozo-gallery-cat.webp' | asset_url %}
+              {% assign fallback_backup_src = 'krozo-gallery-cat.png' | asset_img_url: '1200x' %}
+              {% assign fallback_alt = 'A calm cat resting on a linen sofa' %}
+            {% when 2 %}
+              {% assign fallback_src = 'krozo-lifestyle-banner.png' | asset_img_url: '1200x' %}
+              {% assign fallback_alt = 'A relaxed golden retriever at home' %}
+            {% else %}
+              {% assign fallback_src = 'krozo-lifestyle-banner.webp' | asset_url %}
+              {% assign fallback_backup_src = 'krozo-lifestyle-banner.png' | asset_img_url: '1200x' %}
+              {% assign fallback_alt = 'A quiet home moment with a pet' %}
+          {% endcase %}
+          <img
+            src="{{ fallback_src }}"
+            {% if fallback_backup_src != blank %}onerror="this.onerror=null;this.src='{{ fallback_backup_src }}';"{% endif %}
+            loading="lazy"
+            decoding="async"
+            width="1200"
+            height="1500"
+            alt="{{ fallback_alt }}"
+          >
         {% endif %}
-      </figure>
+      </div>
     {% endfor %}
   </div>
 </section>
-
 {% schema %}
-{"name":"Editorial gallery","settings":[{"type":"text","id":"eyebrow","label":"Eyebrow","default":"LIFE WITH KROZO"},{"type":"text","id":"heading","label":"Heading","default":"Made for beautiful everyday moments."}],"blocks":[{"type":"image","name":"Image","settings":[{"type":"image_picker","id":"image","label":"Image"}]}],"max_blocks":5,"presets":[{"name":"Editorial gallery","blocks":[{"type":"image"},{"type":"image"},{"type":"image"}]}]}
+{
+  "name": "KROZO editorial gallery",
+  "max_blocks": 3,
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Image",
+      "settings": [
+        {"type":"image_picker","id":"image","label":"Image"}
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "KROZO editorial gallery",
+      "blocks": [{"type":"image"},{"type":"image"},{"type":"image"}]
+    }
+  ]
+}
 {% endschema %}
