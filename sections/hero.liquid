@@ -3,24 +3,18 @@
 <section class="hero" style="text-align:{{ section.settings.text_alignment }};color:{{ section.settings.text_color | default: settings.color_text }};background-color:{{ section.settings.background_color | default: settings.color_surface_background }};--hero-position:{{ section.settings.image_position }};">
   <div class="hero__media" aria-hidden="true">
     {% if section.settings.image != blank %}
-      <picture>
-        <source media="(max-width: 750px)" srcset="{{ section.settings.image | image_url: width: 750 }}">
-        {{ section.settings.image | image_url: width: 1600 | image_tag: loading: 'eager', fetchpriority: 'high', decoding: 'sync', widths: '750,1000,1400,1600', sizes: '100vw', alt: '' }}
-      </picture>
+      {{ section.settings.image | image_url: width: 2000 | image_tag: loading: 'eager', fetchpriority: 'high', decoding: 'async', widths: '480,750,1000,1400,1800,2000', sizes: '100vw', alt: '' }}
     {% else %}
-      <picture>
-        <source media="(max-width: 750px)" srcset="{{ hero_asset | asset_img_url: '750x' }}">
-        <img
-          src="{{ hero_asset | asset_img_url: '1400x' }}"
-          srcset="{{ hero_asset | asset_img_url: '1000x' }} 1000w, {{ hero_asset | asset_img_url: '1400x' }} 1400w, {{ hero_asset | asset_img_url: '1800x' }} 1800w"
-          sizes="100vw"
-          width="1672"
-          height="941"
-          loading="eager"
-          fetchpriority="high"
-          decoding="sync"
-          alt="">
-      </picture>
+      <img
+        src="{{ hero_asset | asset_img_url: '1400x' }}"
+        srcset="{{ hero_asset | asset_img_url: '480x' }} 480w, {{ hero_asset | asset_img_url: '750x' }} 750w, {{ hero_asset | asset_img_url: '1000x' }} 1000w, {{ hero_asset | asset_img_url: '1400x' }} 1400w, {{ hero_asset | asset_img_url: '1800x' }} 1800w"
+        sizes="100vw"
+        width="1672"
+        height="941"
+        loading="eager"
+        fetchpriority="high"
+        decoding="async"
+        alt="">
     {% endif %}
   </div>
   <div class="hero-content">
