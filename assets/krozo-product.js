@@ -90,7 +90,7 @@ document.addEventListener('DOMContentLoaded',()=>{
       const header=document.querySelector('.site-header');
       const offset=(header?.offsetHeight||0)+16;
       const top=gallery.getBoundingClientRect().top+window.scrollY-offset;
-      window.scrollTo({top:Math.max(0,top),behavior:'smooth'});
+      window.scrollTo({top:Math.max(0,top),left:0,behavior:'auto'});
     };
 
     const update=(shouldScroll=false)=>{
@@ -112,7 +112,12 @@ document.addEventListener('DOMContentLoaded',()=>{
           gallery.scrollTo({left:target.offsetLeft,behavior:'smooth'});
         }
       }
-      if(shouldScroll)requestAnimationFrame(scrollToProductMedia);
+      if(shouldScroll){
+        variantSelect?.blur();
+        requestAnimationFrame(scrollToProductMedia);
+        window.setTimeout(scrollToProductMedia,120);
+        window.setTimeout(scrollToProductMedia,350);
+      }
       window.setTimeout(syncBucksPrices,80);
     };
 
