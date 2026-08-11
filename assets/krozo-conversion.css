@@ -54,6 +54,11 @@ img,video,iframe{max-width:100%}
 .product-review-preview{margin-top:18px;padding:20px;border:1px solid #ddd8cd;border-radius:10px;background:#fffefa}
 .delivery-estimate{margin:14px 0 18px;padding:13px 15px;border:1px solid #d9dfd3;border-radius:8px;background:#f3f6ef;color:var(--olive);font-size:12px;line-height:1.5}
 .delivery-estimate strong{font-weight:700}
+.krozo-order-offer{margin:14px 0;padding:14px 16px;border:1px solid rgba(52,69,53,.22);border-radius:8px;background:#f1f3eb;color:var(--olive)}
+.krozo-order-offer__label{display:block;margin-bottom:3px;font-size:9px;font-weight:700;letter-spacing:.14em}
+.krozo-order-offer p{margin:0;font-size:12px;line-height:1.5}
+.krozo-order-offer code{padding:2px 6px;border:1px dashed rgba(52,69,53,.35);border-radius:4px;background:#fffefa;color:inherit;font:700 11px var(--font-body);letter-spacing:.06em}
+.krozo-order-offer--cart{margin:18px 0 10px;text-align:left}
 .product-review-preview__head{display:flex;align-items:flex-end;justify-content:space-between;gap:18px;margin-bottom:16px}
 .product-review-preview__head h2{margin:5px 0 0;font-size:25px;line-height:1}
 .product-review-preview__head>a,.product-review-preview__all{font-size:11px;color:var(--olive);text-decoration:underline;text-underline-offset:3px}
