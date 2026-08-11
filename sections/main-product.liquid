@@ -127,6 +127,10 @@
       {% endif %}
     </div>{% endif %}
     <p class="availability" data-product-availability><span></span>{% if initial_variant.available %}In stock and ready to order{% else %}Currently unavailable{% endif %}</p>
+    <div class="krozo-order-offer" role="note">
+      <span class="krozo-order-offer__label">PAIR &amp; SAVE</span>
+      <p><strong>Save 10% on orders $50+</strong> with code <code>KROZO10</code>.</p>
+    </div>
     <p class="delivery-estimate"><strong>Estimated delivery:</strong> 4–14 business days, depending on your destination and local carrier conditions.</p>
     {% assign product_form_currency = shop.currency %}
     {% form 'product', product, data-product-form: '', data-currency: product_form_currency %}
