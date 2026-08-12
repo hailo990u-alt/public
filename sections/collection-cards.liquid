@@ -9,7 +9,7 @@
   <div class="collection-grid collection-grid--six">
     {% assign dogs_collection = collections['dogs'] %}
     <a class="collection-card" href="{{ dogs_collection.url | default: routes.all_products_collection_url }}">
-      <img src="{{ 'krozo-hero-lifestyle.png' | asset_url }}" loading="lazy" decoding="async" alt="For Dogs collection" width="900" height="900">
+      <img src="{{ 'krozo-hero-lifestyle.png' | asset_img_url: '600x' }}" srcset="{{ 'krozo-hero-lifestyle.png' | asset_img_url: '360x' }} 360w, {{ 'krozo-hero-lifestyle.png' | asset_img_url: '600x' }} 600w, {{ 'krozo-hero-lifestyle.png' | asset_img_url: '900x' }} 900w" sizes="(max-width:750px) 50vw, 33vw" loading="lazy" decoding="async" alt="For Dogs collection" width="900" height="900">
       <span class="collection-card__content">
         <strong>For Dogs</strong>
         <em>Comfort, play and everyday care</em>
@@ -19,7 +19,7 @@
 
     {% assign cats_collection = collections['cats'] %}
     <a class="collection-card" href="{{ cats_collection.url | default: routes.all_products_collection_url }}">
-      <img src="{{ 'krozo-gallery-cat.png' | asset_url }}" loading="lazy" decoding="async" alt="For Cats collection" width="900" height="900">
+      <img src="{{ 'krozo-gallery-cat.webp' | asset_img_url: '600x' }}" srcset="{{ 'krozo-gallery-cat.webp' | asset_img_url: '360x' }} 360w, {{ 'krozo-gallery-cat.webp' | asset_img_url: '600x' }} 600w, {{ 'krozo-gallery-cat.webp' | asset_img_url: '900x' }} 900w" sizes="(max-width:750px) 50vw, 33vw" loading="lazy" decoding="async" alt="For Cats collection" width="900" height="900">
       <span class="collection-card__content">
         <strong>For Cats</strong>
         <em>Enrichment for curious companions</em>
@@ -29,7 +29,7 @@
 
     {% assign feeding_collection = collections['smart-feeding'] %}
     <a class="collection-card" href="{{ feeding_collection.url | default: routes.all_products_collection_url }}">
-      <img src="{{ 'krozo-category-feeding.webp' | asset_url }}" loading="lazy" decoding="async" alt="Feeding and Hydration collection" width="900" height="900">
+      <img src="{{ 'krozo-category-feeding.webp' | asset_img_url: '600x' }}" srcset="{{ 'krozo-category-feeding.webp' | asset_img_url: '360x' }} 360w, {{ 'krozo-category-feeding.webp' | asset_img_url: '600x' }} 600w, {{ 'krozo-category-feeding.webp' | asset_img_url: '900x' }} 900w" sizes="(max-width:750px) 50vw, 33vw" loading="lazy" decoding="async" alt="Feeding and Hydration collection" width="900" height="900">
       <span class="collection-card__content">
         <strong>Feeding &amp; Hydration</strong>
         <em>Calmer, easier mealtimes</em>
@@ -39,7 +39,7 @@
 
     {% assign play_collection = collections['toys'] %}
     <a class="collection-card" href="{{ play_collection.url | default: routes.all_products_collection_url }}">
-      <img src="{{ 'krozo-category-play.webp' | asset_url }}" loading="lazy" decoding="async" alt="Play and Enrichment collection" width="900" height="900">
+      <img src="{{ 'krozo-category-play.webp' | asset_img_url: '600x' }}" srcset="{{ 'krozo-category-play.webp' | asset_img_url: '360x' }} 360w, {{ 'krozo-category-play.webp' | asset_img_url: '600x' }} 600w, {{ 'krozo-category-play.webp' | asset_img_url: '900x' }} 900w" sizes="(max-width:750px) 50vw, 33vw" loading="lazy" decoding="async" alt="Play and Enrichment collection" width="900" height="900">
       <span class="collection-card__content">
         <strong>Play &amp; Enrichment</strong>
         <em>Made for happier, engaged pets</em>
@@ -49,7 +49,7 @@
 
     {% assign travel_collection = collections['travel-essentials'] %}
     <a class="collection-card" href="{{ travel_collection.url | default: routes.all_products_collection_url }}">
-      <img src="{{ 'krozo-lifestyle-banner.png' | asset_url }}" loading="lazy" decoding="async" alt="Walk and Travel collection" width="900" height="900">
+      <img src="{{ 'krozo-lifestyle-banner.webp' | asset_img_url: '600x' }}" srcset="{{ 'krozo-lifestyle-banner.webp' | asset_img_url: '360x' }} 360w, {{ 'krozo-lifestyle-banner.webp' | asset_img_url: '600x' }} 600w, {{ 'krozo-lifestyle-banner.webp' | asset_img_url: '900x' }} 900w" sizes="(max-width:750px) 50vw, 33vw" loading="lazy" decoding="async" alt="Walk and Travel collection" width="900" height="900">
       <span class="collection-card__content">
         <strong>Walk &amp; Travel</strong>
         <em>Ready for life on the go</em>
