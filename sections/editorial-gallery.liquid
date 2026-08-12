@@ -9,7 +9,7 @@
         {% if block.settings.image != blank %}
           {{ block.settings.image | image_url: width: 1200 | image_tag: loading: 'lazy', decoding: 'async', widths: '320,480,700,900,1200', sizes: '(max-width: 750px) 76vw, 33vw' }}
         {% elsif forloop.index == 1 %}
-          <img src="{{ 'krozo-gallery-cat.webp' | asset_img_url: '700x' }}" srcset="{{ 'krozo-gallery-cat.webp' | asset_img_url: '400x' }} 400w, {{ 'krozo-gallery-cat.webp' | asset_img_url: '700x' }} 700w, {{ 'krozo-gallery-cat.webp' | asset_img_url: '1000x' }} 1000w" sizes="(max-width: 750px) 76vw, 33vw" loading="lazy" decoding="async" alt="A calm cat beside a ceramic feeding bowl" width="1254" height="1254">
+          <img src="{{ 'krozo-gallery-cat.webp' | asset_url }}" sizes="(max-width: 750px) 76vw, 33vw" loading="lazy" decoding="async" alt="A calm cat beside a ceramic feeding bowl" width="1254" height="1254">
         {% elsif forloop.index == 2 %}
           <img src="{{ 'krozo-hero-lifestyle.png' | asset_img_url: '750x' }}" srcset="{{ 'krozo-hero-lifestyle.png' | asset_img_url: '480x' }} 480w, {{ 'krozo-hero-lifestyle.png' | asset_img_url: '750x' }} 750w, {{ 'krozo-hero-lifestyle.png' | asset_img_url: '1100x' }} 1100w" sizes="(max-width: 750px) 76vw, 40vw" loading="lazy" decoding="async" alt="A happy dog in a warm modern home" width="1672" height="941">
         {% else %}
