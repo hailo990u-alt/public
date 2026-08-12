@@ -36,7 +36,11 @@
     {% for media in product.media %}
       {% if media.media_type == 'image' %}
         <a href="{{ media | image_url: width: 2200 }}" class="product-media__item{% if initial_variant.featured_media.id == media.id %} is-variant-active{% endif %}" data-media-id="{{ media.id }}" aria-label="Zoom product image">
-          {{ media | image_url: width: 1300 | image_tag: loading: 'lazy', alt: product.title, widths: '500,800,1100,1300' }}
+          {% if forloop.first %}
+            {{ media | image_url: width: 1300 | image_tag: loading: 'eager', fetchpriority: 'high', decoding: 'async', alt: product.title, widths: '420,600,800,1000,1300', sizes: '(max-width: 750px) 100vw, 52vw' }}
+          {% else %}
+            {{ media | image_url: width: 1300 | image_tag: loading: 'lazy', fetchpriority: 'low', decoding: 'async', alt: product.title, widths: '420,600,800,1000,1300', sizes: '(max-width: 750px) 100vw, 52vw' }}
+          {% endif %}
         </a>
       {% elsif media.media_type == 'video' %}
         <div class="product-media__item{% if initial_variant.featured_media.id == media.id %} is-variant-active{% endif %}" data-media-id="{{ media.id }}">{{ media | video_tag: controls: true, muted: true, loop: true }}</div>
