@@ -70,4 +70,24 @@ document.addEventListener('DOMContentLoaded',()=>{
 
   document.addEventListener('pointerover',event=>prefetchPage(event.target.closest('a[href]')),{passive:true});
   document.addEventListener('focusin',event=>prefetchPage(event.target.closest('a[href]')));
+
+  document.querySelectorAll('[data-bundle-offer]').forEach(offer=>{
+    const form=offer.closest('form');
+    const select=form?.querySelector('[data-variant-select]');
+    const button=offer.querySelector('[data-choose-bundle]');
+    const label=offer.querySelector('[data-bundle-button-label]');
+    if(!form||!select||!button)return;
+    const sync=()=>{
+      const selected=String(select.value)===String(offer.dataset.bundleVariantId);
+      offer.classList.toggle('is-selected',selected);
+      if(label)label.textContent=selected?'Bundle selected ✓':'Choose this bundle';
+    };
+    button.addEventListener('click',()=>{
+      select.value=offer.dataset.bundleVariantId;
+      select.dispatchEvent(new Event('change',{bubbles:true}));
+      sync();
+    });
+    select.addEventListener('change',sync);
+    sync();
+  });
 });
