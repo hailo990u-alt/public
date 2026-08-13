@@ -291,6 +291,16 @@ img,video,iframe{max-width:100%}
 .product-total{display:flex;align-items:center;justify-content:space-between;gap:18px;margin:12px 0;padding:12px 0;border-top:1px solid #ddd8cd;border-bottom:1px solid #ddd8cd}
 .product-total span{font-size:11px;color:var(--muted)}
 .product-total strong{font:600 17px/1.2 Inter,Arial,sans-serif;color:var(--olive)}
+.grooming-bundle-offer{display:grid;grid-template-columns:132px minmax(0,1fr);gap:16px;margin:14px 0 18px;padding:12px;border:1px solid rgba(46,68,48,.24);border-radius:18px;background:linear-gradient(135deg,#f8f5ed 0%,#eef3e9 100%);box-shadow:0 12px 28px rgba(35,54,38,.08);transition:border-color .2s ease,box-shadow .2s ease,transform .2s ease}
+.grooming-bundle-offer:hover{transform:translateY(-1px);box-shadow:0 15px 32px rgba(35,54,38,.12)}
+.grooming-bundle-offer.is-selected{border-color:#2f5137;box-shadow:0 0 0 2px rgba(47,81,55,.12),0 15px 32px rgba(35,54,38,.1)}
+.grooming-bundle-offer__media{overflow:hidden;border-radius:13px;background:#f3eee2;aspect-ratio:1/1}.grooming-bundle-offer__media img{display:block;width:100%;height:100%;object-fit:cover}
+.grooming-bundle-offer__content{min-width:0;display:flex;flex-direction:column;justify-content:center}
+.grooming-bundle-offer__topline{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:5px;font:700 9px/1.2 Inter,Arial,sans-serif;letter-spacing:.13em;color:#48604b}.grooming-bundle-offer__topline strong{padding:5px 7px;border-radius:999px;background:#294832;color:#fff;font-size:8px;letter-spacing:.1em}
+.grooming-bundle-offer h3{margin:0;color:#203827;font:600 25px/1.05 'Playfair Display',Georgia,serif}.grooming-bundle-offer p{margin:7px 0 9px;color:#667168;font-size:11px;line-height:1.45}
+.grooming-bundle-offer__price{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;margin-bottom:10px}.grooming-bundle-offer__price strong{color:#203827;font-size:19px}.grooming-bundle-offer__price s{color:#7d847e;font-size:12px}.grooming-bundle-offer__price span{padding:4px 7px;border-radius:999px;background:#dfeadb;color:#294832;font:700 9px/1 Inter,Arial,sans-serif}
+.grooming-bundle-offer__button{width:100%;min-height:40px;border:0;border-radius:10px;background:#294832;color:#fff;font:700 11px/1 Inter,Arial,sans-serif;letter-spacing:.02em;cursor:pointer}.grooming-bundle-offer.is-selected .grooming-bundle-offer__button{background:#e1eadc;color:#294832}
+@media(max-width:520px){.grooming-bundle-offer{grid-template-columns:104px minmax(0,1fr);gap:12px;padding:10px;border-radius:15px}.grooming-bundle-offer h3{font-size:21px}.grooming-bundle-offer p{font-size:10px}.grooming-bundle-offer__price{gap:6px}.grooming-bundle-offer__price strong{font-size:17px}}
 .product-description .rte{color:var(--muted);font-size:12px;line-height:1.7}
 .product-description .rte img{max-width:100%;height:auto}
 
