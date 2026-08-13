@@ -32,6 +32,13 @@
       {% assign mock_rating = '4.6' %}
   {% endcase %}
   {% assign initial_variant = product.selected_or_first_available_variant %}
+  {% assign grooming_bundle_variant = blank %}
+  {% for variant in product.variants %}
+    {% if variant.sku == 'CJGY191930714NM' or variant.title contains 'Complete Grooming Trio' %}
+      {% assign grooming_bundle_variant = variant %}
+      {% break %}
+    {% endif %}
+  {% endfor %}
   <div class="product-media" data-product-gallery>
     {% for media in product.media %}
       {% if media.media_type == 'image' %}
@@ -142,6 +149,19 @@
         <label>Choose an option
           <select name="id" data-variant-select>{% for variant in product.variants %}<option value="{{ variant.id }}" data-variant-title="{{ variant.title | escape }}" data-price="{{ variant.price }}" data-available="{{ variant.available }}" data-inventory-tracked="{% if variant.inventory_management != blank and variant.inventory_policy == 'deny' %}true{% else %}false{% endif %}" data-inventory-quantity="{{ variant.inventory_quantity }}" data-media-id="{{ variant.featured_media.id }}" {% if variant.id == initial_variant.id %}selected{% endif %} {% unless variant.available %}disabled{% endunless %}>{{ variant.title }} — {{ variant.price | money }}</option>{% endfor %}</select>
         </label>
+        {% if grooming_bundle_variant != blank %}
+          {% assign grooming_bundle_saving = grooming_bundle_variant.compare_at_price | minus: grooming_bundle_variant.price %}
+          <aside class="grooming-bundle-offer{% if initial_variant.id == grooming_bundle_variant.id %} is-selected{% endif %}" data-bundle-offer data-bundle-variant-id="{{ grooming_bundle_variant.id }}" aria-label="Recommended grooming bundle">
+            <div class="grooming-bundle-offer__media">{% if grooming_bundle_variant.featured_media.preview_image %}{{ grooming_bundle_variant.featured_media.preview_image | image_url: width: 420 | image_tag: loading: 'lazy', decoding: 'async', widths: '180,280,420', alt: 'KROZO Complete Grooming Trio' }}{% endif %}</div>
+            <div class="grooming-bundle-offer__content">
+              <div class="grooming-bundle-offer__topline"><span>RECOMMENDED BUNDLE</span><strong>BEST VALUE</strong></div>
+              <h3>Complete Grooming Trio</h3>
+              <p>SteamGroom mist brush + hair-removal brush + grooming glove.</p>
+              <div class="grooming-bundle-offer__price"><strong class="money">{{ grooming_bundle_variant.price | money }}</strong>{% if grooming_bundle_variant.compare_at_price > grooming_bundle_variant.price %}<s class="money">{{ grooming_bundle_variant.compare_at_price | money }}</s><span>Save {{ grooming_bundle_saving | money }}</span>{% endif %}</div>
+              <button class="grooming-bundle-offer__button" type="button" data-choose-bundle><span data-bundle-button-label>{% if initial_variant.id == grooming_bundle_variant.id %}Bundle selected ✓{% else %}Choose this bundle{% endif %}</span></button>
+            </div>
+          </aside>
+        {% endif %}
       {% else %}
         <input type="hidden" name="id" value="{{ initial_variant.id }}" data-price="{{ initial_variant.price }}" data-available="{{ initial_variant.available }}" data-inventory-tracked="{% if initial_variant.inventory_management != blank and initial_variant.inventory_policy == 'deny' %}true{% else %}false{% endif %}" data-inventory-quantity="{{ initial_variant.inventory_quantity }}" data-media-id="{{ initial_variant.featured_media.id }}">
       {% endunless %}
