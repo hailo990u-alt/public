@@ -214,6 +214,25 @@
         section.addEventListener('change', event => {
           if (event.target.matches('select[name="id"]')) showVariantImage(event.target.value);
         });
+        section.addEventListener('click', event => {
+          const chooseButton = event.target.closest('[data-choose-bundle]');
+          if (!chooseButton) return;
+          event.preventDefault();
+          const offer = chooseButton.closest('[data-bundle-offer]');
+          const form = chooseButton.closest('form');
+          const select = form && form.querySelector('select[name="id"]');
+          if (!offer || !form || !select || !offer.dataset.bundleVariantId) return;
+          select.value = offer.dataset.bundleVariantId;
+          select.dispatchEvent(new Event('change', { bubbles: true }));
+          offer.classList.add('is-selected');
+          const label = chooseButton.querySelector('[data-bundle-button-label]');
+          if (label) label.textContent = 'Adding bundle…';
+          chooseButton.disabled = true;
+          window.setTimeout(() => {
+            if (form.requestSubmit) form.requestSubmit();
+            else form.submit();
+          }, 80);
+        });
         const initialSelect = section.querySelector('select[name="id"]');
         if (initialSelect) showVariantImage(initialSelect.value);
       })();
