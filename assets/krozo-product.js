@@ -102,7 +102,12 @@ document.addEventListener('DOMContentLoaded',()=>{
       totalPrice=renderConvertibleMoney(totalPrice,cents*count);
       stickyPrice=renderConvertibleMoney(stickyPrice,cents*count);
       resetVariantOptionPrices();
-      if(availability)availability.lastChild.textContent=isAvailable?'In stock and ready to order':'Currently unavailable';
+      if(availability){
+        const inventoryQuantity=Number(data.inventoryQuantity||0);
+        const hasRealLowStock=isAvailable&&data.inventoryTracked==='true'&&inventoryQuantity>0&&inventoryQuantity<=8;
+        availability.lastChild.textContent=isAvailable?(hasRealLowStock?`Only ${inventoryQuantity} left — ready to ship`:'In stock and ready to order'):'Currently unavailable';
+        availability.classList.toggle('availability--low',hasRealLowStock);
+      }
       if(addButton){addButton.disabled=!isAvailable;addButton.textContent=isAvailable?'Add to cart':'Sold out';}
       if(stickyButton){stickyButton.disabled=!isAvailable;stickyButton.textContent=isAvailable?'Add to cart':'Sold out';}
       if(gallery&&data.mediaId){

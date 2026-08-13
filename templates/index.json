@@ -137,7 +137,7 @@
           "type": "question",
           "settings": {
             "question": "How long will my order take to arrive?",
-            "answer": "<p>Estimated delivery is 4–14 business days, depending on your destination and local carrier conditions.</p>"
+            "answer": "<p>Estimated delivery is 4–9 business days, depending on your destination and local carrier conditions.</p>"
           }
         },
         "tracking": {

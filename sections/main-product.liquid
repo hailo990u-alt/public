@@ -130,20 +130,20 @@
         {% endfor %}
       {% endif %}
     </div>{% endif %}
-    <p class="availability" data-product-availability><span></span>{% if initial_variant.available %}In stock and ready to order{% else %}Currently unavailable{% endif %}</p>
+    <p class="availability" data-product-availability><span></span>{% if initial_variant.available %}{% if initial_variant.inventory_management != blank and initial_variant.inventory_policy == 'deny' and initial_variant.inventory_quantity > 0 and initial_variant.inventory_quantity <= 8 %}Only {{ initial_variant.inventory_quantity }} left — ready to ship{% else %}In stock and ready to order{% endif %}{% else %}Currently unavailable{% endif %}</p>
     <div class="krozo-order-offer" role="note">
       <span class="krozo-order-offer__label">PAIR &amp; SAVE</span>
       <p><strong>Save 10% on orders $50+</strong> with code <code>KROZO10</code>.</p>
     </div>
-    <p class="delivery-estimate"><strong>Estimated delivery:</strong> 4–14 business days, depending on your destination and local carrier conditions.</p>
+    <p class="delivery-estimate"><strong>Estimated delivery:</strong> 4–9 business days, depending on your destination and local carrier conditions.</p>
     {% assign product_form_currency = shop.currency %}
     {% form 'product', product, data-product-form: '', data-currency: product_form_currency %}
       {% unless product.has_only_default_variant %}
         <label>Choose an option
-          <select name="id" data-variant-select>{% for variant in product.variants %}<option value="{{ variant.id }}" data-variant-title="{{ variant.title | escape }}" data-price="{{ variant.price }}" data-available="{{ variant.available }}" data-media-id="{{ variant.featured_media.id }}" {% if variant.id == initial_variant.id %}selected{% endif %} {% unless variant.available %}disabled{% endunless %}>{{ variant.title }} — {{ variant.price | money }}</option>{% endfor %}</select>
+          <select name="id" data-variant-select>{% for variant in product.variants %}<option value="{{ variant.id }}" data-variant-title="{{ variant.title | escape }}" data-price="{{ variant.price }}" data-available="{{ variant.available }}" data-inventory-tracked="{% if variant.inventory_management != blank and variant.inventory_policy == 'deny' %}true{% else %}false{% endif %}" data-inventory-quantity="{{ variant.inventory_quantity }}" data-media-id="{{ variant.featured_media.id }}" {% if variant.id == initial_variant.id %}selected{% endif %} {% unless variant.available %}disabled{% endunless %}>{{ variant.title }} — {{ variant.price | money }}</option>{% endfor %}</select>
         </label>
       {% else %}
-        <input type="hidden" name="id" value="{{ initial_variant.id }}" data-price="{{ initial_variant.price }}" data-available="{{ initial_variant.available }}" data-media-id="{{ initial_variant.featured_media.id }}">
+        <input type="hidden" name="id" value="{{ initial_variant.id }}" data-price="{{ initial_variant.price }}" data-available="{{ initial_variant.available }}" data-inventory-tracked="{% if initial_variant.inventory_management != blank and initial_variant.inventory_policy == 'deny' %}true{% else %}false{% endif %}" data-inventory-quantity="{{ initial_variant.inventory_quantity }}" data-media-id="{{ initial_variant.featured_media.id }}">
       {% endunless %}
       <label>Quantity <input type="number" name="quantity" min="1" value="1" inputmode="numeric" data-product-quantity></label>
       <div class="product-total"><span>Order total</span><strong class="price"><span class="money" data-product-total>{{ initial_variant.price | money }}</span></strong></div>
@@ -192,7 +192,7 @@
     <div class="purchase-accordions">
       <details>
         <summary><span>Complimentary shipping</span><span aria-hidden="true">+</span></summary>
-        <div>Shipping is free on every KROZO order. Estimated delivery is 4–14 business days, depending on your destination and local carrier conditions.{% if shop.shipping_policy != blank %} <a href="{{ shop.shipping_policy.url }}">Read our shipping policy</a>.{% else %} <a href="/pages/shipping-handling">Read our shipping policy</a>.{% endif %}</div>
+        <div>Shipping is free on every KROZO order. Estimated delivery is 4–9 business days, depending on your destination and local carrier conditions.{% if shop.shipping_policy != blank %} <a href="{{ shop.shipping_policy.url }}">Read our shipping policy</a>.{% else %} <a href="/pages/shipping-handling">Read our shipping policy</a>.{% endif %}</div>
       </details>
       <details>
         <summary><span>Returns & damaged items</span><span aria-hidden="true">+</span></summary>
