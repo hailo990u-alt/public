@@ -170,6 +170,24 @@
       <button class="button product-atc" type="submit" {% unless initial_variant.available %}disabled{% endunless %}>{% if initial_variant.available %}Add to cart{% else %}Sold out{% endif %}</button>
       {% if section.settings.show_dynamic_checkout %}{{ form | payment_button }}{% endif %}
     {% endform %}
+    {% if grooming_bundle_variant == blank %}
+      <aside class="grooming-bundle-offer grooming-bundle-offer--compact" data-global-bundle-offer aria-label="Recommended grooming bundle">
+        <div class="grooming-bundle-offer__media">
+          <img src="https://cdn.shopify.com/s/files/1/0743/6143/8297/files/krozo-complete-grooming-trio-best-value.png?v=1786640870" loading="lazy" decoding="async" width="420" height="420" alt="KROZO Complete Grooming Trio">
+        </div>
+        <div class="grooming-bundle-offer__content">
+          <div class="grooming-bundle-offer__topline"><span>YOU MAY ALSO LIKE</span><strong>BEST VALUE</strong></div>
+          <h3>Complete Grooming Trio</h3>
+          <p>SteamGroom mist brush + hair-removal brush + grooming glove.</p>
+          <div class="grooming-bundle-offer__price"><strong class="money">{{ 4999 | money }}</strong><s class="money">{{ 6899 | money }}</s><span>Save {{ 1900 | money }}</span></div>
+          <form method="post" action="{{ routes.cart_add_url }}" class="grooming-bundle-offer__form">
+            <input type="hidden" name="id" value="44384904118361">
+            <input type="hidden" name="quantity" value="1">
+            <button class="grooming-bundle-offer__button" type="submit">Add bundle to cart</button>
+          </form>
+        </div>
+      </aside>
+    {% endif %}
     <script type="application/json" data-krozo-product-variants>[
       {% for variant in product.variants %}
         {"id":{{ variant.id | json }},"mediaId":{{ variant.featured_media.id | json }}}{% unless forloop.last %},{% endunless %}
