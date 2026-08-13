@@ -4,9 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
     <meta name="theme-color" content="#344535">
-    <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
     {% if request.page_type == 'index' %}
-      <link rel="preload" as="image" href="{{ 'krozo-hero-lifestyle.png' | asset_img_url: '750x' }}" media="(max-width: 750px)" fetchpriority="high">
+      <link rel="preload" as="image" href="{{ 'krozo-hero-lifestyle.webp' | asset_url }}" type="image/webp" fetchpriority="high">
     {% endif %}
     {% liquid
       assign body_font = settings.font_body
@@ -15,12 +14,7 @@
     {{ content_for_header }}
     {{ 'krozo.css' | asset_url | stylesheet_tag }}
     {{ 'krozo-enhancements.css' | asset_url | stylesheet_tag }}
-    {% if request.page_type == 'index' %}
-      <link rel="preload" href="{{ 'krozo-conversion.css' | asset_url }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
-      <noscript>{{ 'krozo-conversion.css' | asset_url | stylesheet_tag }}</noscript>
-    {% else %}
-      {{ 'krozo-conversion.css' | asset_url | stylesheet_tag }}
-    {% endif %}
+    {{ 'krozo-conversion.css' | asset_url | stylesheet_tag }}
     <style>
       {% if body_font != blank %}{{ body_font | font_face: font_display: 'swap' }}{% endif %}
       {% if heading_font != blank %}{{ heading_font | font_face: font_display: 'swap' }}{% endif %}
@@ -59,10 +53,6 @@
       .hero__media img{width:100%;height:100%;object-fit:cover;object-position:var(--hero-position,center center)}
       .hero:after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(90deg,rgba(239,233,220,.97) 0%,rgba(239,233,220,.83) 42%,rgba(239,233,220,.08) 73%)}
       .hero-content{position:relative;z-index:2}
-
-      @supports(content-visibility:auto){
-        #MainContent>.shopify-section:not(:first-child){content-visibility:auto;contain-intrinsic-size:auto 900px}
-      }
 
       @media(min-width:751px){
         .product-page{grid-template-columns:minmax(0,1.04fr) minmax(390px,.96fr);gap:clamp(24px,2.4vw,40px);align-items:start}
