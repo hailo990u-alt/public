@@ -139,8 +139,8 @@
     </div>{% endif %}
     <p class="availability" data-product-availability><span></span>{% if initial_variant.available %}{% if initial_variant.inventory_management != blank and initial_variant.inventory_policy == 'deny' and initial_variant.inventory_quantity > 0 and initial_variant.inventory_quantity <= 8 %}Only {{ initial_variant.inventory_quantity }} left — ready to ship{% else %}In stock and ready to order{% endif %}{% else %}Currently unavailable{% endif %}</p>
     <div class="krozo-order-offer" role="note">
-      <span class="krozo-order-offer__label">PAIR &amp; SAVE</span>
-      <p><strong>Save 10% on orders $50+</strong> with code <code>KROZO10</code>.</p>
+      <span class="krozo-order-offer__label">WELCOME OFFER</span>
+      <p><strong>10% off your first order</strong> · Code: <code>WELCOME10</code></p>
     </div>
     <p class="delivery-estimate"><strong>Estimated delivery:</strong> 4–9 business days, depending on your destination and local carrier conditions.</p>
     {% assign product_form_currency = shop.currency %}
